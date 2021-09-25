@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Agregar Observacion</h5>
+    <button type="button" class="close" (click)="activeModal.dismiss('Cross click')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+</div>
+<div class="modal-body">
+    <div class="card-body">
+
+        <div class="form-group row">
+            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Observacion</label>
+            <div class="col-sm-9">
+                <input type="text" [(ngModel)]="observacion" class="form-control" placeholder="Nueva observacion">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Cerrar</button>
+    <button type="button" class="btn btn-primary" (click)="activeModal.close(ventasServicePAG.agregarObservacionDetalle(id,observacion))">Agregar</button>
+</div>

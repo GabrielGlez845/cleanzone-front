@@ -1,0 +1,92 @@
+.perfect-scrollbar-example {
+    position: relative;
+    max-height: 48vh;
+}
+
+/*.perfect-scrollbar-example > div{
+    
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    max-width: 50%;
+    text-align: center;
+  }
+*/
+//Div seleccionado
+.seleccionado {
+    background-color: #10b7582f;
+}
+
+// Encabezado de div id (titulo y boton de basura)
+.encabezado{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+}
+
+.item1{
+    text-align: center;
+    flex-grow: 5;
+}
+
+
+//centrar clientes
+.c-center{
+    flex: 1 1 auto;
+}
+
+//Menu deslizante
+.menuResp {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling:touch
+
+}
+
+.menuResp::-webkit-scrollbar {
+    display: none; 
+}
+.cont {
+    min-width: 500px;
+    width: auto;
+    white-space: nowrap;
+}
+
+//prendas dezlizantes horizontalmente 
+.products{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-height: 25vh;    
+   // min-width: 500px;
+    width: auto;
+    
+}
+
+.product-button {
+    padding: 1%;
+    //flex-grow: 1;
+    flex-basis: 16%;
+  
+    display: flex; /* so child elements can use flexbox stuff too! */
+    text-align: center;
+  }
+
+.button-product{
+    margin-right: 2%;
+    margin-top: 2%;
+    font-size: 0.7rem;
+    width: 100%;
+}
+
+//colores dezlizantes
+.productsColors{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-height: 12vh;   
+    width: auto;
+    white-space: nowrap;
+    
+}

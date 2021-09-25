@@ -1,0 +1,36 @@
+.menuResp {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling:touch
+
+}
+
+.menuResp::-webkit-scrollbar {
+    display: none; 
+}
+.product-button {
+    padding: 1%;
+    //flex-grow: 1;
+    flex-basis: 16%;
+  
+    display: flex; /* so child elements can use flexbox stuff too! */
+    text-align: center;
+  }
+
+.button-product{
+    margin-right: 2%;
+    margin-top: 2%;
+    font-size: 0.7rem;
+    width: 100%;
+}
+
+//colores dezlizantes
+.productsColors{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-height: 12vh;   
+    width: auto;
+    white-space: nowrap;
+    
+}

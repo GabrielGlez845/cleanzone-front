@@ -1,0 +1,59 @@
+<!-- Modal agregar cliente -->
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Agregar cliente</h5>
+            <button type="button" class="close" (click)="activeModal.close('by: close icon')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="card-body">
+                <h6 class="card-title">Nuevo cliente</h6>
+                <form class="forms-sample">
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nombre</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Nombre completo">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputMobile" class="col-sm-3 col-form-label">Telefono</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="exampleInputMobile" placeholder="Telefono">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Calle</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Calle">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Colonia</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Colonia">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputUsername1" class="col-sm-3 col-form-label">Lista de precio</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="carta">
+                                    <select class="form-control" id="exampleFormControlSelect1">
+                                        <option selected disabled>Selecciona una lista de precio</option>
+                                        <option>Domicilio</option>
+                                        <option>Maquilado</option>
+                                        <option>Mostrador</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="activeModal.close('by: close button')">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="activeModal.close('by: save button')">Guardar</button>
+        </div>

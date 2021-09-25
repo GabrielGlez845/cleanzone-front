@@ -1,0 +1,240 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class=" mb-2 menuResp ">
+                    <!--Categories-->
+                    <div class=" cont">                        
+                        <button type="button" *ngFor="let category of categories" (click)="[menuCambiar('prendas'),idCategoria=category.id]" style="margin-right: 2%; color:white" class="btn btn-info btn-sm">{{category.name}}</button>                        
+                    </div>
+                
+                </div>
+                <div class="row justify-content-center align-items-center text-center mb-2">
+                    <div class="col-md-12">
+                        <button type="button" (click)="menuCambiar('id')" style="margin-right: 2%; color:white" class="btn btn-primary btn-sm">ID</button>
+                        <button type="button" (click)="openModalPagar()" style="margin-right: 2%; color:white" class="btn btn-primary btn-sm">Pagar</button>
+                        <button type="button" (click)="menuCambiar('cliente')" class="btn btn-primary btn-sm">Cliente</button>
+                    </div>
+                </div>
+                <div [ngSwitch]="menu">
+                    <div *ngSwitchCase="'cliente'">
+                        <div class="form-group row">
+                            <label for="exampleInputUsername1" class="col-2 col-form-label">Cliente</label>
+                            <div class="col-10">
+                                <div class="input-group">
+                                    <div class="c-center">
+                                        <ng-select [items]="clients" bindLabel="name" bindValue="id"  placeholder="clientes..." [ngModel]="idCliente" (ngModelChange)="clienteSeleccionado($event)" >
+                                            
+                                        </ng-select>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" (click)="openModalClienteAgregar()"><i
+                                                class="feather icon-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+
+                    <div class="row form-group" *ngSwitchCase="'id'">
+                        <div class="col-md-6 col-6">
+                            <div class="row">                           
+                                
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                        </div>
+                                        <input type="text" class="form-control" #idsBox [(ngModel)]="ids" placeholder="Identificador" (keyup.enter)="agregarId(idsBox.value)">
+                                        <div class="input-group-append">
+                                        </div>
+                                    </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-6">
+                            <div class="row">                          
+                                
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                        </div>
+                                        <input type="text" class="form-control" #ticketBox [(ngModel)]="ticket" placeholder="Ticket" (keyup.enter)="ventasServicePAG.agregarTicket(ticketBox.value, ventasServicePAG.selected)">
+                                        <div class="input-group-append">
+                                        </div>
+                                    </div>
+                               
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn {{ ventasServicePAG.selected == detalle.identifier ? 'btn-success' : 'btn-primary' }} mt-1 mr-1" (click)="ventasServicePAG.changeIdSelected(detalle.identifier)" *ngFor="let detalle of ventasServicePAG.ventaDetalle"><span
+                                    class="badge {{ ventasServicePAG.selected == detalle.identifier ? 'success' : 'primary' }}">{{
+                                    detalle.identifier}}</span>&nbsp;</button>
+                        </div>
+                    </div>
+                    <div *ngSwitchCase="'prendas'">
+                        <aw-wizard>
+                            <aw-wizard-step>
+                                <div class="menuResp">
+                                    <div class="cont">
+                                        <!--letters-->
+                                        <button *ngFor="let letra of abecedario" type="button" (click)="obtenerProductosCategoriaLetra(letra)" style="margin-right: 2%;"  awNextStep class="btn btn-secondary btn-sm">{{letra|uppercase}}</button>
+                                       <!-- <button type="button" style="margin-right: 2%;" awNextStep (click)="menuPrenda()" class="btn btn-secondary btn-sm">V</button>-->
+                                    </div>
+                                </div>
+                            </aw-wizard-step>
+                            <aw-wizard-step>
+                                <div class="menuResp">
+                                    <div class="products">
+                                        <!--products-->
+                                        <div class="product-button" *ngFor="let producto of products">
+                                            <button type="button" (click)="[this.product=producto,cargandoProductos=false]" awNextStep class="button-product btn btn-secondary btn-sm">{{producto.name}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aw-wizard-step>
+                            <aw-wizard-step>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-6">
+                                        <div class="input-group">
+                                            <div class="input-group-append">
+                                                <button (click)="cambiarCantidadPrenda(-1)" class="btn btn-outline-secondary btn-sm" type="button">-</button>
+                                            </div>
+                                            <input type="number" class="form-control text-center" [(ngModel)]="cantidad" placeholder="Numero de prendas">
+                                            <div class="input-group-append">
+                                                <button (click)="cambiarCantidadPrenda(1)" class="btn btn-outline-secondary btn-sm" type="button">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-6" *ngIf="!cargandoProductos">
+                                        <input  type="text" [(ngModel)]="product.name" class="form-control text-center" disabled>
+                                    </div>
+
+                                </div>
+
+                                <div class="row justify-content-center align-items-center text-center mt-2 mb-2">
+                                    <div class="col-md-12">
+                                        <button type="button" (click)="menuColorObervaciones('Color')" style="margin-right: 2%; color:white" class="btn btn-info btn-sm">Color</button>
+                                        <button type="button" (click)="menuColorObervaciones('Observacion')" style="margin-right: 2%; color:white" class="btn btn-info btn-sm">Observacion</button>
+                                    </div>
+                                </div>
+                                <div [ngSwitch]="menuColorobservacion">
+                                    <div class="form-group" *ngSwitchCase="'Color'">
+                                                <!--Colors-->
+                                            <div class="menuResp mb-3">
+                                                <div class="productsColors">
+                                                    <div class="product-button" *ngFor="let color of colors">
+                                                        <button type="button" (click)="nuevoColor(color)" [style.background-color] = "color.class" [style.color]="color.color" class="button-product btn btn-sm">{{color.nombre}}</button>
+                                                    </div>
+                                                </div>
+                                            </div>                                       
+                                            <div class="row mb-2" *ngFor="let color of colores">
+                                                <div class="col-sm-4 col-5">
+                                                    <div class="input-group">
+                                                        <div class="input-group-append">
+                                                            <button (click)="cambiarCantidadColor(-1,color)" class="btn btn-outline-secondary btn-sm" type="button">-</button>
+                                                        </div>
+                                                        <input type="number" class="form-control text-center" [(ngModel)]="color.cantidad" placeholder="Numero de prendas">
+                                                        <div class="input-group-append">
+                                                            <button (click)="cambiarCantidadColor(1,color)" class="btn btn-outline-secondary btn-sm" type="button">+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-4">
+                                                    <input type="text" [(ngModel)]="color.nombre" class="form-control text-center" disabled>
+                                                </div>
+                                                <div class="col-sm-4 col-2">
+                                                    <button type="button" (click)="eliminarColor(color.id)" class="btn btn-danger btn-icon">
+                                                        <i class="feather mdi mdi-backspace"></i>
+                                                    </button>
+                                                </div>
+                                            </div>                                       
+                                     </div>                                    
+
+                                    <div class="card" *ngSwitchCase="'Observacion'">
+                                        <div class="card-body">
+                                            <div *ngFor="let observa of observaciones" style="display: flex;flex-direction: column;" class="form-group">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" [(ngModel)]="observa.seleccionado" class="custom-control-input" id="{{observa.id}}">
+                                                    <label class="custom-control-label" for="{{observa.id}}">{{observa.nombre}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="exampleInputUsername2" class="col-sm-2 col-form-label">Otro:</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" [(ngModel)]="observacion" class="form-control" id="exampleInputUsername2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngSwitchDefault>
+                                        <!--Default-->
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-light mr-2" type="button" awPreviousStep>Atras</button>
+                                
+                                <button class="btn btn-primary" type="button" (click)="[agregarPrenda()]" awResetWizard>Finalizar</button>
+
+                            </aw-wizard-step>
+                        </aw-wizard>
+                    </div>
+                    <div class="row" *ngSwitchCase="'colores'">
+
+                    </div>
+                    <div *ngSwitchDefault>
+                        <!--Default-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- TABLAS -->
+    <div style="background-color: #727CF5;" class="text-center mb-1" *ngIf="!cargandoClientes">
+        <p style="color: white;">{{this.cliente.name}}</p>
+        <p style="color: white;">{{this.cliente.street}}</p>
+        <p style="color: white;">{{this.cliente.phone}}</p>
+    </div>
+    <div class="perfect-scrollbar-example" [perfectScrollbar]>
+        <div class=" {{  i.id == ventasServicePAG.selected  ? 'seleccionado' : '' }} card" *ngFor="let i of ventasServicePAG.ventaDetalle">
+            <div class="card-body">
+                <div class="encabezado">
+                    <h4 style="font-size: 16px;" class="card-title item1">{{i.id}}</h4>
+                    <button (click)="ventasServicePAG.deleteDetailId(i.id)" type="button" class="btn btn-danger btn-icon item2">
+                        <i data-feather="trash" appFeatherIcon></i>
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+
+                            <th>CANT</th>
+                            <th>NOMBRE</th>
+                            <th>COLORES</th>
+                            <th>OBSERVACIONES</th>
+                            <th>PRECIO</th>
+                            <th>-</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of ventasServicePAG.Fila">
+                                <td *ngIf="i.id === row.detailId">
+                                    <button (click)="cantidadVentas(row.id,1,row.product.pricings[0].price )" class="btn btn-sm btn-primary"> <i
+                                    class="feather mdi mdi-plus"></i></button> {{row.quantity}}
+                                    <button (click)="cantidadVentas(row.id,-1,row.product.pricings[0].price )" class="btn btn-sm btn-primary"><i
+                                    class="feather mdi  mdi-minus"></i></button>
+                                </td>
+                                <td *ngIf="i.id === row.detailId">{{row.product.name}}</td>
+                                <td *ngIf="i.id === row.detailId"><button (click)="openModalAgregarColor(row.detailId)" class="btn btn-sm btn-primary"> <i class="feather mdi mdi-plus"></i></button>{{row.colors}}</td>
+                                <td *ngIf="i.id === row.detailId"><button (click)="openModalAgregarObservacion(row.detailId)" class="btn btn-sm btn-primary"> <i class="feather mdi mdi-plus"></i></button>{{row.observations}}</td>
+                                <td *ngIf="i.id === row.detailId">{{ row.product.pricings[0].price*row.quantity | currency:'MXN' }}</td> <!--Change for search by usertype and multiplicar por quantyti al final -->
+                                <td *ngIf="i.id === row.detailId">
+                                    <button type="button" (click)="ventasServicePAG.deleteRowId(row.id)" class="btn btn-danger btn-icon">
+                                        <i class="feather mdi mdi-backspace"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

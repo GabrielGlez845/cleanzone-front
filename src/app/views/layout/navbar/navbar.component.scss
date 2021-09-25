@@ -1,0 +1,30 @@
+.cursor {
+    cursor: pointer;
+}
+
+.btn-home:hover {
+    background-color: #DAE1E9;
+}
+
+//Nabvar al centro
+.contenedor {
+    width: auto !important;
+}
+.navMy{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.back{
+    background-color:#007ACC ;
+}
+
+.head{
+    background-color:#005d9b ;
+}
+.head a{
+    color: white;
+}

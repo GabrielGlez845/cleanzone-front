@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Agregar Color</h5>
+    <button type="button" class="close" (click)="activeModal.dismiss('Cross click')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+</div>
+<div class="modal-body">
+    <div class="card-body">
+        <div class="form-group">
+            <!--Colors-->
+        <div class="menuResp mb-3">
+            <div class="productsColors">
+                <div class="product-button" *ngFor="let color of colors">
+                    <button type="button" (click)="nuevoColor(color)"  [style.background-color] = "color.class" [style.color]="color.color" class="button-product btn btn-primary btn-sm">{{color.nombre}}</button>
+                </div>
+            </div>
+        </div>                                       
+        <div class="row mb-2" *ngFor="let color of colores">
+            <div class="col-sm-4 col-6">
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <button (click)="cambiarCantidadColor(-1,color)" class="btn btn-outline-secondary btn-sm" type="button">-</button>
+                    </div>
+                    <input type="number" class="form-control text-center" [(ngModel)]="color.cantidad" placeholder="Numero de prendas">
+                    <div class="input-group-append">
+                        <button (click)="cambiarCantidadColor(1,color)" class="btn btn-outline-secondary btn-sm" type="button">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-4">
+                <input type="text" [(ngModel)]="color.nombre" class="form-control text-center" disabled>
+            </div>
+            <div class="col-sm-4 col-1">
+                <button type="button" (click)="eliminarColor(color.id)" class="btn btn-danger btn-icon">
+                    <i class="feather mdi mdi-backspace"></i>
+                </button>
+            </div>
+        </div>                                       
+ </div>   
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Cerrar</button>
+    <button type="button" class="btn btn-primary" (click)="activeModal.close(ventasServicePAG.agregarColorDetalle(id,colores))">Agregar</button>
+</div>

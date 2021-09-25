@@ -1,0 +1,417 @@
+<div class="card ">
+    <div class="card-body">
+        <div class="row justify-content-center align-items-center text-center mb-3">
+            <div class="col-12">
+                <button type="button" (click)="menuF('dia')" class="btn btn-secondary btn-sm BCentral b">Dia</button>
+                <button type="button" (click)="menuF('pendienteTerminado')" class="btn btn-secondary btn-sm BCentral b">Pend Term</button>
+                <button type="button" (click)="menuF('pendiente')" class="btn btn-secondary btn-sm BCentral b">Pend</button>
+                <button type="button" (click)="menuF('porPagar')" class="btn btn-secondary btn-sm BCentral b">Por pagar</button>
+            </div>
+        </div>
+
+        <div class=" row justify-content-center align-items-center text-center">
+            <div class="col-12">
+                <button type="button" (click)="menuEntregasF('folio')" style="color: white; margin-right: 2%;" class="btn btn-info btn-sm ">Folio</button>
+                <button type="button" (click)="menuEntregasF('cliente')" style="color: white; margin-right: 2%;" class="btn btn-info btn-sm ">Cliente</button>
+            </div>
+        </div>
+        <div [ngSwitch]="menuEntregas">
+            <form class="forms-sample" *ngSwitchCase="'folio'">
+                <div class="form-group row">
+                    <label for="exampleInputUsername2" class="col-3 col-form-label">Folio</label>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Numero de nota">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+            <div class="form-group row" *ngSwitchCase="'cliente'">
+                <label for="exampleInputUsername2" class="col-3 col-form-label">Cliente</label>
+                <div class="col-9">
+                    <ng-select [items]="people" bindLabel="name" bindValue="id" placeholder="type to search" [(ngModel)]="selectedSearchPersonId">
+                    </ng-select>
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+            <div *ngSwitchDefault>
+                <!--Default-->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Dia-->
+<ng-container [ngSwitch]="menu">
+
+    <ng-container *ngSwitchCase="'dia'">
+        <div style="background-color: #727CF5;" class="text-center mt-3">
+            <p style="color: white;">INGLATERRA</p>
+            <p style="color: white;">CALLE XXXX NO. 1111</p>
+            <p style="color: white;">CEL. 33333333</p>
+        </div>
+        <div class="perfect-scrollbar-example" [perfectScrollbar]>
+            <div class="list-group" *ngIf="!bNota">
+                <a (click)="buscarNotaDia()" class="list-group-item list-group-item-action">587.- 5670 (128) PANTALON PENDIENTE</a>
+                <a (click)="false" class="list-group-item list-group-item-action">588.- 5770 8434</a>
+                <a (click)="false" class="list-group-item list-group-item-action">589.- 5870 9848 8843 8434 9934</a>
+
+            </div>
+
+            <div *ngIf="bNota">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="encabezado">
+                            <div>
+                                <p (click)="buscarNotaDia()" style="text-align: right;"><i data-feather="arrow-left" class="text-primary" appFeatherIcon></i></p>
+
+                            </div>
+                            <h4 style="text-align: center; font-size: 16px;" class="card-title">5670 (128)(129)</h4>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th>CANTIDAD</th>
+                                        <th>NOMBRE</th>
+                                        <th>COLORES</th>
+                                        <th>-</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: yellow;">
+                                            <td>3</td>
+                                            <td>Pantalones</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="background-color: green; color: white;">
+                                            <td>3</td>
+                                            <td>Camisas</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="background-color: green; color: white;">
+                                            <td>3</td>
+                                            <td>Short</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3 ">
+                    <div class="card-body">
+                        <div class="encabezado">
+
+                            <h4 style="text-align: center; font-size: 16px;" class="card-title">5670 (128)(129)</h4>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th>CANTIDAD</th>
+                                        <th>NOMBRE</th>
+                                        <th>COLORES</th>
+                                        <th>-</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Pantalones</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Camisas</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Short</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3 ">
+                    <div class="card-body">
+                        <div class="encabezado">
+
+                            <h4 style="text-align: center; font-size: 16px;" class="card-title">5670 (128)(129)</h4>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th>CANTIDAD</th>
+                                        <th>NOMBRE</th>
+                                        <th>COLORES</th>
+                                        <th>-</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Pantalones</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Camisas</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Short</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container text-right mt-3">
+                    <button type="submit" (click)="openModalPagar(lgModalPagar)" class="btn btn-primary">Entregar</button>
+                </div>
+
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'pendienteTerminado'">
+        <div style="background-color: #727CF5;" class="text-center mt-3">
+            <p style="color: white;">INGLATERRA</p>
+            <p style="color: white;">CALLE XXXX NO. 1111</p>
+            <p style="color: white;">CEL. 33333333</p>
+        </div>
+        <div class="perfect-scrollbar-example" [perfectScrollbar]>
+            <div class="list-group" *ngIf="!bNota">
+                <a (click)="buscarNotaTerminada()" class="list-group-item list-group-item-action">587.- 5670 (128)</a>
+                <a (click)="false" class="list-group-item list-group-item-action">588.- 5770 8434</a>
+                <a (click)="false" class="list-group-item list-group-item-action">589.- 5870 9848 8843 8434 9934</a>
+
+            </div>
+
+            <div *ngIf="bNota">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="encabezado">
+                            <div>
+                                <p (click)="buscarNotaTerminada()" style="text-align: right;"><i data-feather="arrow-left" class="text-primary" appFeatherIcon></i></p>
+
+                            </div>
+                            <h4 style="text-align: center; font-size: 16px;" class="card-title">5670 (128)(129)</h4>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th>CANTIDAD</th>
+                                        <th>NOMBRE</th>
+                                        <th>COLORES</th>
+                                        <th>-</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: green; color: white;">
+                                            <td>3</td>
+                                            <td>Pantalones</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="background-color: red; color: white;">
+                                            <td>3</td>
+                                            <td>Camisas</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="background-color: red; color: white;">
+                                            <td>3</td>
+                                            <td>Short</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container text-right mt-3">
+                    <button type="submit" (click)="openModalPagar(lgModalPagar)" class="btn btn-primary">Entregar</button>
+
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'pendiente'">
+        <div style="background-color: #727CF5;" class="text-center mt-3">
+            <p style="color: white;">INGLATERRA</p>
+            <p style="color: white;">CALLE XXXX NO. 1111</p>
+            <p style="color: white;">CEL. 33333333</p>
+        </div>
+        <div class="perfect-scrollbar-example" [perfectScrollbar]>
+            <div class="list-group" *ngIf="!bNota">
+                <a (click)="buscarNotaDia()" class="list-group-item list-group-item-action">587.- 5670 (128) PANTALON PENDIENTE</a>
+
+            </div>
+
+            <div *ngIf="bNota">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="encabezado">
+                            <div>
+                                <p (click)="buscarNotaTerminada()" style="text-align: right;"><i data-feather="arrow-left" class="text-primary" appFeatherIcon></i></p>
+
+                            </div>
+                            <h4 style="text-align: center; font-size: 16px;" class="card-title">87.- 5670 (128)</h4>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th>CANTIDAD</th>
+                                        <th>NOMBRE</th>
+                                        <th>COLORES</th>
+                                        <th>-</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: yellow; color: white;">
+                                            <td>3</td>
+                                            <td>Pantalones</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="background-color: red; color: white;">
+                                            <td>3</td>
+                                            <td>Camisas</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="background-color: red; color: white;">
+                                            <td>3</td>
+                                            <td>Short</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'porPagar'">
+        <div style="background-color: #727CF5;" class="text-center mt-3">
+            <p style="color: white;">INGLATERRA</p>
+            <p style="color: white;">CALLE XXXX NO. 1111</p>
+            <p style="color: white;">CEL. 33333333</p>
+        </div>
+        <div class="perfect-scrollbar-example" [perfectScrollbar]>
+            <div class="list-group" *ngIf="!bNota">
+                <a (click)="buscarNotaDia()" class="list-group-item list-group-item-action">550.- Inglaterra $ 995 7/8/2021</a>
+
+            </div>
+
+            <div *ngIf="bNota">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="encabezado">
+                            <div>
+                                <p (click)="buscarNotaTerminada()" style="text-align: right;"><i data-feather="arrow-left" class="text-primary" appFeatherIcon></i></p>
+
+                            </div>
+                            <h4 style="text-align: center; font-size: 16px;" class="card-title">87.- 5670 (128)</h4>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th>CANTIDAD</th>
+                                        <th>NOMBRE</th>
+                                        <th>COLORES</th>
+                                        <th>-</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: red; color: white;">
+                                            <td>3</td>
+                                            <td>Pantalones</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="background-color: red; color: white;">
+                                            <td>3</td>
+                                            <td>Camisas</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="background-color: red; color: white;">
+                                            <td>3</td>
+                                            <td>Short</td>
+                                            <td>Rojo Verde Azul</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <div *ngSwitchDefault>
+       <!--Default-->
+    </div>
+</ng-container>
+
+<div class="modal-dialog modal-lg">
+    <ng-template #lgModalPagar let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Pagar</h5>
+            <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card-body">
+                <p class="text-bold-800 total text-center">Total : $ 1,788.00</p>
+                <form class="forms-sample">
+                    <div class="form-group row">
+                        <label for="exampleInputUsername1" class="col-4 col-form-label">Forma pago</label>
+                        <div class="col-8">
+                            <div class="input-group">
+                                <div class="cartaP">
+                                    <select class="form-control" id="exampleFormControlSelect1">
+                                        <option selected disabled>Selecciona una forma de pago</option>
+                                        <option>Pago</option>
+                                        <option>Abono</option>
+                                        <option>Credito</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-3 col-form-label">Cantidad</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Cantiad pagada">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="modal.close('by: close button')">Imprimir</button>
+            <button type="button" class="btn btn-primary" (click)="modal.close(buscarNotaDia())">Pagar</button>
+        </div>
+    </ng-template>
+</div>

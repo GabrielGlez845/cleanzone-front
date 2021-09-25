@@ -1,0 +1,40 @@
+//Menu deslizante
+.menuResp {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling:touch
+
+}
+
+.menuResp::-webkit-scrollbar {
+    display: none; 
+}
+
+//prendas dezlizantes horizontalmente 
+.products{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-height: 25vh;    
+   // min-width: 500px;
+    width: auto;
+    
+}
+
+.productsMenu{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-height: 12vh;   
+    width: auto;
+    white-space: nowrap;
+    
+}
+
+.button-product{
+    margin-right: 2%;
+    margin-top: 2%;
+    font-size: 0.8rem;
+    height: 5.6vh;
+    width: 100%;
+}

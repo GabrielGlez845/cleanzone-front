@@ -1,0 +1,40 @@
+<!--Modal pagar-->
+
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Pagar</h5>
+            <button type="button" class="close" (click)="activeModal.close('by: close icon')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card-body">
+                <p class="text-bold-800 total text-center">Total : {{amount | currency:'MXN' }}</p>
+                <form class="forms-sample">
+                    <div class="form-group row">
+                        <label for="exampleInputUsername1" class="col-3 col-form-label">Forma pago</label>
+                        <div class="col-9">
+                            <div class="input-group">
+                                <div class="carta">
+                                    <select class="form-control" id="exampleFormControlSelect1">
+                                        <option selected disabled>Selecciona una forma de pago</option>
+                                        <option>Pago</option>
+                                        <option>Abono</option>
+                                        <option>Credito</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-3 col-form-label">Cantidad</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Cantiad pagada">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="activeModal.close('by: close button')">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="activeModal.close('by: save button')">Pagar</button>
+        </div>
