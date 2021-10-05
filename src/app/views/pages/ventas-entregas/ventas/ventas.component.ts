@@ -39,51 +39,34 @@ export class VentasComponent implements OnInit {
   idCategoria:number;
   products:Product[];
   product: Product;  
-  
   progreso: number;
   ids: number;
-  ticket: string;
   animal: string;
   name: string;
   menu:string ='cliente';
   menuColorobservacion: string = 'cliente' ;
   //buscar-prenda
   isCollapsed = true;
-  //{ name: 'Amarillo', cantidad:0 }, { name: 'Azul',cantidad:0 }, { name: '...', }
- // color: string;
   cantidadColor:number = 1;
- // CantidadColor1:number;
- // colores = '';
   selectedPersonId: string = null;
   selectedColor: any = null;
   selectedObservation: any = null;
- // ventaId: number;
-  
   cantidad = 1;
   observacion = '';
-//  ventaDetalle: Detail;
   observaciones: any[] = [{ id: 1, nombre: 'sucio', alias: 'sc', seleccionado: false }, { id: 2, nombre: 'roto', seleccionado: false, alias: 'rt' }, { id: 3, nombre: 'decolorado', seleccionado: false, alias: 'dl' }, { id: 4, nombre: 'descocido', seleccionado: false, alias: 'dc' }]
- //
  colorMenu:string = '';
  colorMenuA:boolean = false;
   constructor(private modalService: NgbModal, 
               private router: Router, 
               public ventasServicePAG: VentasPAGService,
-              private ventasService:VentasService) { 
-                const date = new Date();
-                this.ventasServicePAG.venta={
-                  id:date.getTime(),
-                  state:0,
-                  createdAt: date,
-                  updatedAt: date
-                }
-             
+              private ventasService:VentasService) {                 
+                         
   }
 
   ngOnInit(): void {
    this.getClients();
    this.obtenerCategorias();
-   this.obtenerEmpleado();
+  // this.obtenerEmpleado();
   }
 
   regresar() {
@@ -91,9 +74,10 @@ export class VentasComponent implements OnInit {
   }
   openModalPagar() {
     const modalRef = this.modalService.open(PagarModalComponent)
-    let amount = this.ventasServicePAG.totalAmount();
-    modalRef.componentInstance.amount = amount;
+    let total = this.ventasServicePAG.totalAmount();
+    modalRef.componentInstance.total = total;
     modalRef.componentInstance.serviceId = this.ventasServicePAG.venta.id;
+    modalRef.componentInstance.tipo = 'ventas';
   }
 
   openModalPrendasAgregar() {
@@ -123,6 +107,7 @@ export class VentasComponent implements OnInit {
       updatedAt: date,
       serviceId:this.ventasServicePAG.venta.id
     }
+    console.log(detalle)
     this.ventasServicePAG.agregarId(detalle);
     this.ids = null
   }
@@ -214,7 +199,7 @@ export class VentasComponent implements OnInit {
       quantity: this.cantidad,
       colors: color,
       observations: this.observacion,
-      //productId:1,
+      productId:this.product.id,
       status:0,
       product:this.product,
       createdAt: date,
@@ -263,12 +248,25 @@ export class VentasComponent implements OnInit {
   }
 
   clienteSeleccionado(id:any){
-    console.log('id',id)
+    console.log('id',id)    
     this.clients.find(cliente=>{
       if(cliente.id === id){
+        if(this.ventasServicePAG.venta === undefined){
+          const date = new Date();
+          this.ventasServicePAG.venta={
+            id:date.getTime(),
+            state:0,
+            createdAt: date,
+            updatedAt: date,
+            employeeId: 1, //Ya se deberia tener el empleado
+            userId:cliente.id,
+          }
+        }else{
         this.cliente = cliente
-        this.ventasServicePAG.venta.user = this.cliente
+        this.ventasServicePAG.venta.userId = cliente.id
+        this.ventasServicePAG.venta.employeeId = 2
         this.cargandoClientes = false
+        }
       }
     })
   }
@@ -315,16 +313,6 @@ export class VentasComponent implements OnInit {
     }  
     
   }
-
-  //Employees
-  obtenerEmpleado(){
-    this.ventasService.getEmployeeById(1).subscribe((resp:Employee)=>{
-        console.log(resp)
-        this.ventasServicePAG.venta.employee = resp
-    })
-  }
-  
-
 }
 
 

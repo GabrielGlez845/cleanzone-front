@@ -1,9 +1,12 @@
-import { Component, OnInit, AfterViewInit,ElementRef, HostListener, ViewChild} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { ColumnMode } from '@swimlane/ngx-datatable';
-import { Person, PeoplesData } from '../../../../core/dummy-datas/peoples.data';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2' 
+import { VentasService } from '../../../../services/ventas.service';
+import { User } from 'src/app/views/models/clients.model';
+import { EntregasService } from 'src/app/services/entregas.service';
+import { Service, Detail } from '../../../models/sells.model';
+import { EntregasPagService } from './entregas-pag.service';
 
 @Component({
   selector: 'app-entregas',
@@ -12,58 +15,20 @@ import Swal from 'sweetalert2'
 })
 export class EntregasComponent implements OnInit {
 
-  cuenta:any[] = [{id:'587', nNOta:'5670',nTicket:'(128) (129)'},
-  {id:'587', nNOta:'5671',nTicket:'(123) (122)'},
-  {id:'587', nNOta:'5672',nTicket:'(168) (134)'}];
-detalle:any[] = [{id:'234', cuenta_id:'587', nombre:'pantolones', cantidad:'3', status:'4', colores:'rojo verde azul'},
-   {id:'235', cuenta_id:'587', nombre:'camisetas', cantidad:'3', status:'2', colores:'rojo verde azul'},
-   {id:'236', cuenta_id:'587', nombre:'short', cantidad:'3', status:'2', colores:'rojo verde azul'}];
-  rows = [];
-  loadingIndicator = true;
-  reorderable = true;
-  ColumnMode = ColumnMode;
-  table = false;
-  tableF = false;
+  clients: User[];
   menuEntregas:string;
-  selectedSearchPersonId: string = null;
-  people: Person[] = [];
-  
-  bNota= false;
+  clienteSeleccionado: User = null;
+  folio:number = 0;
   menu:string;
-
-
-constructor(private router: Router, private modalService: NgbModal) {
-  this.fetch(data => {
-  this.rows = data;
-    setTimeout(() => {
-    this.loadingIndicator = false;
-    }, 1500);
-    });
+  //services:Service[];
+  details:Detail[];
+  cargando=false;
+constructor( private ventasService:VentasService, private entregasService:EntregasService, public entregasPagService:EntregasPagService) {
+  
 }
 
 ngOnInit(): void {
-this.people = PeoplesData.peoples;
-
-}
-
-ngAfterViewInit(): void {
-
-}
-
-
-regresar() {
-  this.router.navigate(['/dashboard']);
-}
-
-fetch(cb) {
-  const req = new XMLHttpRequest();
-  req.open('GET', `assets/data/100k.json`);
-  
-  req.onload = () => {
-  cb(JSON.parse(req.response));
-  };
-  
-  req.send();
+  this.getClients();
 }
 
   menuEntregasF(opcion: string){
@@ -81,18 +46,80 @@ fetch(cb) {
     }else{
     this.menu=opcion
     }
+    console.log('cliente', this.clienteSeleccionado)
   
   }
 
-  openModalPagar(content) {
-    this.modalService.open(content,).result.then((result) => {
-    console.log('Modal closed' + result);
-    }).catch((res) => { });
+  entregasDia(){
+    let date = new Date()
+    if (this.clienteSeleccionado){
+      this.entregasService.DeliveriesAtTimeUser(date,this.clienteSeleccionado.id).subscribe((resp:Service[])=>{
+        console.log('del dia user', resp)
+        this.entregasPagService.services = resp
+      })
+    }else{
+    this.entregasService.DeliveriesAtTime(date).subscribe((resp:Service[])=>{
+      console.log('del dia',resp)
+      this.entregasPagService.services = resp
+     })
+    }
+  }
+
+  entregasPendientesTerminadas(){
+    let date = new Date()
+    if (this.clienteSeleccionado){
+      this.entregasService.DeliveriesfinishedEarringsUser(date,this.clienteSeleccionado.id).subscribe((resp:Service[])=>{
+        console.log('penditermin user', resp)
+        this.entregasPagService.services = resp
+      })
+    }else{
+    this.entregasService.DeliveriesfinishedEarrings(date).subscribe((resp:Service[])=>{
+      console.log('penditermin', resp)
+      this.entregasPagService.services = resp
+      })
+    }
+   }
+
+  entregasPendientes(){
+    let date = new Date()
+    if (this.clienteSeleccionado){
+      this.entregasService.DeliveriesEarringsUser(date,this.clienteSeleccionado.id).subscribe((resp:Service[])=>{
+        console.log('pendientes user', resp)
+        this.entregasPagService.services = resp
+      })
+    }else{
+    this.entregasService.DeliveriesEarrings(date).subscribe((resp:Service[]) =>{
+      console.log('pendientes',resp)
+      this.entregasPagService.services = resp
+      })
+    }
+  }
+
+  notasPorPagar(){
+    let date = new Date()
+    if (this.clienteSeleccionado){
+      this.entregasService.DeliveriesPendignPaymentUser(date,this.clienteSeleccionado.id).subscribe((resp:Service[])=>{
+        console.log('pendientes por pagar user', resp)
+        this.entregasPagService.services = resp
+      })
+    }else{
+    this.entregasService.DeliveriesPendignPayment(date).subscribe((resp:Service[]) =>{
+      console.log('pendientes por pagar',resp)
+      this.entregasPagService.services = resp
+      })
+    }
+  }
+
+  buscarNota(id:number){
+    this.entregasService.DeliveriesId(id).subscribe((resp:Detail[])=>{
+      console.log(resp)
+      this.details = resp
+      this.cargando=true;
+    })
   }
   
   buscarNotaDia(){
-    this.bNota=!this.bNota
-    if (this.bNota) {
+    if (false) {
     Swal.fire({
     icon: 'info',
     title: 'Observaciones',
@@ -101,9 +128,12 @@ fetch(cb) {
     }    
   }
 
-  buscarNotaTerminada(){
-    this.bNota=!this.bNota 
-  }
+    //Clientes
+    getClients(){
+      this.ventasService.getClients().subscribe((resp:User[])=>{
+          this.clients = resp;        
+      })
+    }
 
-
+   
 }

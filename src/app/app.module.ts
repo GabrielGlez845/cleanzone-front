@@ -18,6 +18,7 @@ import { AgregarPrendaModalComponent } from './views/pages/modals/agregar-prenda
 import { AgregarClienteModalComponent } from './views/pages/modals/agregar-cliente-modal/agregar-cliente-modal.component';
 import { AgregarObservacionModalComponent } from './views/pages/modals/agregar-observacion-modal/agregar-observacion-modal.component';
 import { AgregarColorModalComponent } from './views/pages/modals/agregar-color-modal/agregar-color-modal.component';
+import { PendienteModalComponent } from './views/pages/modals/pendiente-modal/pendiente-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AgregarColorModalComponent } from './views/pages/modals/agregar-color-m
     AgregarPrendaModalComponent,
     AgregarClienteModalComponent,
     AgregarObservacionModalComponent,
-    AgregarColorModalComponent
+    AgregarColorModalComponent,
+    PendienteModalComponent
   ],
   imports: [
     BrowserModule,

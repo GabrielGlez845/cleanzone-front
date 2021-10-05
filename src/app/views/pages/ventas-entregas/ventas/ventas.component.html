@@ -56,7 +56,7 @@
                                     <div class="input-group">
                                         <div class="input-group-append">
                                         </div>
-                                        <input type="text" class="form-control" #ticketBox [(ngModel)]="ticket" placeholder="Ticket" (keyup.enter)="ventasServicePAG.agregarTicket(ticketBox.value, ventasServicePAG.selected)">
+                                        <input type="text" class="form-control" #ticketBox [(ngModel)]="ventasServicePAG.ticket" placeholder="Ticket" (keyup.enter)="ventasServicePAG.agregarTicket(ticketBox.value, ventasServicePAG.selected)">
                                         <div class="input-group-append">
                                         </div>
                                     </div>
@@ -194,10 +194,10 @@
         <p style="color: white;">{{this.cliente.phone}}</p>
     </div>
     <div class="perfect-scrollbar-example" [perfectScrollbar]>
-        <div class=" {{  i.id == ventasServicePAG.selected  ? 'seleccionado' : '' }} card" *ngFor="let i of ventasServicePAG.ventaDetalle">
+        <div class=" {{  i.id == ventasServicePAG.selected   ? 'seleccionado' : '' }} card" *ngFor="let i of ventasServicePAG.ventaDetalle">
             <div class="card-body">
                 <div class="encabezado">
-                    <h4 style="font-size: 16px;" class="card-title item1">{{i.id}}</h4>
+                    <h4 style="font-size: 16px;" class="card-title item1">{{i.id + i.ticket}}</h4>
                     <button (click)="ventasServicePAG.deleteDetailId(i.id)" type="button" class="btn btn-danger btn-icon item2">
                         <i data-feather="trash" appFeatherIcon></i>
                     </button>
@@ -222,8 +222,8 @@
                                     class="feather mdi  mdi-minus"></i></button>
                                 </td>
                                 <td *ngIf="i.id === row.detailId">{{row.product.name}}</td>
-                                <td *ngIf="i.id === row.detailId"><button (click)="openModalAgregarColor(row.detailId)" class="btn btn-sm btn-primary"> <i class="feather mdi mdi-plus"></i></button>{{row.colors}}</td>
-                                <td *ngIf="i.id === row.detailId"><button (click)="openModalAgregarObservacion(row.detailId)" class="btn btn-sm btn-primary"> <i class="feather mdi mdi-plus"></i></button>{{row.observations}}</td>
+                                <td *ngIf="i.id === row.detailId"><button (click)="openModalAgregarColor(row.id)" class="btn btn-sm btn-primary"> <i class="feather mdi mdi-plus"></i></button>{{row.colors}}</td>
+                                <td *ngIf="i.id === row.detailId"><button (click)="openModalAgregarObservacion(row.id)" class="btn btn-sm btn-primary"> <i class="feather mdi mdi-plus"></i></button>{{row.observations}}</td>
                                 <td *ngIf="i.id === row.detailId">{{ row.product.pricings[0].price*row.quantity | currency:'MXN' }}</td> <!--Change for search by usertype and multiplicar por quantyti al final -->
                                 <td *ngIf="i.id === row.detailId">
                                     <button type="button" (click)="ventasServicePAG.deleteRowId(row.id)" class="btn btn-danger btn-icon">

@@ -1,0 +1,38 @@
+<div *ngIf="cargando">
+    <div class="card">
+            <div class="card-body">
+               <div class="encabezado">
+               <div>
+                   <p [routerLink]="['/entregas']" routerLinkActive="router-link-active"  style="text-align: right;"><i data-feather="arrow-left" class="text-primary" appFeatherIcon></i></p>
+               </div>
+               <div *ngFor="let detail of service.details">
+               <h4 style="text-align: center; font-size: 16px;" class="card-title">{{ detail.identifier }} {{ detail.ticket }}</h4>
+               <div class="table-responsive pb-3">
+                   <table class="table table-hover">
+                       <thead>
+                           <th>CANTIDAD</th>
+                           <th>NOMBRE</th>
+                           <th>COLORES</th>
+                           <th>-</th>
+                       </thead>
+                       <tbody>
+                           <tr *ngFor="let row of detail.rows">
+                               <td class="{{row.status === 1 ? 'terminado' : 'pendiente' }}">{{row.quantity}}</td>
+                               <td class="{{row.status === 1 ? 'terminado' : 'pendiente' }}">{{row.product.name}}</td>
+                               <td class="{{row.status === 1 ? 'terminado' : 'pendiente' }}">{{row.colors}}</td>
+                               <td class="bTable">                                  
+                               </td>
+                           </tr>
+                       </tbody>
+               </table>
+           </div>
+
+           </div>
+       </div>
+       </div>
+    </div>
+    <div class="container text-right mt-3">
+       <button type="submit" (click)="openModalPagar()" class="btn btn-primary">Entregar</button>
+       <!--Pagar.model-->
+    </div>             
+</div>

@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Dejar prenda pendiente</h5>
+    <button type="button" class="close" (click)="activeModal.dismiss('Cross click')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+</div>
+<div class="modal-body">
+    <div class="card-body">
+
+        <div class="form-group row">
+            <label for="exampleInputUsername2" class="col-3 col-form-label">Cantidad</label>
+            <div class="col-9">
+                <label for="exampleInputUsername2" >{{row.quantity}}</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="exampleInputUsername2" class="col-3 col-form-label">Prenda</label>
+            <div class="col-9">
+                <label for="exampleInputUsername2" >{{row.product.name}}</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="exampleInputUsername2" class="col-3 col-form-label">Colores</label>
+            <div class="col-9">
+                <label for="exampleInputUsername2" >{{row.colors}}</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Motivo (Obeservacion)</label>
+            <div class="col-sm-9">
+                <input type="text" [(ngModel)]="observacion" class="form-control" placeholder="Nueva observacion">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Cerrar</button>
+    <button type="button" class="btn btn-primary" (click)="activeModal.close(dejarPendiente())">Agregar</button>
+</div>

@@ -1,0 +1,22 @@
+
+.b{
+    margin-right: 2%;
+    width: 100%;
+}
+
+.bTable{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 5px;
+}
+
+.terminado{
+    background-color:green;
+    color: white;
+}
+
+.pendiente{
+    background-color: #FBBC06;
+    color: white;
+}

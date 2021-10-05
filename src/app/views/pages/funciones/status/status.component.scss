@@ -1,6 +1,12 @@
+.perfect-scrollbar-example {
+    position: relative;
+    max-height: 80vh;
+}
+
 .b{
     margin-right: 2%;
 }
+
 
 .si{
     background-color:green;
@@ -10,9 +16,4 @@
 .no{
     background-color: #7987A1;
     color: white;
-}
-
-.perfect-scrollbar-example {
-    position: relative;
-    max-height: 50vh;
 }

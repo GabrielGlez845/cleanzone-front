@@ -11,9 +11,11 @@ export interface Service {
     state:     number;
     createdAt: Date;
     updatedAt: Date;
-    user?:      User; //no opcional
-    employee?:  Employee; //no opcional
-    details?:   Detail[]; //no opcional
+    userId: number;
+    employeeId? :number;
+    user?:      User;
+    employee?:  Employee; 
+    details?:   Detail[]; 
     payments?: Payment;
 }
 export interface Detail {
@@ -24,7 +26,8 @@ export interface Detail {
     createdAt:  Date;
     updatedAt:  Date;
     serviceId:  number;
-  //  rows:       Row[];
+    observation?: string;
+    rows?:       Row[];
 }
 
 export interface Row {
@@ -36,6 +39,7 @@ export interface Row {
     createdAt:    Date;
     updatedAt:    Date;
     detailId:     number;
+    productId:    number;
     product:    Product;
 }
 
@@ -56,7 +60,7 @@ export interface Role {
 
 export interface Payment {
     id:        number;
-    amount:    string;
+    amount:    number;
     createdAt: Date;
     updatedAt: Date;
     serviceId: number;

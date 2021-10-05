@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Color } from '../../../models/color.model';
 import { Service, Detail, Row } from '../../../models/sells.model';
+import { VentasService } from '../../../../services/ventas.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,25 @@ export class VentasPAGService {
   venta: Service
   ventaDetalle: Detail[] = [];
   Fila: Row[] = [];
- // identifiers: number[] = [];
   selected: number;
   repetido = false;
   amount = 0;
-  constructor() { }
+  ticket: string;
+  lastVentaId:number;
+  constructor(private ventasService:VentasService) {
+    
+   // this.ventasService.postService(this.venta).subscribe((resp:any) =>{
+   //   console.log(resp)
+      this.ventasService.getLastDate().subscribe(resp =>{
+        console.log(resp.max)
+        let date = resp.max
+        this.ventasService.getLastService(date).subscribe((resp:any) =>{
+            console.log(resp);
+            this.lastVentaId = resp.id            
+        })
+      })
+   // })   
+   }
 
   agregarId(ventaDetail: Detail) {
     this.ventaDetalle.find(venta => {
@@ -38,6 +53,8 @@ export class VentasPAGService {
   }
 
   agregarTicket(ticket:string,ide:number){
+    console.log('ticket',ticket)
+    console.log('ide', ide)
     let i = 0;
     this.ventaDetalle.find(venta =>{
       if(venta.identifier === ide){
@@ -45,7 +62,8 @@ export class VentasPAGService {
         this.selected = this.ventaDetalle[i].identifier;
       }      
       i++;
-    }) 
+    })
+    this.ticket = ''; 
   }
 
   agregarIdDetalle(row: Row) {
@@ -56,7 +74,7 @@ export class VentasPAGService {
   agregarObservacionDetalle(ide:number,observacion:string) {
      let j = 0;
      this.Fila.find(row =>{
-          if(row.detailId === ide){
+          if(row.id === ide){
               this.Fila[j].observations+=` ${observacion} ,`;
            }      
          j++;
@@ -70,7 +88,7 @@ export class VentasPAGService {
      color += `${colorIn.cantidad} .- ${colorIn.nombre}, `
    })
     this.Fila.find(row =>{
-      if(row.detailId === ide){
+      if(row.id === ide){
         this.Fila[i].colors+=` ${color} `;
       }      
       i++;
@@ -109,7 +127,7 @@ export class VentasPAGService {
     this.ventaDetalle.find(venta =>{
       this.Fila.find(row =>{
         if(venta.id === row.detailId){
-          total = row.product.pricings[0].price * row.quantity
+          total = total + (row.product.pricings[0].price * row.quantity)
         }      
       }) 
     }) 

@@ -8,9 +8,8 @@
         </div>
         <div class="modal-body">
             <div class="card-body">
-                <p class="text-bold-800 total text-center">Total : {{amount | currency:'MXN' }}</p>
-                <form class="forms-sample">
-                    <div class="form-group row">
+                <p class="text-bold-800 total text-center">Total : {{total | currency:'MXN' }}</p>
+                    <div class="form-group row" *ngIf="bandera">
                         <label for="exampleInputUsername1" class="col-3 col-form-label">Forma pago</label>
                         <div class="col-9">
                             <div class="input-group">
@@ -28,13 +27,12 @@
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-3 col-form-label">Cantidad</label>
                         <div class="col-9">
-                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Cantiad pagada">
+                            <input type="number" [(ngModel)]=" amount "  class="form-control" placeholder="Cantiad pagada">
                         </div>
                     </div>
-                </form>
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="activeModal.close('by: close button')">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="activeModal.close('by: save button')">Pagar</button>
+            <button type="button" class="btn btn-primary" (click)="activeModal.close(pagar())">Pagar</button>
         </div>

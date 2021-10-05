@@ -9,7 +9,7 @@ import { Service, Payment, Detail, Row } from '../views/models/sells.model';
 export class VentasService {
   private api = 'http://localhost:7000/api';
 
-  constructor( private http: HttpClient ) { }
+  constructor( private http: HttpClient ) {  }
 
   getClients(){
    return this.http.get(`${this.api}/users`).pipe(map(data=>{
@@ -23,24 +23,46 @@ export class VentasService {
     }))
    }
 
-   getProductsCategoryLetter(category_id:number,letter:string){
+  getProductsCategoryLetter(category_id:number,letter:string){
     return this.http.get(`${this.api}/products/category/${category_id}/letter/${letter}`).pipe(map(data=>{
         return data['data']
     }))
-   }
+  }
   
-   getEmployeeById(id:number){
+  getEmployeeById(id:number){
     return this.http.get(`${this.api}/employees/id/${id}`).pipe(map(data=>{
       return data['data']
     }))
-   }
+  }
 
-   postService(service: Service){
+  getLastDate(){
+    return this.http.get(`${this.api}/services/last`).pipe(map(data=>{
+      return data['data']
+    }))
+  }
+
+  getLastService(date:any){
+    return this.http.get(`${this.api}/services/date/${date}`).pipe(map(data=>{
+      return data['data']
+    }))
+  }
+
+  postService(service: Service){
      return this.http.post(`${this.api}/services`,service)
-   }
+  }
+
+  putService(service:Service){
+    return this.http.put(`${this.api}/services`,service)
+  }
 
   postDetail(details:Detail[]){
     return this.http.post(`${this.api}/details`,details)
+  }
+
+  getDetailByIdentifier(identifier:number){
+    return this.http.get(`${this.api}/details/identifier/${identifier}`).pipe(map(data=>{
+      return data['data']
+    }))
   }
 
   postRows(rows:Row[]){
