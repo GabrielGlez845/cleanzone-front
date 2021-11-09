@@ -17,16 +17,11 @@ export class PagarModalComponent implements OnInit {
   amount:number = 0;
   @Input() serviceId;
   @Input() tipo : string;
-  bandera = false
   constructor(public activeModal: NgbActiveModal, private ventasPagService:VentasPAGService,private ventasService:VentasService
             , private entregasPagService:EntregasPagService, private funcionesService:FuncionesService) { }
 
   ngOnInit(): void {
-    if(this.tipo === 'ventas'){
-      this.bandera = true;
-    }else{
-      this.bandera = false;
-    }
+   
   }
 
   //change for transaction in back 
@@ -53,6 +48,7 @@ export class PagarModalComponent implements OnInit {
             this.ventasService.postPayments(pay).subscribe(resp=>{
               console.log('pay')
               console.log(resp)
+             
             })
           })
         })

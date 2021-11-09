@@ -1,0 +1,66 @@
+
+<div class="form-group row">
+    <label for="exampleInputUsername1" class="col-2 col-form-label">Cliente</label>
+    <div class="col-10">
+        <div class="input-group">
+            <div class="c-center">
+                <ng-select [items]="clients" bindLabel="name"  placeholder="Clientes" [(ngModel)]="clienteSeleccionado">
+                </ng-select>
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)= "buscar()" type="button" ><i class="feather icon-search"></i></button>                
+            </div>
+        </div>
+    </div>                            
+</div>
+<div class="row justify-content-center align-items-center text-center mb-3">
+    <div class="col-12">
+        <button type="button" (click)="menu('pagados')"   class="btn btn-sm b {{menuOp === 'pagados' ? 'si' : 'no' }}">Pagados</button>
+        <button type="button" (click)="menu('sinPagar')" class="btn btn-sm b {{menuOp === 'sinPagar' ? 'si' : 'no' }}">Sin pagar</button>
+        <button type="button" (click)="menu('abonados')" class="btn btn-sm b {{menuOp === 'abonados' ? 'si' : 'no' }}">Abonados</button>
+    </div>
+</div>
+<div  [ngSwitch]="menuOp" >
+    <div  *ngSwitchCase="'pagados'">
+        <div class="perfect-scrollbar-example" [perfectScrollbar]>
+            <div class="list-group" >
+                <ng-container *ngFor="let service of this.serviciosPagados">
+                    <div class="list-group-item list-group-item-action" style="display:flex; flex-wrap: nowrap;"   [routerLink]="['/funciones/notas-detail/',service.id]">
+                        <a >{{ service.id }}.- </a> <p *ngFor="let detail of service.details"> {{ detail.identifier }} {{ detail.ticket }}, </p>
+                    </div>                   
+                </ng-container>               
+            </div>
+        </div>
+    </div>
+
+    <div  *ngSwitchCase="'sinPagar'">
+        <div class="perfect-scrollbar-example" [perfectScrollbar]>
+            <div class="list-group" >
+                <ng-container *ngFor="let service of this.serviciosSinPagar">
+                    <div class="list-group-item list-group-item-action" style="display:flex; flex-wrap: nowrap;"   [routerLink]="['/funciones/notas-detail/',service.id]">
+                        <a >{{ service.id }}.- </a> <p *ngFor="let detail of service.details"> {{ detail.identifier }} {{ detail.ticket }}, </p>
+                    </div>                   
+                </ng-container>                 
+            </div>
+        </div>
+    </div>
+
+
+    <div  *ngSwitchCase="'abonados'">
+        <div class="perfect-scrollbar-example" [perfectScrollbar]>
+            <div class="list-group" >
+                <ng-container *ngFor="let service of this.serviciosAbonados">
+                    <div class="list-group-item list-group-item-action" style="display:flex; flex-wrap: nowrap;"   [routerLink]="['/funciones/notas-detail/',service.id]">
+                        <a >{{ service.id }}.- </a> <p *ngFor="let detail of service.details"> {{ detail.identifier }} {{ detail.ticket }}, </p>
+                    </div>                   
+                </ng-container>                  
+            </div>
+        </div>
+    </div>
+
+
+    <div  *ngSwitchDefault>
+
+    </div>
+
+</div>

@@ -1,0 +1,52 @@
+<div class="row" *ngIf="!cargando">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="container-fluid d-flex justify-content-between">
+                        <div class="col-lg-12 pl-0">
+                            <a routerLink="." class="noble-ui-logo d-block mt-3 logo-light">Clean<span>Zone</span></a>
+                            <p>{{service.id}}</p>
+                            <p>status : {{service.state}}</p>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-5 w-100">
+                        <div class="row">
+                            <div class="col-md-12 ml-auto" *ngFor="let detail of service.details">
+                                <p style="font-size: 16px; text-align: center; font-weight: bold;">{{detail.identifier}}</p>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr *ngFor="let row of detail.rows" [ngClass]="{terminado: row.status === 1, entregado: row.status === 2, pendiente: row.status === 3 }">
+                                                <td>{{row.quantity}}</td>
+                                                <td>{{row.product.name}}</td>
+                                                <td class="text-right">{{ row.product.pricings[0].price*row.quantity | currency:'MXN' }}</td>
+                                                <td class="text-right">
+                                                    {{row.colors}}
+                                                </td>
+                                                <td class="text-right">
+                                                    {{row.observations}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td class="text-bold-800 total">Total</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="font-size: 16px; font-weight: bold;" class="text-right total"> {{ total | currency:'MXN' }}</td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid w-100">
+                        <a routerLink="." style="margin-right: 2%;" class="btn btn-success float-right mt-4 ml-2 btn-icon-text"> Imprimir ticket</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

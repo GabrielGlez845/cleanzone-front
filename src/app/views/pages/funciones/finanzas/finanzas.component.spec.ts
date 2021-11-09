@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PendienteModalComponent } from './pendiente-modal.component';
+import { FinanzasComponent } from './finanzas.component';
 
-describe('PendienteModalComponent', () => {
-  let component: PendienteModalComponent;
-  let fixture: ComponentFixture<PendienteModalComponent>;
+describe('FinanzasComponent', () => {
+  let component: FinanzasComponent;
+  let fixture: ComponentFixture<FinanzasComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PendienteModalComponent ]
+      declarations: [ FinanzasComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PendienteModalComponent);
+    fixture = TestBed.createComponent(FinanzasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

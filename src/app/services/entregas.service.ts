@@ -68,4 +68,10 @@ export class EntregasService {
       return data['data']
   }));
   }
+
+  ServiceById(id:number){
+    return this.http.get(`${this.api}/services/id/${id}`).pipe(map(data=>{
+      return data['data']
+  }));
+  }
 }

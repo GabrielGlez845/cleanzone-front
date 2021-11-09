@@ -20,9 +20,9 @@ export class VentasPAGService {
     
    // this.ventasService.postService(this.venta).subscribe((resp:any) =>{
    //   console.log(resp)
-      this.ventasService.getLastDate().subscribe(resp =>{
-        console.log(resp.max)
-        let date = resp.max
+      this.ventasService.getLastDate().subscribe((resp:any) =>{
+        console.log(resp);
+        let date = resp.data[0].createdAt
         this.ventasService.getLastService(date).subscribe((resp:any) =>{
             console.log(resp);
             this.lastVentaId = resp.id            

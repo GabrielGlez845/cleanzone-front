@@ -1,0 +1,29 @@
+<!-- Modal agregar cliente -->
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Agregar Categoria</h5>
+    <button type="button" class="close" (click)="activeModal.close('by: close icon')" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+
+    <div class="card-body">
+        <h6 class="card-title">Nueva Categoria</h6>
+        <form autocomplete="off" [formGroup]="CategoriaFormGroup" (ngSubmit)="agregarCategoria()">
+            <div class="form-group row">
+                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nombre</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control"  formControlName="nombre" [class.is-invalid]="nombreNovalido" placeholder="Nombre de la categoria">
+                    <small *ngIf="nombreNovalido" class="text-danger">
+                        nombre no valido
+                   </small>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close('by: close button')">Cerrar</button>
+    <button type="button" class="btn btn-primary" (click)="agregarCategoria()">Agregar</button>
+</div>

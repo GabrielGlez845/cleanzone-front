@@ -4,6 +4,7 @@ import { Service } from '../../../../models/sells.model';
 import { EntregasPagService } from '../entregas-pag.service';
 import { PagarModalComponent } from '../../../modals/pagar-modal/pagar-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-entregas-details',
@@ -14,6 +15,7 @@ export class EntregasDetailsComponent implements OnInit {
   service_id:number;
   service:Service;
   cargando=false;
+  observaciones:string = null;
   constructor(private route:ActivatedRoute, private entregasPagService:EntregasPagService, private modalService: NgbModal) {
     this.route.params.subscribe(data => {
       this.service_id = Number(data['id']);
@@ -26,7 +28,22 @@ export class EntregasDetailsComponent implements OnInit {
       this.cargando = false;
     }else{
       this.cargando = true;
+      this.service.details.forEach(detail=>{
+        if( detail.observation){
+          this.observaciones += ' ' + detail.observation + ','
+        }
+        
+      })
     }
+
+    if(this.observaciones != null){
+      Swal.fire({
+        icon: 'info',
+        title: 'Observaciones',
+        text:  `${this.observaciones}`
+      });
+    }
+    
   }
 
   openModalPagar() {

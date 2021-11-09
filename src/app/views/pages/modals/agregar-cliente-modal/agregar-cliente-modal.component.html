@@ -5,33 +5,53 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-
+        <div class="modal-body">            
             <div class="card-body">
                 <h6 class="card-title">Nuevo cliente</h6>
-                <form class="forms-sample">
+                <form autocomplete="off" [formGroup]="ClienteFormGroup" (ngSubmit)="agregarCliente()">
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nombre</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Nombre completo">
-                        </div>
+                            <input type="text" class="form-control" placeholder="Nombre completo"  formControlName="nombre" [class.is-invalid]="nombreNovalido">
+                            <small *ngIf="nombreNovalido" class="text-danger">
+                                nombre no valido
+                           </small>
+                        </div>                       
                     </div>
                     <div class="form-group row">
                         <label for="exampleInputMobile" class="col-sm-3 col-form-label">Telefono</label>
                         <div class="col-sm-9">
-                            <input type="number" class="form-control" id="exampleInputMobile" placeholder="Telefono">
+                            <input type="number" class="form-control"  placeholder="Telefono"  formControlName="telefono" [class.is-invalid]="telefonoNovalido">
+                            <small *ngIf="telefonoNovalido" class="text-danger">
+                                telefono no valido
+                           </small>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Calle</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Calle">
+                            <input type="text" class="form-control" placeholder="Calle"  formControlName="calle" [class.is-invalid]="calleNovalida">
+                            <small *ngIf="calleNovalida" class="text-danger">
+                                calle no valida
+                           </small>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Colonia</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Colonia">
+                            <input type="text" class="form-control" placeholder="Colonia"  formControlName="colonia" [class.is-invalid]="coloniaNovalida">
+                            <small *ngIf="coloniaNovalida" class="text-danger">
+                                colonia no valida
+                           </small>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Codigo Postal</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="CP"  formControlName="codigoPostal" [class.is-invalid]="codigoPostalNovalido">
+                            <small *ngIf="codigoPostalNovalido" class="text-danger">
+                                codigo no valido
+                           </small>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -39,21 +59,21 @@
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <div class="carta">
-                                    <select class="form-control" id="exampleFormControlSelect1">
-                                        <option selected disabled>Selecciona una lista de precio</option>
-                                        <option>Domicilio</option>
-                                        <option>Maquilado</option>
-                                        <option>Mostrador</option>
+                                    <select class="form-control"  formControlName="listaPrecio" [class.is-invalid]="listaPrecioNovalida">
+                                        <option [ngValue]="null" selected disabled>Selecciona una lista de precio</option>
+                                        <option *ngFor="let userType of userTypes" [ngValue]="userType.id">{{userType.name}}</option>
                                     </select>
+                                    <small *ngIf="listaPrecioNovalida" class="text-danger">
+                                        lista no valida
+                                   </small>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="activeModal.close('by: close button')">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="activeModal.close('by: save button')">Guardar</button>
+            <button type="button" class="btn btn-primary" (click)="agregarCliente()">Agregar</button>
         </div>

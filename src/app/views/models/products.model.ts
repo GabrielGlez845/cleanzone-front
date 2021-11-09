@@ -4,8 +4,9 @@ export interface Product {
     name:      string;
     createdAt: Date;
     updatedAt: Date;
-    category: Category;
-    pricings: Pricing[];
+    category?: Category;
+    categoryId?: number;
+    pricings?: Pricing[];
 }
 
 
@@ -23,6 +24,7 @@ export interface Pricing {
     updatedAt: Date;
     productId: number;
     usertypeId: number;
+    usertype?: Usertype;
 }
 
 

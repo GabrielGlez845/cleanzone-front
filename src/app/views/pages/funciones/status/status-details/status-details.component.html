@@ -17,9 +17,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let row of detail.rows">
-                                <td class="{{row.status === 0 ? 'terminado' : 'pendiente' }}">{{row.quantity}}</td>
-                                <td class="{{row.status === 0 ? 'terminado' : 'pendiente' }}">{{row.product.name}}</td>
-                                <td class="{{row.status === 0 ? 'terminado' : 'pendiente' }}">{{row.colors}}</td>
+                                <td [ngClass]="{terminado: row.status === 1, entregado: row.status === 2, pendiente: row.status === 3 }">{{row.quantity}}</td>
+                                <td [ngClass]="{terminado: row.status === 1, entregado: row.status === 2, pendiente: row.status === 3 }">{{row.product.name}}</td>
+                                <td [ngClass]="{terminado: row.status === 1, entregado: row.status === 2, pendiente: row.status === 3 }">{{row.colors}}</td>
                                 <td class="bTable">
                                     <button type="button" (click)="cambiarStatus(row.id,3)" class="btn btn-sm btn-warning b">P</button>
                                     <button type="button" (click)="cambiarStatus(row.id,1)" class="btn btn-sm btn-success">T</button>

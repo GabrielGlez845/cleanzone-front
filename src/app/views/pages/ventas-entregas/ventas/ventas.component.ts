@@ -12,7 +12,6 @@ import { AgregarColorModalComponent } from '../../modals/agregar-color-modal/agr
 import { Color } from 'src/app/views/models/color.model';
 import { Category, Product } from '../../../models/products.model';
 import { Detail, Employee, Row, Service } from '../../../models/sells.model';
-import { repeatWhen } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ventas',

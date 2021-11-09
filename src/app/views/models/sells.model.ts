@@ -46,9 +46,12 @@ export interface Row {
 export interface Employee {
     id:        number;
     name:      string;
+    email:      string;
+    password?:   string;
     createdAt: Date;
     updatedAt: Date;
-    role:     Role;
+    role?:     Role;
+    roleId?:     number;
 }
 
 export interface Role {

@@ -36,9 +36,7 @@ export class VentasService {
   }
 
   getLastDate(){
-    return this.http.get(`${this.api}/services/last`).pipe(map(data=>{
-      return data['data']
-    }))
+    return this.http.get(`${this.api}/services/last`)
   }
 
   getLastService(date:any){

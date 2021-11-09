@@ -1,0 +1,79 @@
+<div class="col-lg-12 mt-2">
+    <div class="email-search">
+      <div class="input-group input-search">
+        <input class="form-control" type="text" [(ngModel)]="folio" placeholder="Folio de nota"><span class="input-group-btn">
+        <button class="btn btn-outline-secondary" (click)="menu('filtro')" type="button"><i class="feather icon-filter"></i></button>
+        <button class="btn btn-outline-secondary" (click)="buscar()" type="button"><i class="feather icon-search"></i></button></span>
+      </div>
+    </div>
+  </div>
+  <div [ngSwitch]="filtro">
+    <div *ngSwitchCase="'filtro'">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body"> 
+                <div class="form-group row">
+                    <label for="exampleInputUsername1" class="col-2 col-form-label">Cliente</label>
+                    <div class="col-10">
+                        <div class="input-group">
+                            <div class="c-center">
+                                <ng-select [items]="clients" bindLabel="name"  placeholder="Clientes" [(ngModel)]="clienteSeleccionado">
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>                            
+                </div>
+                  <div class="form-group row">
+                    <label for="exampleInputEmail2" class="col-3 col-form-label">Fecha inicio</label>
+                    <div class="col-9">
+                      <input type="date" [(ngModel)]="start" class="form-control" autocomplete="off" placeholder="desde">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="exampleInputMobile" class="col-3 col-form-label">Fecha fin</label>
+                    <div class="col-9">
+                      <input type="date" [(ngModel)]="finish" class="form-control" placeholder="hasta">
+                    </div>
+                  </div>
+              <!-- <div class="form-group row">
+                    <label for="exampleInputMobile" class="col-4 col-form-label">Tipo de pago</label>
+                    <div class="col-8">
+                      <select class="form-control" id="exampleFormControlSelect1">
+                        <option selected disabled>Tipo de pago actual</option>
+                        <option>Pagado</option>
+                        <option>Abonado</option>
+                        <option>Credito</option>
+                      </select>
+                    </div>
+                  </div>--> 
+                  <button type="submit" class="btn btn-primary mr-2" (click)="[buscar(),menu('')]">aplicar filtros</button>
+              </div>
+            </div>
+          </div>
+    </div>
+
+    <div *ngSwitchDefault>
+
+    </div>
+</div>
+
+<div *ngIf="!cargando">
+
+<div class="mt-2 mb-5">
+  <ol class="list-group list-group-numbered" *ngFor="let service of services | slice: (page-1) * pageSize : page * pageSize">
+    <li class="list-group-item d-flex justify-content-between align-items-start" style="display:flex; flex-wrap: nowrap;" [routerLink]="['/funciones/notas-detail/',service.id]">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">{{ service.id }}.- </div>
+        <p *ngFor="let detail of service.details"> id: {{ detail.identifier }}  {{ detail.ticket }} - {{ detail.observation }}  </p>
+      </div>
+      <span class="badge bg-primary rounded-pill">{{service.details.length}}</span>
+    </li>
+  </ol>
+</div>
+
+<div class="justify-content-center mt-5 pagination">
+  <ngb-pagination [pageSize]=5 [collectionSize]="services.length" [(page)]="page" [directionLinks]="false"></ngb-pagination>
+</div>
+</div>
+      
+

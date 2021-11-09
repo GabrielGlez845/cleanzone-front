@@ -1,0 +1,63 @@
+<!-- Modal agregar cliente -->
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Agregar empleado</h5>
+    <button type="button" class="close" (click)="activeModal.close('by: close icon')" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+
+    <div class="card-body">
+        <h6 class="card-title">Nuevo cliente</h6>
+        <form autocomplete="off" [formGroup]="EmpleadoFormGroup" (ngSubmit)="agregarEmpleado()">
+            <div class="form-group row">
+                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nombre</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="Nombre completo" formControlName="nombre" [class.is-invalid]="nombreNovalido">
+                    <small *ngIf="nombreNovalido" class="text-danger">
+                        nombre no valido
+                   </small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Correo</label>
+                <div class="col-sm-9">
+                    <input type="email" class="form-control"  placeholder="Email" formControlName="email" [class.is-invalid]="emailNovalido">
+                    <small *ngIf="emailNovalido" class="text-danger">
+                        correo no valido
+                   </small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Contraseña</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" placeholder="Contraseña" formControlName="contraseña" [class.is-invalid]="contrasenaNovalida">
+                    <small *ngIf="contrasenaNovalida" class="text-danger">
+                        contraseña no valida
+                   </small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleInputUsername1" class="col-sm-3 col-form-label">Rol</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <div class="carta">
+                            <select class="form-control" formControlName="rol" [class.is-invalid]="rolNovalido">
+                                <option [ngValue]="null" selected disabled>Selecciona un Rol</option>
+                                <option *ngFor="let rol of Rols" [ngValue]="rol.id">{{rol.name}}</option>
+                            </select>
+                            <small *ngIf="rolNovalido" class="text-danger">
+                                rol no valido
+                           </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close('by: close button')">Cerrar</button>
+    <button type="button" class="btn btn-primary" (click)="agregarEmpleado()">Agregar</button>
+</div>

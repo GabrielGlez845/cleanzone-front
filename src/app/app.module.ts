@@ -3,10 +3,9 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from './views/layout/layout.module';
 import { AuthGuard } from './core/guard/auth.guard';
-
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 
@@ -19,6 +18,8 @@ import { AgregarClienteModalComponent } from './views/pages/modals/agregar-clien
 import { AgregarObservacionModalComponent } from './views/pages/modals/agregar-observacion-modal/agregar-observacion-modal.component';
 import { AgregarColorModalComponent } from './views/pages/modals/agregar-color-modal/agregar-color-modal.component';
 import { PendienteModalComponent } from './views/pages/modals/pendiente-modal/pendiente-modal.component';
+import { AgregarCategoriaModalComponent } from './views/pages/modals/agregar-categoria-modal/agregar-categoria-modal.component';
+import { AgregarEmpleadoModalComponent } from './views/pages/modals/agregar-empleado-modal/agregar-empleado-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { PendienteModalComponent } from './views/pages/modals/pendiente-modal/pe
     AgregarClienteModalComponent,
     AgregarObservacionModalComponent,
     AgregarColorModalComponent,
-    PendienteModalComponent
+    PendienteModalComponent,
+    AgregarCategoriaModalComponent,
+    AgregarEmpleadoModalComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { PendienteModalComponent } from './views/pages/modals/pendiente-modal/pe
     LayoutModule,
     NgbModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthGuard,

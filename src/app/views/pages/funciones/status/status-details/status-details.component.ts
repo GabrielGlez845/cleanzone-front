@@ -48,14 +48,15 @@ cargando = false;
       const modalRef = this.modalService.open(PendienteModalComponent,{ size: 'lg' })
       modalRef.componentInstance.id = id;
     }else{
-      this.statusPagService.rowStatus(id,0)
+      this.statusPagService.rowStatus(id,1)
       this.statusPagService.quitarObservacion(id)
     }
   }
  
-  finalizarStatus(){    
+  finalizarStatus(){  
+    this.statusPagService.statusZeroToOne();  
     this.statusPagService.statusZeroToThree();
-    this.statusPagService.statusZeroToOne();
+    
     let rows: Row[] = []
     let details : Detail[] = []    
       this.funcionesService.statusChangeService(this.service).subscribe(resp=>{

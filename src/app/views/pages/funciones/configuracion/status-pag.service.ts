@@ -76,10 +76,8 @@ export class StatusPagService {
   }
   
   agregarObservacion(id :number, observacion:string){
-    console.log('llega',id);
     this.services.find(service =>{
       service.details.find(detail =>{
-        console.log('entra', detail.id);
         if (detail.id === id){
           detail.observation = observacion;
         }
