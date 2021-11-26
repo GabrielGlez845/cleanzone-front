@@ -5,6 +5,7 @@ import formatISO from 'date-fns/formatISO'
 import { Service, Detail, Row, Employee } from '../views/models/sells.model';
 import { User } from '../views/models/clients.model';
 import { Product, Category, Usertype, Pricing } from '../views/models/products.model';
+import { Transactions } from '../views/models/transactions.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -157,5 +158,10 @@ export class FuncionesService {
     return this.http.post(`${this.api}/pricings`, {
       information: pricing,
     });
+  }
+
+  //transactions
+  postTransaction(transaction:Transactions){
+    return this.http.post(`${this.api}/transactions`,transaction);
   }
 }

@@ -1,23 +1,23 @@
 <div class="row justify-content-center align-items-center">
     <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
+        <div class="card container">
             <div class="card-body">
-                <h6 class="card-title">Agregar gasto</h6>
-                <form class="forms-sample">
+                <h6 class="card-title mt-2 mb-2">Agregar gasto</h6>
+                <form class="forms-sample" autocomplete="off" [formGroup]="GastoVariableFormGroup" (ngSubmit)="agregarGastoVariable()">
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Concepto</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Motivo del gasto">
+                            <input type="text" class="form-control" formControlName="concept" [class.is-invalid]="conceptoNovalido" placeholder="Motivo del gasto">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Importe</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Cantidad">
+                            <input type="text" class="form-control" formControlName="amount" [class.is-invalid]="importeNovalido" placeholder="Cantidad">
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary mr-2">Aceptar</button>
+                    </div>                    
                 </form>
+                <button type="submit" class="btn btn-primary mr-2 mb-2" (click)="agregarGastoVariable()">Agregar</button>
             </div>
         </div>
     </div>

@@ -1,19 +1,20 @@
-<div class="card text-center">
+<div class="card text-center mb-1" >
     <div class="card-body">
         <div class="menuResp mb-2">
             <div class="product-button">
-            <div class="productsMenu ">
-                <button type="button" [routerLink]="['/funciones/gastos']" class="btn btn-secondary btn-sm button-product">Gastos</button>
-                <button type="button" [routerLink]="['/funciones/notas']" routerLinkActive="active" class="btn btn-secondary btn-sm button-product">Notas</button>
-                <button type="button" [routerLink]="['/funciones/corte']" routerLinkActive="active" class="btn btn-secondary btn-sm button-product">Corte del dia</button>
-                <button type="button" [routerLink]="['/funciones/graficas']" routerLinkActive="active" class="btn btn-secondary btn-sm button-product">Graficas</button>
-                <button type="button" [routerLink]="['/funciones/configuraciones']" routerLinkActive="active" class="btn btn-secondary btn-sm button-product" >Config</button>
-                <button type="button" [routerLink]="['/funciones/status']" routerLinkActive="active"  class="btn btn-secondary btn-sm button-product">Estatus</button>
-                <button type="button" [routerLink]="['/funciones/clientes']" routerLinkActive="active" class="btn btn-secondary btn-sm button-product">Cliente</button>
-                <button type="button" [routerLink]="['/funciones/finanzas']" routerLinkActive="active"class="btn btn-secondary btn-sm button-product">Finanzas</button>
+            <div class="productsMenu">
+                <button type="button" [routerLink]="['gastos']" routerLinkActive="activo" class="btn btn-white btn-sm button-product">Gastos</button>
+                <button type="button" [routerLink]="['notas']" routerLinkActive="activo" class="btn btn-white btn-sm button-product">Notas</button>
+                <button type="button" [routerLink]="['corte']" routerLinkActive="activo" class="btn btn-white btn-sm button-product">Corte del dia</button>
+                <button type="button" [routerLink]="['graficas']" routerLinkActive="activo" class="btn btn-white btn-sm button-product">Graficas</button>
+                <button type="button" [routerLink]="['configuraciones']" routerLinkActive="activo" class="btn btn-white btn-sm button-product" >Config</button>
+                <button type="button" [routerLink]="['status']" routerLinkActive="activo"  class="btn btn-white btn-sm button-product">Estatus</button>
+                <button type="button" [routerLink]="['clientes']" routerLinkActive="activo" class="btn btn-white btn-sm button-product">Cliente</button>
+                <button type="button" [routerLink]="['finanzas']" routerLinkActive="activo"class="btn btn-white btn-sm button-product">Finanzas</button>
                 <!--Prendas pendientes, finanzas?-->
             </div>
             </div>
         </div>
     </div>
 </div>
+<router-outlet></router-outlet>

@@ -88,6 +88,7 @@ export class VentasComponent implements OnInit {
   openModalClienteAgregar() {
     this.modalService.open(AgregarClienteModalComponent, { size: 'lg' }).result.then((result) => {
       console.log('Modal closed' + result);
+      this.router.navigate(['/ventas']);
     }).catch((res) => { });
   }
 
@@ -102,8 +103,6 @@ export class VentasComponent implements OnInit {
       identifier:parseInt(id),
       ticket:'',
       status: 0,
-      createdAt: date,
-      updatedAt: date,
       serviceId:this.ventasServicePAG.venta.id
     }
     console.log(detalle)
@@ -201,8 +200,6 @@ export class VentasComponent implements OnInit {
       productId:this.product.id,
       status:0,
       product:this.product,
-      createdAt: date,
-      updatedAt: date,
       detailId: this.ventasServicePAG.selected
     }
 
@@ -248,6 +245,11 @@ export class VentasComponent implements OnInit {
 
   clienteSeleccionado(id:any){
     console.log('id',id)    
+    this.idCliente = id;
+    if (id == null){
+      this.cargandoClientes = true
+    }
+    else{
     this.clients.find(cliente=>{
       if(cliente.id === id){
         if(this.ventasServicePAG.venta === undefined){
@@ -255,11 +257,14 @@ export class VentasComponent implements OnInit {
           this.ventasServicePAG.venta={
             id:date.getTime(),
             state:0,
-            createdAt: date,
-            updatedAt: date,
-            employeeId: 1, //Ya se deberia tener el empleado
+            employeeId: parseInt(localStorage.getItem('employeeId')), //Ya se deberia tener el empleado
             userId:cliente.id,
           }
+          //new 
+          this.cliente = cliente
+          this.ventasServicePAG.venta.userId = cliente.id
+          this.ventasServicePAG.venta.employeeId = 2
+          this.cargandoClientes = false
         }else{
         this.cliente = cliente
         this.ventasServicePAG.venta.userId = cliente.id
@@ -268,6 +273,7 @@ export class VentasComponent implements OnInit {
         }
       }
     })
+   }
   }
 
   nuevoColor(colorNew:Color){     

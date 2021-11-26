@@ -40,7 +40,6 @@
             <div class="form-group row">
                 <label for="exampleInputUsername1" class="col-sm-3 col-form-label">Rol</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
                         <div class="carta">
                             <select class="form-control" formControlName="rol" [class.is-invalid]="rolNovalido">
                                 <option [ngValue]="null" selected disabled>Selecciona un Rol</option>
@@ -49,7 +48,6 @@
                             <small *ngIf="rolNovalido" class="text-danger">
                                 rol no valido
                            </small>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -9,41 +9,53 @@
 
             <div class="card-body">
                 <h6 class="card-title">Nueva prenda</h6>
-                <form class="forms-sample">
+                <form class="forms-sample" autocomplete="off" [formGroup]="PrendaFormGroup" (ngSubmit)="agregarPrenda()">
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nombre</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Nombre">
+                            <input type="text" class="form-control" formControlName="nombre" [class.is-invalid]="nombreNovalido" placeholder="Nombre">
+                            <small *ngIf="nombreNovalido" class="text-danger">
+                                nombre no valido
+                           </small>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Precio</label>
                         <div class="col-sm-9">
-                            <input type="number" class="form-control" id="exampleInputUsername2" placeholder="precio">
+                            <input type="number" class="form-control" formControlName="precio" [class.is-invalid]="precioNovalido"  placeholder="precio">
+                            <small *ngIf="precioNovalido" class="text-danger">
+                                precio no valido
+                           </small>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="exampleFormControlSelect1" class="col-sm-3 col-form-label">Categoria</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option selected disabled>Selecciona una categoria</option>
-                                <option *ngFor="let category of categories">{{category.name}}</option>
+                            <select class="form-control" formControlName="categoria" [class.is-invalid]="categoriaNovalida">
+                                <option [ngValue]="null" selected disabled>Selecciona una categoria</option>
+                                <option *ngFor="let category of categories" [ngValue]="category.id">{{category.name}}</option>
                             </select>
+                            <small *ngIf="categoriaNovalida" class="text-danger">
+                                seleccionar una categoria
+                           </small>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="exampleFormControlSelect1" class="col-sm-3 col-form-label">Lista de precio</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option selected disabled>Selecciona una lista</option>
-                                <option *ngFor="let userType of userTypes">{{userType.name}}</option>
+                            <select class="form-control"  formControlName="listaPrecio" [class.is-invalid]="listaPrecioNovalida">
+                                <option selected disabled [ngValue]="null">Selecciona una lista</option>
+                                <option *ngFor="let userType of userTypes" [ngValue]="userType.id">{{userType.name}}</option>
                             </select>
+                            <small *ngIf="listaPrecioNovalida" class="text-danger">
+                                seleccionar una lista
+                           </small>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Costo</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Costo de servicio">
+                            <input type="text" class="form-control"  placeholder="Costo de servicio">
                         </div>
                     </div>
 
@@ -53,5 +65,5 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="activeModal.close('by: close button')">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="activeModal.close('by: save button')">Agregar</button>
+            <button type="button" class="btn btn-primary" (click)="agregarPrenda()">Agregar</button>
         </div>

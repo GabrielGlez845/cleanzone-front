@@ -22,11 +22,18 @@ export class VentasPAGService {
    //   console.log(resp)
       this.ventasService.getLastDate().subscribe((resp:any) =>{
         console.log(resp);
-        let date = resp.data[0].createdAt
-        this.ventasService.getLastService(date).subscribe((resp:any) =>{
+        console.log(resp.data[0])
+        if (resp.data[0]){
+          let date = resp.data[0].createdAt
+          this.ventasService.getLastService(date).subscribe((resp:any) =>{
             console.log(resp);
             this.lastVentaId = resp.id            
         })
+        }else{
+          console.log('No existen servicios anteriores');
+          //this.lastVentaId = 1;
+        }
+        
       })
    // })   
    }

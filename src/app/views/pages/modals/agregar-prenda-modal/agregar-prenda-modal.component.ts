@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 import { FuncionesService } from '../../../../services/funciones.service';
 import { Usertype, Category, Product, Pricing } from '../../../models/products.model';
 
@@ -19,8 +20,8 @@ export class AgregarPrendaModalComponent implements OnInit {
                 this.PrendaFormGroup = this._formBuilder.group({
                   nombre: ['', [Validators.required]],
                   precio: ['', [Validators.required,Validators.pattern('^\\d+$') ]],
-                  categoria: ['', [Validators.required]],
-                  listaPrecio: ['', [Validators.required]],                 
+                  categoria: [null, [Validators.required]],
+                  listaPrecio: [null, [Validators.required]],                 
                 });
                }
 
@@ -64,8 +65,6 @@ export class AgregarPrendaModalComponent implements OnInit {
     product = {
       id:1,
       name:`${this.PrendaFormGroup.value.nombre}`,
-      createdAt: date,
-      updatedAt: date,
       categoryId: this.PrendaFormGroup.value.categoria
     }
 
@@ -75,17 +74,28 @@ export class AgregarPrendaModalComponent implements OnInit {
           pricing = {
           id:1,
           price: this.PrendaFormGroup.value.precio,
-          createdAt:date,
-          updatedAt:date,
           usertypeId: this.PrendaFormGroup.value.listaPrecio,
           productId:resp.data.id
         }
-        this.funcionesService.postPricings(pricing).subscribe(resp =>{
+        this.funcionesService.postPricings(pricing).subscribe((resp:any) =>{
           console.log(resp);
+          if(resp.ok){
+            Swal.fire(
+              { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'creado con exito', icon: 'success'}
+             );
+             this.activeModal.close('modal cerrado');
+          }
+        },err =>{
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'error precio', icon: 'error'}
+           );
         })
 
-    })
-    this.activeModal.close();
+    },err =>{
+      Swal.fire(
+        { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'error producto', icon: 'error'}
+       )
+      })
   }
 
   borraPrenda(id: number){

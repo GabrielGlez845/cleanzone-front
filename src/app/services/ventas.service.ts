@@ -45,6 +45,10 @@ export class VentasService {
     }))
   }
 
+  postSell(service:Service,detail:Detail[],row:Row[],payment:Payment){
+    return this.http.post(`${this.api}/payments/sell`,{service:service,detail:detail,row:row,payment:payment})
+  }
+
   postService(service: Service){
      return this.http.post(`${this.api}/services`,service)
   }

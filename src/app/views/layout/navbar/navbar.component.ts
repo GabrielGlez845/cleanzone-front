@@ -40,13 +40,6 @@ export class NavbarComponent implements OnInit {
     /**
     * closing the header menu after route change in tablet/mobile devices
     */
-    if (window.matchMedia('(max-width: 991px)').matches) {
-      this.router.events.forEach((event) => {
-        if (event instanceof NavigationEnd) {
-          document.querySelector('.horizontal-menu .bottom-navbar').classList.remove('header-toggled');
-        }
-      });
-    }
   }
 
   /**

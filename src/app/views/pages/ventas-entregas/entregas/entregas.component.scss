@@ -1,15 +1,38 @@
+//Menu deslizante
+.menuResp {
+    //  display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling:touch
+  
+  }
+  
+  .menuResp::-webkit-scrollbar {
+      display: none; 
+  }
+  
+  .productsMenu{
+    // display: flex;
+     flex-wrap: wrap;
+     flex-direction: column;
+     max-height: 12vh;   
+     width: auto;
+     white-space: nowrap;
+     
+ }  
+
 .b{
     margin-right: 2%;
 }
 
 .si{
-    background-color:green;
-    color: white;
+    color: #005D9B;
+    background-color: #dbdbdb;
 }
 
+
 .no{
-    background-color: #7987A1;
-    color: white;
+    background-color: #FFFFFF;
+    color: black;
 }
 
 .perfect-scrollbar-example {

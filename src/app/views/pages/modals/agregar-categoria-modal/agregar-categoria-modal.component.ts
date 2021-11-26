@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 import { FuncionesService } from '../../../../services/funciones.service';
 import { Category } from '../../../models/products.model';
 
@@ -42,14 +43,21 @@ export class AgregarCategoriaModalComponent implements OnInit {
       const date = new Date();
       categoria = {
         id:1,
-        name:`${this.CategoriaFormGroup.value.nombre}`,
-        createdAt: date,
-        updatedAt: date,
+        name:`${this.CategoriaFormGroup.value.nombre}`
       }
       this.funcionesService.postCategory(categoria).subscribe((resp:any)=>{
         console.log(resp);
+        if(resp.ok){
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'creado con exito', icon: 'success'}
+           );
+           this.activeModal.close('modal cerrado');
+        }
+      },err =>{
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: err.error.err, icon: 'error'}
+         );
       })
-      this.activeModal.close();
     }
   
     

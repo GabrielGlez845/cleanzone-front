@@ -9,8 +9,6 @@ import { Product } from './products.model';
 export interface Service {
     id:        number;
     state:     number;
-    createdAt: Date;
-    updatedAt: Date;
     userId: number;
     employeeId? :number;
     user?:      User;
@@ -23,8 +21,6 @@ export interface Detail {
     identifier: number;
     ticket:     string;
     status:     number;
-    createdAt:  Date;
-    updatedAt:  Date;
     serviceId:  number;
     observation?: string;
     rows?:       Row[];
@@ -36,8 +32,6 @@ export interface Row {
     observations: string;
     colors:       string;
     status:       number;
-    createdAt:    Date;
-    updatedAt:    Date;
     detailId:     number;
     productId:    number;
     product:    Product;
@@ -64,7 +58,5 @@ export interface Role {
 export interface Payment {
     id:        number;
     amount:    number;
-    createdAt: Date;
-    updatedAt: Date;
     serviceId: number;
 }

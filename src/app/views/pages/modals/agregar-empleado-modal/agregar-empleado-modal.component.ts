@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Role, Employee } from '../../../models/sells.model';
 import { FuncionesService } from '../../../../services/funciones.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar-empleado-modal',
@@ -18,7 +19,7 @@ export class AgregarEmpleadoModalComponent implements OnInit {
               private funcionesService: FuncionesService) {
                 this.EmpleadoFormGroup = this._formBuilder.group({
                   nombre: ['', [Validators.required]],
-                  email: ['', [Validators.required,Validators.pattern('^\\d+$')]],
+                  email: ['', [Validators.required]],
                   contraseña: ['', [Validators.required]],
                   rol: [null, [Validators.required]]             
                 });
@@ -61,15 +62,25 @@ export class AgregarEmpleadoModalComponent implements OnInit {
       id:1,
       name:`${this.EmpleadoFormGroup.value.nombre}`,
       email:`${this.EmpleadoFormGroup.value.email}`,
-      password:`${this.EmpleadoFormGroup.value.contraseña}`,
+      password:this.EmpleadoFormGroup.value.contraseña,
       createdAt: date,
       updatedAt: date,
       roleId: this.EmpleadoFormGroup.value.rol
     }
     this.funcionesService.postEmployee(empleado).subscribe((resp:any)=>{
       console.log(resp);
+      if(resp.ok){
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'creado con exito', icon: 'success'}
+         );
+         this.activeModal.close('modal cerrado');
+      }
+    },err =>{
+      Swal.fire(
+        { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Error', icon: 'error'}
+       );
     })
-    this.activeModal.close();
+    
   }
 
   borraEmpleado(id: number){

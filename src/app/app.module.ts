@@ -8,7 +8,8 @@ import { LayoutModule } from './views/layout/layout.module';
 import { AuthGuard } from './core/guard/auth.guard';
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
-
+//chips
+import { NgSelectModule } from '@ng-select/ng-select';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 //components
@@ -42,7 +43,8 @@ import { AgregarEmpleadoModalComponent } from './views/pages/modals/agregar-empl
     NgbModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ],
   providers: [
     AuthGuard,

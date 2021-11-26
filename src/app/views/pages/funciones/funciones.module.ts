@@ -30,53 +30,61 @@ import { GraficasComponent } from './graficas/graficas.component';
 import { FinanzasComponent } from './finanzas/finanzas.component';
 import { CorteComponent } from './corte/corte.component';
 
-
 const routes: Routes = [
   {
     path: '',
-    component: FuncionesComponent
-  },
-  {
-    path: 'status',
-    component: StatusComponent
-  },
-  {
-    path: 'status-detail/:id',
-    component: StatusDetailsComponent
-  },  
-  {
-    path: 'notas',
-    component: NotasComponent
-  },  
-  {
-    path: 'notas-detail/:id',
-    component: NotasDetailsComponent
-  },  
-  {
-    path: 'clientes',
-    component: ClientesComponent
-  },    
-  {
-    path: 'configuraciones',
-    component: ConfiguracionComponent
-  },    
-  {
-    path: 'gastos',
-    component: GastosComponent
-  },    
-  {
-    path: 'graficas',
-    component: GraficasComponent
-  },    
-  {
-    path: 'finanzas',
-    component: FinanzasComponent
-  },    
-  {
-    path: 'corte',
-    component: CorteComponent
+    component: FuncionesComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: '',
+        pathMatch: 'full',
+      },
+      {
+        path: 'status',
+        component: StatusComponent
+      },
+      {
+        path: 'status-detail/:id',
+        component: StatusDetailsComponent
+      },  
+      {
+        path: 'notas',
+        component: NotasComponent
+      },  
+      {
+        path: 'notas-detail/:id',
+        component: NotasDetailsComponent
+      },  
+      {
+        path: 'clientes',
+        component: ClientesComponent
+      },    
+      {
+        path: 'configuraciones',
+        component: ConfiguracionComponent
+      },    
+      {
+        path: 'gastos',
+        component: GastosComponent
+      },    
+      {
+        path: 'graficas',
+        component: GraficasComponent
+      },    
+      {
+        path: 'finanzas',
+        component: FinanzasComponent
+      },    
+      {
+        path: 'corte',
+        component: CorteComponent
+      }    
+  
+    ]
   }
 ]
+
 
 @NgModule({
   declarations: [FuncionesComponent, StatusComponent, StatusDetailsComponent, NotasComponent, NotasDetailsComponent, ClientesComponent, ConfiguracionComponent, GastosComponent, GraficasComponent, FinanzasComponent],

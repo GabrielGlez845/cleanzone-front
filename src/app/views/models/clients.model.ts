@@ -7,10 +7,8 @@ export interface User {
     street:    string;
     suburb:    string;
     zip:       number;
-    userTypeId:number;
+    usertypeId:number;
     usertype?: Usertype;
-    createdAt: Date;
-    updatedAt: Date;
 }
 
 

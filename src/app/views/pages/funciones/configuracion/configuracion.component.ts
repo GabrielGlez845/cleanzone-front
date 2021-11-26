@@ -8,6 +8,7 @@ import { AgregarPrendaModalComponent } from '../../modals/agregar-prenda-modal/a
 import { AgregarCategoriaModalComponent } from '../../modals/agregar-categoria-modal/agregar-categoria-modal.component';
 import { Employee } from '../../../models/sells.model';
 import { AgregarEmpleadoModalComponent } from '../../modals/agregar-empleado-modal/agregar-empleado-modal.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-configuracion',
@@ -24,8 +25,7 @@ export class ConfiguracionComponent implements OnInit {
   menu:string;
   constructor(private funcionesService:FuncionesService, private modalService: NgbModal, ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 /*
   menuF(opcion: string){
     if (this.menu === opcion){
@@ -66,48 +66,94 @@ export class ConfiguracionComponent implements OnInit {
   openModalClienteAgregar() {
     this.modalService.open(AgregarClienteModalComponent, { size: 'lg' }).result.then((result) => {
       console.log('Modal closed' + result);
+      this.buscarCliente()
     }).catch((res) => { });
+    
   }
 
   openModalPrendaAgregar() {
     this.modalService.open(AgregarPrendaModalComponent, { size: 'lg' }).result.then((result) => {
       console.log('Modal closed' + result);
+      this.buscarPrenda();
     }).catch((res) => { });
   }
 
   openModalEmpleadoAgregar() {
     this.modalService.open(AgregarEmpleadoModalComponent, { size: 'lg' }).result.then((result) => {
       console.log('Modal closed' + result);
+      this.buscarEmpleado();
     }).catch((res) => { });
   }
 
   openModalCategoriaAgregar() {
     this.modalService.open(AgregarCategoriaModalComponent, { size: 'lg' }).result.then((result) => {
       console.log('Modal closed' + result);
+      this.buscarCategoria();
     }).catch((res) => { });
   }
 
   borraCategoria(id: number){
     this.funcionesService.deleteCategory(id).subscribe((resp:any)=>{
       console.log(resp)
+      if(resp.ok){
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'eliminado con exito', icon: 'info'}
+         );
+      }
+      this.buscarCategoria();
+    },err =>{
+      Swal.fire(
+        { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: err.error.err, icon: 'error'}
+       );
+      
     })
   }
 
   borraEmpleado(id: number){
     this.funcionesService.deleteEmployee(id).subscribe((resp:any)=>{
       console.log(resp)
+      if(resp.ok){
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'eliminado con exito', icon: 'info'}
+         );
+      }
+      this.buscarEmpleado();
+    },err =>{
+      Swal.fire(
+        { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: err.error.err, icon: 'error'}
+       );
     })
   }
 
   borraPrenda(id: number){
     this.funcionesService.deleteProduct(id).subscribe((resp:any)=>{
       console.log(resp)
+      if(resp.ok){
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'eliminado con exito', icon: 'info'}
+         );
+      }
+      this.buscarPrenda();
+    },err =>{
+      Swal.fire(
+        { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: err.error.err, icon: 'error'}
+       );
     })
   }
 
   borraCliente(id: number){
     this.funcionesService.deleteClient(id).subscribe((resp:any)=>{
       console.log(resp)
+      if(resp.ok){
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'eliminado con exito', icon: 'info'}
+         );
+      }
+      this.buscarCliente();
+    },err =>{
+      Swal.fire(
+        { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: err.error.err, icon: 'error'}
+       );
     })
   }
 }

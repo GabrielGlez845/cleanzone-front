@@ -4,6 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../../../models/clients.model';
 import { Usertype } from '../../../models/products.model';
 import { FuncionesService } from '../../../../services/funciones.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar-cliente-modal',
@@ -71,21 +72,38 @@ export class AgregarClienteModalComponent implements OnInit {
       phone:`${this.ClienteFormGroup.value.telefono}`,
       street:`${this.ClienteFormGroup.value.calle}`,
       suburb:`${this.ClienteFormGroup.value.colonia}`,
-      zip: this.ClienteFormGroup.value.calle,
-      createdAt: date,
-      updatedAt: date,
-      userTypeId: this.ClienteFormGroup.value.listaPrecio
+      zip: this.ClienteFormGroup.value.codigoPostal,
+      usertypeId: this.ClienteFormGroup.value.listaPrecio
     }
     console.log(cliente);
     this.funcionesService.postClient(cliente).subscribe((resp:any)=>{
       console.log(resp);
+      if(resp.ok){
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'creado con exito', icon: 'success'}
+         );
+         this.activeModal.close('modal cerrado');
+       // this.router.navigate(['/ventas']);
+      }
+    },err =>{
+      Swal.fire(
+        { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: err.error.err, icon: 'error'}
+       );
     })
-    this.activeModal.close();
   }
 
   borraCliente(id: number){
     this.funcionesService.deleteClient(id).subscribe((resp:any)=>{
       console.log(resp)
+      if(resp.ok){
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'eliminado con exito', icon: 'info'}
+         );
+      }
+    },err =>{
+      Swal.fire(
+        { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: err.error.err, icon: 'error'}
+       );
     })
   }
 }

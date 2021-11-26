@@ -4,15 +4,15 @@
             <div class="card-body">
                 <div class=" mb-2 menuResp ">
                     <!--Categories-->
-                    <div class="cont">                        
+                    <div class="cont" *ngIf="!cargandoClientes && this.ventasServicePAG.ventaDetalle.length != 0">                        
                         <button type="button" *ngFor="let category of categories" (click)="[menuCambiar('prendas'),idCategoria=category.id]" style="margin-right: 2%; color:white" class="btn btn-info btn-sm">{{category.name}}</button>                        
                     </div>
                 
                 </div>
                 <div class="row justify-content-center align-items-center text-center mb-2">
                     <div class="col-md-12">
-                        <button type="button" (click)="menuCambiar('id')" style="margin-right: 2%; color:white" class="btn btn-primary btn-sm">ID</button>
-                        <button type="button" (click)="openModalPagar()" style="margin-right: 2%; color:white" class="btn btn-primary btn-sm">Pagar</button>
+                        <button type="button" (click)="menuCambiar('id')" *ngIf="!cargandoClientes" style="margin-right: 2%; color:white" class="btn btn-primary btn-sm">ID</button>
+                        <button type="button" (click)="openModalPagar()" *ngIf="this.ventasServicePAG.Fila.length != 0 && this.ventasServicePAG.ventaDetalle.length != 0 && !cargandoClientes " style="margin-right: 2%; color:white" class="btn btn-primary btn-sm">Pagar</button>
                         <button type="button" (click)="menuCambiar('cliente')" class="btn btn-primary btn-sm">Cliente</button>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-6">
-                            <div class="row">                          
+                            <div class="row" *ngIf="this.ventasServicePAG.ventaDetalle.length != 0">                          
                                 
                                     <div class="input-group">
                                         <div class="input-group-append">
