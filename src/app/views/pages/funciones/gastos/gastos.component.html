@@ -1,4 +1,4 @@
-<div class="row justify-content-center align-items-center">
+<div class="row justify-content-center align-items-center mb-2">
     <div class="col-md-6 grid-margin stretch-card">
         <div class="card container">
             <div class="card-body">
@@ -22,3 +22,38 @@
         </div>
     </div>
 </div>
+
+<div class="row" *ngIf="!cargando">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body"> 
+          <div class="table-responsive pt-3">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th colspan="8">
+                      <p class="text-center">Reporte gastos</p>
+                  </th>
+               </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Cantidad</th>
+                    <th>Concepto</th>
+                    <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let i of expenses">
+                    <td>{{ i.id }}</td>
+                    <td>{{ i.amount | currency: 'MX'}}</td>
+                    <td>{{ i.concept }}</td>
+                    <td>{{ i.createdAt | date: 'dd/MM/yyyy'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>

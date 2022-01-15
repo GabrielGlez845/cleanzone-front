@@ -12,6 +12,8 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//barras
+import { NgxBarcodeModule } from 'ngx-barcode';
 //components
 import { PagarModalComponent } from './views/pages/modals/pagar-modal/pagar-modal.component';
 import { AgregarPrendaModalComponent } from './views/pages/modals/agregar-prenda-modal/agregar-prenda-modal.component';
@@ -21,6 +23,7 @@ import { AgregarColorModalComponent } from './views/pages/modals/agregar-color-m
 import { PendienteModalComponent } from './views/pages/modals/pendiente-modal/pendiente-modal.component';
 import { AgregarCategoriaModalComponent } from './views/pages/modals/agregar-categoria-modal/agregar-categoria-modal.component';
 import { AgregarEmpleadoModalComponent } from './views/pages/modals/agregar-empleado-modal/agregar-empleado-modal.component';
+import { GenerarPdfComponent } from './views/pages/generar-pdf/generar-pdf.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { AgregarEmpleadoModalComponent } from './views/pages/modals/agregar-empl
     AgregarColorModalComponent,
     PendienteModalComponent,
     AgregarCategoriaModalComponent,
-    AgregarEmpleadoModalComponent
+    AgregarEmpleadoModalComponent,
+    GenerarPdfComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,8 @@ import { AgregarEmpleadoModalComponent } from './views/pages/modals/agregar-empl
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    NgxBarcodeModule
   ],
   providers: [
     AuthGuard,

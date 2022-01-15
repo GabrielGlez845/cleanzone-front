@@ -62,6 +62,9 @@ export class VentasPAGService {
   agregarTicket(ticket:string,ide:number){
     console.log('ticket',ticket)
     console.log('ide', ide)
+    if (ticket === ''){
+      return;
+    }
     let i = 0;
     this.ventaDetalle.find(venta =>{
       if(venta.identifier === ide){

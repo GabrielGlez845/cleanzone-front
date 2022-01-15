@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { parseISO } from 'date-fns';
 import { FuncionesService } from '../../../../services/funciones.service';
-import { Service } from '../../../models/sells.model';
+import { Service, Payment } from '../../../models/sells.model';
 import { StatusPagService } from './status-pag.service';
 
 @Component({
@@ -25,7 +26,7 @@ export class StatusComponent implements OnInit {
   }
 
   estatusDia(){
-    let date = new Date();    
+    let date = new Date().toJSON(); 
     this.funcionesService.statusAtTime(date).subscribe((resp:Service[])=>{
       console.log('dia',resp)
       this.statusPagService.services = resp
@@ -33,7 +34,7 @@ export class StatusComponent implements OnInit {
   }
 
   estatusPendientesTerminados(){
-    let date = new Date();
+    let date = new Date().toJSON(); 
     this.funcionesService.StatusfinishedEarrings(date).subscribe((resp:Service[])=>{
       console.log('penTerminados', resp)
       this.statusPagService.services = resp
@@ -41,12 +42,23 @@ export class StatusComponent implements OnInit {
   }
 
   estatusPendientes(){
-    let date = new Date();
+    let date = new Date().toJSON(); 
     this.funcionesService.StatusEarrings(date).subscribe((resp:Service[])=>{
       console.log('Pendientes', resp)
       this.statusPagService.services = resp
     })
   }
 
+  tipoPago(payment:Payment[]):string{
+      if (payment.length >= 2 ){
+          return 'ABONO'
+      }
+      const cliente = payment.find(p=> p.transaction.accountId == 1);
+      if (cliente){
+        return 'CREDITO'
+      }else{
+        return 'PAGADO'
+      }
+  }
  
 }

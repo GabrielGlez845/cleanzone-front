@@ -13,8 +13,9 @@ export interface Service {
     employeeId? :number;
     user?:      User;
     employee?:  Employee; 
+    createdAt?: Date;
     details?:   Detail[]; 
-    payments?: Payment;
+    payments?: Payment[];
 }
 export interface Detail {
     id:         number;
@@ -22,6 +23,7 @@ export interface Detail {
     ticket:     string;
     status:     number;
     serviceId:  number;
+    createdAt?: Date;
     observation?: string;
     rows?:       Row[];
 }
@@ -55,8 +57,22 @@ export interface Role {
     updatedAt: Date;
 }
 
+
 export interface Payment {
+    id:            number;
+    amount:        number;
+    createdAt?:     Date;
+    updatedAt?:     Date;
+    serviceId:     number;
+    transactionId?: number;
+    transaction?:   Transaction;
+}
+
+export interface Transaction {
     id:        number;
+    concept:   string;
     amount:    number;
-    serviceId: number;
+    createdAt?: Date;
+    updatedAt?: Date;
+    accountId: number;
 }

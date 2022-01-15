@@ -29,6 +29,7 @@ import { GastosComponent } from './gastos/gastos.component';
 import { GraficasComponent } from './graficas/graficas.component';
 import { FinanzasComponent } from './finanzas/finanzas.component';
 import { CorteComponent } from './corte/corte.component';
+import { GraphsModule } from '../graphs/graphs.module';
 
 const routes: Routes = [
   {
@@ -99,7 +100,8 @@ const routes: Routes = [
     NgbModule,
     NgApexchartsModule,
     ChartsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    GraphsModule
   ]
 })
 export class FuncionesModule { }

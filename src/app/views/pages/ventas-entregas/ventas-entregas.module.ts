@@ -14,6 +14,8 @@ import { ArchwizardModule } from 'angular-archwizard';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 //Icons
 import { FeahterIconModule } from 'src/app/core/feather-icon/feather-icon.module';
+//barras
+import { NgxBarcodeModule } from 'ngx-barcode';
 import { VentasEntregasComponent } from './ventas-entregas.component';
 import { VentasComponent } from './ventas/ventas.component';
 import { EntregasComponent } from './entregas/entregas.component';
@@ -50,7 +52,8 @@ const routes: Routes = [
     ArchwizardModule,
     PerfectScrollbarModule,
     HttpClientModule,
-    FeahterIconModule
+    FeahterIconModule,
+    NgxBarcodeModule
    
   ]
 })

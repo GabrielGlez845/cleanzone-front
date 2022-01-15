@@ -13,6 +13,10 @@ import { Color } from 'src/app/views/models/color.model';
 import { Category, Product } from '../../../models/products.model';
 import { Detail, Employee, Row, Service } from '../../../models/sells.model';
 
+import { Canvas, Img, Line, PdfMakeWrapper,QR,Rect,Table,Txt } from 'pdfmake-wrapper';
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-ventas',
   templateUrl: './ventas.component.html',
@@ -62,10 +66,12 @@ export class VentasComponent implements OnInit {
                          
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
    this.getClients();
    this.obtenerCategorias();
   // this.obtenerEmpleado();
+  
+
   }
 
   regresar() {

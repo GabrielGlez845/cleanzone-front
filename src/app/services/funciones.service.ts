@@ -15,19 +15,19 @@ export class FuncionesService {
   constructor(private http:HttpClient) { }
 
   //status 
-  statusAtTime(date:Date){
+  statusAtTime(date:string){
     return this.http.get(`${this.api}/status/attime/${date}`).pipe(map(data=>{
       return data['data']
   }));
   }
 
-  StatusfinishedEarrings(date:Date){
+  StatusfinishedEarrings(date:string){
     return this.http.get(`${this.api}/status/finishedEarrings/${date}`).pipe(map(data=>{
       return data['data']
   }))
   }
 
-  StatusEarrings(date:Date){
+  StatusEarrings(date:string){
     return this.http.get(`${this.api}/status/earrings/${date}`).pipe(map(data=>{
       return data['data']
   }));
@@ -163,5 +163,26 @@ export class FuncionesService {
   //transactions
   postTransaction(transaction:Transactions){
     return this.http.post(`${this.api}/transactions`,transaction);
+  }
+
+  getTransactionByType(type:number){
+    return this.http.get(`${this.api}/transactions/account/${type}`);
+  }
+
+  getTransactionBalance(){
+    return this.http.get(`${this.api}/transactions/balance`);
+  }
+
+  //graficas
+  getSellsGraph(){
+    return this.http.get(`${this.api}/transactions/sells/graphs`).toPromise<any>();
+  }
+
+  getClientsGraph(){
+    return this.http.get(`${this.api}/transactions/users/graphs`).toPromise<any>();
+  }
+
+  getProductsGraph(){
+    return this.http.get(`${this.api}/transactions/products/graphs`).toPromise<any>();
   }
 }
