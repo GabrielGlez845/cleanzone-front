@@ -12,7 +12,13 @@ export class FinanzasComponent implements OnInit {
   expenses = 0;
   availableMoney = 0;
   noAvailableMoney = 0;
-  cargando = true;
+  expensiveGraph: any[] = [];
+  expensiveGrowthRate: number = 0;
+  AVCashGraph: any[] = [];
+  AVCashGrowthRate: number = 0;
+  NoAVCashGraph: any[] = [];
+  NoAVCashGrowthRate: number = 0;
+   cargando = true;
   constructor(private funcionesService:FuncionesService) {
 
   }
@@ -22,7 +28,63 @@ export class FinanzasComponent implements OnInit {
       this.expenses = resp.data.gasto;
       this.availableMoney = resp.data.dineroDiponible;
       this.noAvailableMoney = resp.data.dineroNoDisponible;
-      this.cargando = false;
     })
+    this.getExpensiveGraph();
+    this.getAvailableCashGraph();
+    this.getnoAvalilableCashGraph();
   }
+
+  async getExpensiveGraph(){
+    let resp = await this.funcionesService.getExpensesGraph()
+    let fechas = resp.data.data;
+    if (resp.data.tasa){
+      this.expensiveGrowthRate = resp.data.tasa;
+    }else{      
+      this.expensiveGrowthRate = 0;
+    }
+    let dataM : {name:string,data:[]}[] = [];
+    dataM.push({name:fechas.name,data:[]})
+    const dataN = dataM.find(d => d.name == fechas.name) as any;
+      fechas.data.forEach((f:any) => {
+        dataN.data.push([f.date,f.value]);
+      });
+     this.expensiveGraph = dataM; 
+  }
+
+  async getAvailableCashGraph(){
+    let resp = await this.funcionesService.getAvailableCashGraph()
+    let fechas = resp.data.data;
+    if (resp.data.tasa){
+      this.AVCashGrowthRate = resp.data.tasa;
+    }else{      
+      this.AVCashGrowthRate = 0;
+    }
+    let dataM : {name:string,data:[]}[] = [];
+    dataM.push({name:fechas.name,data:[]})
+    const dataN = dataM.find(d => d.name == fechas.name) as any;
+      fechas.data.forEach((f:any) => {
+        dataN.data.push([f.date,f.value]);
+      });
+     this.AVCashGraph = dataM; 
+
+  }
+
+  async getnoAvalilableCashGraph(){
+    let resp = await this.funcionesService.getNoAvailableCashGraph()
+    let fechas = resp.data.data;
+    if (resp.data.tasa){
+      this.NoAVCashGrowthRate = resp.data.tasa;
+    }else{      
+      this.NoAVCashGrowthRate = 0;
+    }
+    let dataM : {name:string,data:[]}[] = [];
+    dataM.push({name:fechas.name,data:[]})
+    const dataN = dataM.find(d => d.name == fechas.name) as any;
+      fechas.data.forEach((f:any) => {
+        dataN.data.push([f.date,f.value]);
+      });
+     this.NoAVCashGraph = dataM; 
+    this.cargando = false;
+  }
+
 }

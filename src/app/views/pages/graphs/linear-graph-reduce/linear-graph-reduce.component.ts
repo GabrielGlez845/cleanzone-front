@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexMarkers, ApexTitleSubtitle, ApexFill, ApexYAxis, ApexXAxis, ApexTooltip, ApexStroke } from 'ng-apexcharts';
 
 @Component({
-  selector: 'app-linear-graph',
-  templateUrl: './linear-graph.component.html',
-  styleUrls: ['./linear-graph.component.scss']
+  selector: 'app-linear-graph-reduce',
+  templateUrl: './linear-graph-reduce.component.html',
+  styleUrls: ['./linear-graph-reduce.component.scss']
 })
-export class LinearGraphComponent implements OnInit {
+export class LinearGraphReduceComponent implements OnInit {
   @Input() data = [];
   @Input() titulo = "";
   @Input() titulo_y = "";
@@ -32,14 +32,14 @@ export class LinearGraphComponent implements OnInit {
     this.chart = {
       type: "area",
       stacked: false,
-      height: 350,
-      zoom: {
-        type: "x",
-        enabled: true,
-        autoScaleYaxis: true
+      height: 60,
+      sparkline: {
+        enabled: !0
       },
       toolbar: {
-        autoSelected: "zoom"
+        show: false,
+        offsetX: 0,
+        offsetY: 0
       }
     };
     this.series = this.data;
@@ -49,41 +49,17 @@ export class LinearGraphComponent implements OnInit {
     this.markers = {
       size: 0
     };
-    this.title = {
-      text: this.titulo,
-      align: "left"
-    };
     this.yaxis = {
+      show:false,
       labels: {
-        formatter: function(val) {
-          return val.toFixed(0);
-        }
-      },
-      title: {
-        text: this.titulo_y
-      },
-      min: 0,
-      max: this.max,
-    };
-    this.xaxis = {
-      type: "datetime"
-    };
-    this.tooltip = {
-      shared: false,
-      y: {
         formatter: function(val) {
           return val.toFixed(0);
         }
       }
     };
-    this.stroke = {
-      show: true,
-      curve: 'smooth',
-      lineCap: 'butt',
-      colors: undefined,
-      width: 2,
-      dashArray: 0,      
-   }
+    this.tooltip = {
+      shared: false,
+    };
   }
 
 }

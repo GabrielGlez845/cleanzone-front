@@ -185,4 +185,33 @@ export class FuncionesService {
   getProductsGraph(){
     return this.http.get(`${this.api}/transactions/products/graphs`).toPromise<any>();
   }
+
+  //grafica finanzas 
+  getExpensesGraph(){
+    return this.http.get(`${this.api}/transactions/finance/expensive/graphs`).toPromise<any>();
+  }
+  getAvailableCashGraph(){
+    return this.http.get(`${this.api}/transactions/finance/available/graphs`).toPromise<any>();
+  }
+  getNoAvailableCashGraph(){
+    return this.http.get(`${this.api}/transactions/finance/noAvailable/graphs`).toPromise<any>();
+  }
+
+  //cashcut
+  getcashCut(data:any){
+    let headers;
+    if (data.employeeId){
+      headers = {
+        employeeId:data.employeeId,
+        roleId: data.roleId
+      }
+    }else{
+      headers = {
+        roleId: data.roleId
+      }
+    }
+    return this.http.get(`${this.api}/payments/cashCut/employee/role`,{
+      headers
+    });
+  }
 }

@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http'
 //forms
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
+
 // scroll
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 //chips
@@ -88,7 +89,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [FuncionesComponent, StatusComponent, StatusDetailsComponent, NotasComponent, NotasDetailsComponent, ClientesComponent, ConfiguracionComponent, GastosComponent, GraficasComponent, FinanzasComponent],
+  declarations: [FuncionesComponent, StatusComponent, StatusDetailsComponent, NotasComponent, NotasDetailsComponent, ClientesComponent, ConfiguracionComponent, GastosComponent, GraficasComponent, FinanzasComponent,CorteComponent],
   imports: [
     CommonModule,
     PerfectScrollbarModule,

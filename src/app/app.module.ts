@@ -23,7 +23,6 @@ import { AgregarColorModalComponent } from './views/pages/modals/agregar-color-m
 import { PendienteModalComponent } from './views/pages/modals/pendiente-modal/pendiente-modal.component';
 import { AgregarCategoriaModalComponent } from './views/pages/modals/agregar-categoria-modal/agregar-categoria-modal.component';
 import { AgregarEmpleadoModalComponent } from './views/pages/modals/agregar-empleado-modal/agregar-empleado-modal.component';
-import { GenerarPdfComponent } from './views/pages/generar-pdf/generar-pdf.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +35,7 @@ import { GenerarPdfComponent } from './views/pages/generar-pdf/generar-pdf.compo
     AgregarColorModalComponent,
     PendienteModalComponent,
     AgregarCategoriaModalComponent,
-    AgregarEmpleadoModalComponent,
-    GenerarPdfComponent
+    AgregarEmpleadoModalComponent
   ],
   imports: [
     BrowserModule,

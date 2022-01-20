@@ -1,29 +1,33 @@
-<div class="row justify-content-center align-items-center">
+<div class="row justify-content-center align-items-center" *ngIf="!cargando">
     <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
             <div class="card-body m-3">
                 <h6 class="card-title">Corte de caja</h6>
-                <form class="forms-sample">
+                <form class="forms-sample" [formGroup]="cashCutFormGroup">
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Departamento</label>
                         <div class="col-sm-9">
-                            <select class="form-control">
-                                <option selected disabled>Selecciona una categoria</option>
-                                <option>Todas</option>
+                            <select class="form-control" formControlName="roleId" [class.is-invalid]="categoriaNovalida">
+                                <option [ngValue]="null" selected disabled>Roles</option>
+                                <option [ngValue]="0">Todas</option>
+                                <option *ngFor="let rol of this.rols" [ngValue]="rol.id">{{rol.name}}</option>
                             </select>
+                            <small *ngIf="categoriaNovalida" class="text-danger">
+                                Categoria no valida
+                            </small>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Recurso</label>
                         <div class="col-sm-9">
-                            <select class="form-control">
-                                <option selected disabled>Selecciona una categoria</option>
-                                <option>Todos</option>
+                            <select class="form-control" formControlName="employeeId">
+                                <option [ngValue]="null" selected disabled>Todos</option>
+                                <option *ngFor="let employee of this.employees" [ngValue]="employee.id">{{employee.name}}</option>
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mr-2">Aceptar</button>
                 </form>
+                <button type="submit" class="btn btn-primary mr-2" (click)="cashCut()" >Aceptar</button>
             </div>
         </div>
     </div>
@@ -38,17 +42,17 @@
                     <thead>
                         <tr>
                             <th>Fecha</th>
-                            <th>Hora</th>
                             <th class="text-right">Nota</th>
                             <th class="text-right">Cantidad</th>
+                            <th class="text-right">Tipo</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-right">
-                            <td class="text-left">12/12/2021</td>
-                            <td class="text-left">08:48:34 am</td>
-                            <td>8463</td>
-                            <td>$55</td>
+                        <tr class="text-right" *ngFor="let pay of payments">
+                            <td class="text-left">{{pay.createdAt | date:'short'}}</td>
+                            <td class="text-left">{{pay.service.id}}</td>
+                            <td>{{pay.amount}}</td>
+                            <td>{{pay.transaction.accountId == 2 ? 'Disponible' : 'No disponible' }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -57,8 +61,12 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td class="text-bold-800">Total</td>
-                                    <td class="text-bold-800 text-right"> $ 55</td>
+                                    <td class="text-bold-800">Total Disponoble</td>
+                                    <td class="text-bold-800 text-right"> {{this.totalCaja | currency:'MX'}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold-800">Total No Disponoble</td>
+                                    <td class="text-bold-800 text-right"> {{this.totalCliente | currency:'MX'}} </td>
                                 </tr>
                             </tbody>
                         </table>

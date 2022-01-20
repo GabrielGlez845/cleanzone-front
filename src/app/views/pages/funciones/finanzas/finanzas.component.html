@@ -19,22 +19,16 @@
                 <div class="col-6 col-md-12 col-xl-5">
                   <h3 class="mb-2">{{this.expenses | currency: 'MX'}}</h3>
                   <div class="d-flex align-items-baseline">
-                    <p class="text-success">
-                      <span>+3.3%</span>
-                      <i data-feather="arrow-up" appFeatherIcon class="icon-sm mb-1"></i>
+                    <p [ngClass]="{sube: this.expensiveGrowthRate > 0, baja: this.expensiveGrowthRate < 0, neutro: this.expensiveGrowthRate === 0 }">
+                      <span>{{this.expensiveGrowthRate}}%</span>
+                      <i *ngIf=" this.expensiveGrowthRate > 0" data-feather="arrow-up" appFeatherIcon class="icon-sm mb-1"></i>
+                      <i *ngIf=" this.expensiveGrowthRate < 0" data-feather="arrow-down" appFeatherIcon class="icon-sm mb-1"></i>
                     </p>
                   </div>
                 </div>
                 <div class="col-6 col-md-12 col-xl-7">
                   <div class="mt-md-3 mt-xl-0">
-                    <!-- <apx-chart
-                      [series]="apexChart1Options.series"
-                      [colors]="apexChart1Options.colors"
-                      [chart]="apexChart1Options.chart"
-                      [markers]="apexChart1Options.markers"
-                      [stroke]="apexChart1Options.stroke"
-                      [tooltip]="apexChart1Options.tooltip"
-                    ></apx-chart> -->
+                    <app-linear-graph-reduce [data]="this.expensiveGraph" [titulo]="'Disponible'" [titulo_y]="'Numero de ingresos'" [max]="10000"></app-linear-graph-reduce>
                   </div>
                 </div>
               </div>
@@ -59,23 +53,16 @@
                 <div class="col-6 col-md-12 col-xl-5">
                   <h3 class="mb-2">{{this.noAvailableMoney | currency: 'MX'}}</h3>
                   <div class="d-flex align-items-baseline">
-                    <p class="text-danger">
-                      <span>-2.8%</span>
-                      <i data-feather="arrow-down" appFeatherIcon class="icon-sm mb-1"></i>
+                    <p [ngClass]="{sube: this.NoAVCashGrowthRate > 0, baja: this.NoAVCashGrowthRate < 0, neutro: this.NoAVCashGrowthRate === 0 }">
+                      <span>{{this.NoAVCashGrowthRate}}%</span>
+                      <i *ngIf=" this.NoAVCashGrowthRate > 0" data-feather="arrow-up" appFeatherIcon class="icon-sm mb-1"></i>
+                      <i *ngIf=" this.NoAVCashGrowthRate < 0" data-feather="arrow-down" appFeatherIcon class="icon-sm mb-1"></i>
                     </p>
                   </div>
                 </div>
                 <div class="col-6 col-md-12 col-xl-7">
                   <div class="mt-md-3 mt-xl-0">
-                    <!-- <apx-chart
-                      [series]="apexChart2Options.series"
-                      [colors]="apexChart2Options.colors"
-                      [labels]="apexChart2Options.labels"
-                      [xaxis]="apexChart2Options.xaxis"
-                      [plotOptions]="apexChart2Options.plotOptions"
-                      [chart]="apexChart2Options.chart"
-                      [tooltip]="apexChart2Options.tooltip"
-                    ></apx-chart> -->
+                    <app-linear-graph-reduce [data]="this.NoAVCashGraph" [titulo]="'Disponible'" [titulo_y]="'Numero de ingresos'" [max]="10000"></app-linear-graph-reduce>
                   </div>
                 </div>
               </div>
@@ -100,22 +87,16 @@
                 <div class="col-6 col-md-12 col-xl-5">
                   <h3 class="mb-2">{{this.availableMoney | currency: 'MX'}}</h3>
                   <div class="d-flex align-items-baseline">
-                    <p class="text-success">
-                      <span>+2.8%</span>
-                      <i data-feather="arrow-up" appFeatherIcon class="icon-sm mb-1"></i>
+                    <p [ngClass]="{sube: this.AVCashGrowthRate > 0, baja: this.AVCashGrowthRate < 0, neutro: this.AVCashGrowthRate === 0 }">
+                      <span>{{this.AVCashGrowthRate}}%</span>
+                      <i *ngIf=" this.AVCashGrowthRate > 0" data-feather="arrow-up" appFeatherIcon class="icon-sm mb-1"></i>
+                      <i *ngIf=" this.AVCashGrowthRate < 0" data-feather="arrow-down" appFeatherIcon class="icon-sm mb-1"></i>
                     </p>
                   </div>
                 </div>
                 <div class="col-6 col-md-12 col-xl-7">
                   <div class="mt-md-3 mt-xl-0">
-                    <!-- <apx-chart
-                      [series]="apexChart3Options.series"
-                      [colors]="apexChart3Options.colors"
-                      [chart]="apexChart3Options.chart"
-                      [markers]="apexChart3Options.markers"
-                      [stroke]="apexChart3Options.stroke"
-                      [tooltip]="apexChart3Options.tooltip"
-                    ></apx-chart> -->
+                    <app-linear-graph-reduce [data]="this.AVCashGraph" [titulo]="'Disponible'" [titulo_y]="'Numero de ingresos'" [max]="10000"></app-linear-graph-reduce>
                   </div>
                 </div>
               </div>
