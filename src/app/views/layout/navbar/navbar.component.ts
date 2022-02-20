@@ -11,9 +11,9 @@ import { MenuItem } from './menu.model';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
-  menuItems = [];
-
+  cargando = true;
+  bFunciones = false;
+  rolId = localStorage.getItem('rolId');
   /**
   * Fixed header menu on scroll
   */
@@ -35,8 +35,8 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.menuItems = MENU;
-
+    if (/((\/funciones)(\/.*)*)$/i.test(this.router.url ) ) { this.bFunciones = true }
+    this.cargando = false
     /**
     * closing the header menu after route change in tablet/mobile devices
     */
@@ -67,6 +67,22 @@ export class NavbarComponent implements OnInit {
    */
   toggleHeaderMenu() {
     document.querySelector('.horizontal-menu .bottom-navbar').classList.toggle('header-toggled');
+  }
+
+  getEmployeeRol(id:string):boolean{
+    if (this.rolId === '1'){
+      return true;
+    }
+    if (this.rolId === id){
+      return true
+    }
+    if (this.rolId === id){
+      return true;
+    }
+    if (this.rolId === id){
+      return true;
+    }
+    return false;
   }
 
 }

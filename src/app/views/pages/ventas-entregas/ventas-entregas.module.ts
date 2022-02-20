@@ -20,24 +20,28 @@ import { VentasEntregasComponent } from './ventas-entregas.component';
 import { VentasComponent } from './ventas/ventas.component';
 import { EntregasComponent } from './entregas/entregas.component';
 import { EntregasDetailsComponent } from './entregas/entregas-details/entregas-details.component';
+import { RoutesGuard } from '../../../core/guard/routes.guard';
 
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'inicio',
     component: VentasEntregasComponent
   },
   {
     path: 'ventas',
-    component: VentasComponent
+    component: VentasComponent,
+    canActivate: [RoutesGuard],data: {id: 3}
   },
   {
     path: 'entregas',
-    component: EntregasComponent
+    component: EntregasComponent,
+    canActivate: [RoutesGuard],data: {id: 4}
   },
   {
     path: 'entregas-detail/:id',
-    component: EntregasDetailsComponent
+    component: EntregasDetailsComponent,
+    canActivate: [RoutesGuard],data: {id: 4}
   },
 ]
 

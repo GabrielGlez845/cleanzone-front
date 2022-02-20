@@ -1,4 +1,29 @@
+<div class="card">
+     <div class="card-body">
+          <div class="text-center">
+               <div class="row">
+                    <div class="col-6">
+                         <p style="font-weight: bold;">Nombre:</p>
+                    </div>
+                    <div class="col-6">
+                         <p> {{this.name}}</p>                       
+                    </div>
+               </div>        
+               <div class="row">
+                    <div class="col-6">
+                         <p style="font-weight: bold;">Rol:</p>
+                    </div>
+                    <div class="col-6">
+                         <p> {{this.rol}}</p>                       
+                    </div>
+               </div>          
+          </div>
+     </div>
+</div>
+
 <div class="container text-center">
      <img src="../../../../assets/images/logo.png"  alt="">
+     <button class="btn btn-danger btn-block mt-3" (click)="logout()" >Salir</button>
 </div>
+
 <router-outlet></router-outlet>

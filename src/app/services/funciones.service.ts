@@ -12,6 +12,7 @@ import { Transactions } from '../views/models/transactions.model';
 export class FuncionesService {
 
   private api = 'http://localhost:7000/api';
+//private api = 'http://31.220.55.110:7000/api';
   constructor(private http:HttpClient) { }
 
   //status 
@@ -127,6 +128,11 @@ export class FuncionesService {
     return this.http.delete(`${this.api}/categories/${categoryId}`);
   }
 //employ
+
+  getEmployee(ide:number){
+    return this.http.get(`${this.api}/employees/id/${ide}`);
+  }
+
   getEmployees(){
     return this.http.get(`${this.api}/employees`);
   }

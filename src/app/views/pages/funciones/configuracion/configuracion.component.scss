@@ -3,18 +3,18 @@
 }
 
 .si{
-    background-color:green;
+    background-color:#EDBF2F;
     color: white;
 }
 
 .no{
-    background-color: #7987A1;
-    color: white;
+    background-color: #EDF5FD;
+    color: black;
 }
 
 //Menu deslizante
 .menuResp {
-    display: flex;
+    // display: flex;
     overflow-x: auto;
     -webkit-overflow-scrolling:touch
 

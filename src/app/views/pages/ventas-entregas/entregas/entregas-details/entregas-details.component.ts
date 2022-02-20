@@ -15,7 +15,7 @@ export class EntregasDetailsComponent implements OnInit {
   service_id:number;
   service:Service;
   cargando=false;
-  observaciones:string = null;
+  observaciones:string = '';
   constructor(private route:ActivatedRoute, private entregasPagService:EntregasPagService, private modalService: NgbModal) {
     this.route.params.subscribe(data => {
       this.service_id = Number(data['id']);
@@ -42,6 +42,7 @@ export class EntregasDetailsComponent implements OnInit {
         title: 'Observaciones',
         text:  `${this.observaciones}`
       });
+      console.log(this.observaciones)
     }
     
   }

@@ -25,17 +25,20 @@
 }
 
 .si{
-    color: #005D9B;
-    background-color: #dbdbdb;
+    background-color:#EDBF2F;
+    color: white;
 }
 
-
 .no{
-    background-color: #FFFFFF;
+    background-color: #EDF5FD;
     color: black;
 }
 
 .perfect-scrollbar-example {
     position: relative;
     max-height: 50vh;
+}
+
+.seleccionable{
+    cursor: pointer;
 }

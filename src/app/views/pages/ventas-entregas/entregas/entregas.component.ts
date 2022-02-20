@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import { VentasService } from '../../../../services/ventas.service';
 import { User } from 'src/app/views/models/clients.model';
 import { EntregasService } from 'src/app/services/entregas.service';
-import { Service, Detail } from '../../../models/sells.model';
+import { Service, Detail, Payment } from '../../../models/sells.model';
 import { EntregasPagService } from './entregas-pag.service';
 
 @Component({
@@ -135,5 +135,16 @@ ngOnInit(): void {
       })
     }
 
+    tipoPago(payment:Payment[]):string{
+      if (payment.length >= 2 ){
+          return 'ABONO'
+      }
+      const cliente = payment.find(p=> p.transaction.accountId == 1);
+      if (cliente){
+        return 'CREDITO'
+      }else{
+        return 'PAGADO'
+      }
+  }
    
 }

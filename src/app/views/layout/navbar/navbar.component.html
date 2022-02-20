@@ -1,45 +1,70 @@
-<div class="horizontal-menu">
-  <nav class="navbar top-navbar">
-   
-      <div class="navbar-content">
-        <!--- Logo -->
-        
-          
-          <div class="contenedor back">
-            <!--- Menu -->
-            <div class="head text-center">
-              <a routerLink="/" >CleanZone</a>
-            </div>      
-            <div class="text-center">    
-            <ul class="navMy page-navigation">
-                <li class="nav-item ml-4 mr-4 ">
-                    <div class="text-center cursor" [routerLink]="['/']">
-                        <i data-feather="home" class=" text-white" appFeatherIcon></i>
-                        <p class="title text-white">Inicio</p>
-                    </div>
-                </li>
-                <li class="nav-item mr-4 ">
-                    <div class="text-center cursor" [routerLink]="['/ventas']">
-                        <i data-feather="speaker" class=" text-white" appFeatherIcon></i>
-                        <p class="title text-white">Venta</p>
-                    </div>
-                </li>
-                <li class="nav-item mr-4 ">
-                    <div class="text-center cursor" [routerLink]="['/entregas']">
-                        <i data-feather="truck" class=" text-white" appFeatherIcon></i>
-                        <p class="title text-white">Entrega</p>
-                    </div>
-                </li>
-                <li class="nav-item mr-4 ">
-                    <div class="text-center cursor" [routerLink]="['/funciones']">
-                        <i data-feather="more-horizontal" class=" text-white" appFeatherIcon></i>
-                        <p class="title text-white">Funciones</p>
-                    </div>
-                </li>
-            </ul>
+<div *ngIf="!cargando">
+    <div class="horizontal-menu">
+    <nav class="navbar top-navbar">
+    
+        <div class="navbar-content">
+            <!--- Logo -->
+            
+            
+            <div class="contenedor back">
+                <!--- Menu -->
+                <div class="head text-center">
+                <a routerLink="/inicio" >CleanZone</a>
+                </div>      
+                <div class="text-center">    
+                <ul class="navMy page-navigation">
+                    <li class="nav-item ml-4 mr-4 ">
+                        <div class="text-center cursor no-active" (click)="bFunciones = false" [routerLink]="['/inicio']" routerLinkActive="active">
+                            <i data-feather="home" appFeatherIcon></i>
+                            <p class="title no-active" routerLinkActive="active">Inicio</p>
+                        </div>
+                    </li>
+                    <li class="nav-item mr-4 " *ngIf="getEmployeeRol('3')">
+                        <div class="text-center cursor no-active" (click)="bFunciones = false" [routerLink]="['/ventas']" routerLinkActive="active" >
+                            <i data-feather="speaker" appFeatherIcon></i>
+                            <p class="title no-active" routerLinkActive="active">Venta</p>
+                        </div>
+                    </li>
+                    <li class="nav-item mr-4 "  *ngIf="getEmployeeRol('4')">
+                        <div class="text-center cursor no-active" (click)="bFunciones = false" [routerLink]="['/entregas']" routerLinkActive="active">
+                            <i data-feather="truck" appFeatherIcon></i>
+                            <p class="title no-active" routerLinkActive="active">Entrega</p>
+                        </div>
+                    </li>
+                    <li class="nav-item mr-4 ">
+                        <div class="text-center cursor no-active"  *ngIf="getEmployeeRol('2')" (click)="bFunciones = true" [routerLink]="['/funciones']" routerLinkActive="active">
+                            <i data-feather="more-horizontal" appFeatherIcon></i>
+                            <p class="title no-active" routerLinkActive="active">Funciones</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>  
+            
         </div>  
-        
-      </div>  
+        </div>
+    </nav>
+    <div *ngIf="bFunciones" >
+        <div class="card text-center padding-media" >
+        <div class="card-body">
+            <div class="menuResp">
+                <div class="product-button">
+                <div class="productsMenu">
+                    <button type="button"  *ngIf="getEmployeeRol('1')" [routerLink]="['/funciones/gastos']" routerLinkActive="activo" class="btn btn-white btn-sm button-product">Gastos</button>
+                    <button type="button"  *ngIf="getEmployeeRol('1')" [routerLink]="['/funciones/notas']" routerLinkActive="activo" class="btn btn-white btn-sm button-product">Notas</button>
+                    <button type="button"  *ngIf="getEmployeeRol('1')" [routerLink]="['/funciones/corte']" routerLinkActive="activo" class="btn btn-white btn-sm button-product">Corte del dia</button>
+                    <button type="button"  *ngIf="getEmployeeRol('1')" [routerLink]="['/funciones/graficas']" routerLinkActive="activo" class="btn btn-white btn-sm button-product">Graficas</button>
+                    <button type="button"  *ngIf="getEmployeeRol('1')" [routerLink]="['/funciones/configuraciones']" routerLinkActive="activo" class="btn btn-white btn-sm button-product" >Config</button>
+                    <button type="button"  *ngIf="getEmployeeRol('2')" [routerLink]="['/funciones/status']" routerLinkActive="activo"  class="btn btn-white btn-sm button-product">Estatus</button>
+                    <button type="button"  *ngIf="getEmployeeRol('1')" [routerLink]="['/funciones/clientes']" routerLinkActive="activo" class="btn btn-white btn-sm button-product">Cliente</button>
+                    <button type="button"  *ngIf="getEmployeeRol('1')" [routerLink]="['/funciones/finanzas']" routerLinkActive="activo"class="btn btn-white btn-sm button-product">Finanzas</button>
+                    <!--Prendas pendientes, finanzas?-->
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
     </div>
-  </nav>
+    </div>
+
+  
 </div>

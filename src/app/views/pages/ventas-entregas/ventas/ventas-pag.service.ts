@@ -132,7 +132,7 @@ export class VentasPAGService {
     console.log(this.selected)
   }
 
-  totalAmount(){
+  totalAmount():number{
     let total=0;
     this.ventaDetalle.find(venta =>{
       this.Fila.find(row =>{

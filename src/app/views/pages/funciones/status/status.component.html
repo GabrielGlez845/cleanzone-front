@@ -10,7 +10,7 @@
         <div class="perfect-scrollbar-example" [perfectScrollbar]>
             <div class="list-group">
                 <ng-container *ngFor="let service of this.statusPagService.services">
-                    <div class="card text-dark bg-light mb-3 " [routerLink]="['/funciones/status-detail/',service.id]" routerLinkActive="active">
+                    <div class="card text-dark bg-light mb-3 seleccionable" [routerLink]="['/funciones/status-detail/',service.id]" routerLinkActive="active">
                         <div class="card-header">
                         <div class="table-responsive">
                             <table class="table table-bordered">
@@ -44,7 +44,7 @@
         <div class="perfect-scrollbar-example" [perfectScrollbar]>
             <div class="list-group" >
                 <ng-container *ngFor="let service of this.statusPagService.services">
-                    <div class="card text-dark bg-light mb-3 " [routerLink]="['/funciones/status-detail/',service.id]" routerLinkActive="active">
+                    <div class="card text-dark bg-light mb-3 seleccionable" [routerLink]="['/funciones/status-detail/',service.id]" routerLinkActive="active">
                         <div class="card-header">
                         <div class="table-responsive">
                             <table class="table table-bordered">
@@ -79,7 +79,7 @@
         <div class="perfect-scrollbar-example" [perfectScrollbar]>
             <div class="list-group" >
                 <ng-container *ngFor="let service of this.statusPagService.services">
-                    <div class="card text-dark bg-light mb-3 " [routerLink]="['/funciones/status-detail/',service.id]" routerLinkActive="active">
+                    <div class="card text-dark bg-light mb-3 seleccionable" [routerLink]="['/funciones/status-detail/',service.id]" routerLinkActive="active">
                         <div class="card-header">
                         <div class="table-responsive">
                             <table class="table table-bordered">

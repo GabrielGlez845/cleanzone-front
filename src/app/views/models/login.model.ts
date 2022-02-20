@@ -1,3 +1,4 @@
+import { Role } from './sells.model';
 export interface LoginPost {
     email:      string;
     password:     string;
@@ -21,5 +22,6 @@ export interface Login {
     password:  string;
     createdAt: Date;
     updatedAt: Date;
+    role:      Role;
     roleId:    number;
 }

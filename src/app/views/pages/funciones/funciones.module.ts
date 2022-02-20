@@ -31,6 +31,7 @@ import { GraficasComponent } from './graficas/graficas.component';
 import { FinanzasComponent } from './finanzas/finanzas.component';
 import { CorteComponent } from './corte/corte.component';
 import { GraphsModule } from '../graphs/graphs.module';
+import { RoutesGuard } from '../../../core/guard/routes.guard';
 
 const routes: Routes = [
   {
@@ -44,43 +45,53 @@ const routes: Routes = [
       },
       {
         path: 'status',
-        component: StatusComponent
+        component: StatusComponent,
+        canActivate: [RoutesGuard],data: {id: 2}
       },
       {
         path: 'status-detail/:id',
-        component: StatusDetailsComponent
+        component: StatusDetailsComponent,
+        canActivate: [RoutesGuard],data: {id: 2}
       },  
       {
         path: 'notas',
-        component: NotasComponent
+        component: NotasComponent,
+        canActivate: [RoutesGuard],data: {id: 1}
       },  
       {
         path: 'notas-detail/:id',
-        component: NotasDetailsComponent
+        component: NotasDetailsComponent,
+        canActivate: [RoutesGuard],data: {id: 1}
       },  
       {
         path: 'clientes',
-        component: ClientesComponent
+        component: ClientesComponent,
+        canActivate: [RoutesGuard],data: {id: 1}
       },    
       {
         path: 'configuraciones',
-        component: ConfiguracionComponent
+        component: ConfiguracionComponent,
+        canActivate: [RoutesGuard],data: {id: 1}
       },    
       {
         path: 'gastos',
-        component: GastosComponent
+        component: GastosComponent,
+        canActivate: [RoutesGuard],data: {id: 1}
       },    
       {
         path: 'graficas',
-        component: GraficasComponent
+        component: GraficasComponent,
+        canActivate: [RoutesGuard],data: {id: 1}
       },    
       {
         path: 'finanzas',
-        component: FinanzasComponent
+        component: FinanzasComponent,
+        canActivate: [RoutesGuard],data: {id: 1}
       },    
       {
         path: 'corte',
-        component: CorteComponent
+        component: CorteComponent,
+        canActivate: [RoutesGuard],data: {id: 1}
       }    
   
     ]

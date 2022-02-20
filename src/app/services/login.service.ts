@@ -6,7 +6,8 @@ import { LoginPost } from '../views/models/login.model';
   providedIn: 'root'
 })
 export class LoginService {
-  private api = 'http://localhost:7000/api';
+ private api = 'http://localhost:7000/api';
+// private api = 'http://31.220.55.110:7000/api';
   constructor(private http:HttpClient) { }
 
   login(data:LoginPost){

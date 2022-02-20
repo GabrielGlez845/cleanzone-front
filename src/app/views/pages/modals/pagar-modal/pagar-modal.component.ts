@@ -12,6 +12,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import html2canvas from 'html2canvas';
+import { format, parseISO, parseJSON } from 'date-fns';
 
 @Component({
   selector: 'app-pagar-modal',
@@ -50,82 +51,25 @@ export class PagarModalComponent implements OnInit {
            console.log(this.ventasPagService.venta)
            console.log(this.ventasPagService.ventaDetalle)
            console.log(this.ventasPagService.Fila)
-         //pdf
-         const pdf = new PdfMakeWrapper();           
-         pdf.pageSize({
-           width: 160,
-           height: 594
-       });
-       pdf.pageOrientation('portrait');
-       pdf.pageMargins([ 40, 0, 40, 10 ]);
-       //img
-       const img =  await new Img('/assets/images/clean-ticket.png')
-       img.width(70)
-       img.alignment('center');
-       pdf.add( await img.build() );
-     
-       //texto
-       pdf.add(
-         new Txt('FERRERIA 1316').alignment('center').fontSize(7).end
-       )
-       pdf.add(
-         new Txt('ALAMO INDUSTRIAL').alignment('center').fontSize(7).end
-       )
-       pdf.add(
-         new Txt('GUADALAJARA JALISCO').alignment('center').fontSize(7).end
-       )
-       pdf.add(
-         new Txt('CP 44490').alignment('center').fontSize(7).end
-       )
-       pdf.add(
-         new Txt('TELS: 3335-3262').alignment('center').fontSize(7).end
-       )
-       //canva
-       // pdf.add(
-       //   new Canvas([
-       //     new Line([0,20], [500, 20]).end
-       //   ]).end
-       //  );
-     
-        pdf.add(
-         new Txt('-').alignment('center').fontSize(7).end
-       )
-       //QR
-       pdf.add(
-         new QR('my code').fit(70).alignment('center').end
-       )
-     
-       pdf.add(
-         new Txt(`123`).alignment('center').fontSize(7).end
-       )
-       pdf.add(
-        new Txt('-').alignment('center').fontSize(7).end
-      )
        
-     
-     
-        pdf.add(this.createTable(this.ventasPagService.Fila))
-        pdf.create().print();
-     //pdf.create().open();
-        //  pdf.add(this.createTable(this.ventasPagService.Fila))
-          //pdf.create().print();
-        
+           //pdf
+      await this.pdfgenerate();
           
-      // this.ventasService.postSell(this.ventasPagService.venta,this.ventasPagService.ventaDetalle,this.ventasPagService.Fila,pay).subscribe((resp:any)=>{
-      //   console.log(resp);
-      //   if(resp.ok){
-      //     Swal.fire(
-      //       { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'servicio creado con exito', icon: 'success'}
-      //      );
-      //      //imprimir recibo
+      this.ventasService.postSell(this.ventasPagService.venta,this.ventasPagService.ventaDetalle,this.ventasPagService.Fila,pay).subscribe((resp:any)=>{
+        console.log(resp);
+        if(resp.ok){
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'servicio creado con exito', icon: 'success'}
+           );
+           //imprimir recibo
            
-      //      this.activeModal.close('modal cerrado'); //enviar a otro lado o borrar los valores
-      //   }
-      // },err =>{
-      //   Swal.fire(
-      //     { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Error al pagar', icon: 'error'}
-      //    );
-      // })
+           this.activeModal.close('modal cerrado'); //enviar a otro lado o borrar los valores
+        }
+      },err =>{
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Error al pagar', icon: 'error'}
+         );
+      })
     
     }else if (this.tipo === 'entregas'){
       if (this.amount >= this.total){
@@ -189,10 +133,123 @@ export class PagarModalComponent implements OnInit {
     return new Table([
         ['Producto','Precio','Cantidad'],
         ...this.extractData(items)
-    ]).alignment('center').fontSize(5).end
+    ]).alignment('center').fontSize(6).end
 }
 
 extractData(items){
   return items.map(row=> [row.product.name,'$'+row.product.pricings[0].price,row.quantity])
 }
+
+async pdfgenerate(){
+     //pdf
+    const pdf = new PdfMakeWrapper();           
+    pdf.pageSize({
+      width: 160,
+      height: 594
+  });
+  pdf.pageOrientation('portrait');
+  pdf.pageMargins([ 40, 0, 40, 10 ]);
+  //img
+  const img =  await new Img('/assets/images/clean-ticket.png')
+  img.width(70)
+  img.alignment('center');
+  pdf.add( await img.build() );
+  
+  //texto
+  pdf.add(
+    new Txt('FERRERIA 1316').alignment('center').fontSize(7).end
+  )
+  pdf.add(
+    new Txt('ALAMO INDUSTRIAL').alignment('center').fontSize(7).end
+  )
+  pdf.add(
+    new Txt('GUADALAJARA JALISCO').alignment('center').fontSize(7).end
+  )
+  pdf.add(
+    new Txt('CP 44490').alignment('center').fontSize(7).end
+  )
+  pdf.add(
+    new Txt('TELS: 3335-3262').alignment('center').fontSize(7).end
+  )
+  //canva
+  // pdf.add(
+  //   new Canvas([
+  //     new Line([0,20], [500, 20]).end
+  //   ]).end
+  //  );
+  
+   pdf.add(
+    new Txt('-').alignment('center').fontSize(7).end
+  )
+  //QR
+  pdf.add(
+    new QR('my code').fit(70).alignment('center').end
+  )
+  
+  // pdf.add(
+  //   new Txt(`123`).alignment('center').fontSize(7).end
+  // )
+  pdf.add(
+   new Txt('-').alignment('center').fontSize(7).end
+  )
+  
+  //cajero
+  pdf.add(
+    new Txt(`FECHA: ${format( this.ventasPagService.venta.createdAt,'MM/dd/yyyy')}`).alignment('left').fontSize(6).end
+   )
+
+   pdf.add(
+    new Txt(`ENTREGA: ${format(new Date(),'MM/dd/yyyy')}`).alignment('left').fontSize(6).end
+   )
+
+   pdf.add(
+    new Txt(`CAJERO: ${this.ventasPagService.venta.employee.name}`).alignment('left').fontSize(6).end
+   )
+
+   pdf.add(
+    new Txt(`NOMBRE DEL CLIENTE: ${this.ventasPagService.venta.user.name}`).alignment('left').fontSize(6).end
+   )
+
+   pdf.add(
+    new Txt(`TELEFONO DEL CLIENTE: ${this.ventasPagService.venta.user.phone}`).alignment('left').fontSize(6).end
+   )
+
+  //productos
+  for (const row of this.ventasPagService.Fila) {
+    pdf.add(
+      new Txt('-').alignment('center').fontSize(6).end
+    )
+
+    pdf.add(
+      new Txt(`***${row.product.category.name }***`).alignment('center').fontSize(6).end
+     )
+
+    pdf.add(
+    new Txt(`${row.quantity}.- ${row.product.name} $ ${row.product.pricings[0].price}`).alignment('center').fontSize(6).end
+    )
+
+    // pdf.add(
+    //   new Txt(`${row.quantity}`).alignment('right').fontSize(6).end
+    //   )
+
+      pdf.add(
+        new Txt('-').alignment('center').fontSize(6).end
+      )
+
+  }
+
+  //totales
+  pdf.add(
+    new Txt(`TOTAL: ${this.total}`).alignment('right').fontSize(7).end
+  )
+
+  
+
+ //  pdf.add(this.createTable(this.ventasPagService.Fila))
+   pdf.create().print();
+  //pdf.create().open();
+   //  pdf.add(this.createTable(this.ventasPagService.Fila))
+     //pdf.create().print();
+   
+  }
 }

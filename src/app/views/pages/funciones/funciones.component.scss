@@ -43,3 +43,17 @@
     color: #005D9B;
     background-color: #dbdbdb;
 }
+
+@media screen and (max-width: 576px) {
+    
+    .padding-media {
+        padding-top: 70px;
+    }
+}
+    
+@media screen and (min-width:576px) and (max-width: 1400px)  {
+    
+    .padding-media {
+        padding-top: 10px;
+    }
+}

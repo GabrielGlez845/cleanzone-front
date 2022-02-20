@@ -5,6 +5,7 @@ import { Detail, Row, Service } from '../../../../models/sells.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PendienteModalComponent } from '../../../modals/pendiente-modal/pendiente-modal.component';
 import { StatusPagService } from '../status-pag.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-status-details',
@@ -54,8 +55,9 @@ cargando = false;
   }
  
   finalizarStatus(){  
-    this.statusPagService.statusZeroToOne();  
-    this.statusPagService.statusZeroToThree();
+  //  this.statusPagService.statusZeroToOne();  
+  //  this.statusPagService.statusZeroToThree();
+    this.statusPagService.statusZerotoOneOrThree(this.service_id);
     
     let rows: Row[] = []
     let details : Detail[] = []    
@@ -70,10 +72,31 @@ cargando = false;
               rows.push(row)
             })  
           })
-          this.funcionesService.statusChangeRow(rows).subscribe(resp =>{
-            console.log(resp)
+          this.funcionesService.statusChangeRow(rows).subscribe((resp:any) =>{
+            console.log(resp);
+            if (resp.ok){
+              Swal.fire(
+                { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Estatus cambiado con exito', icon: 'success'}
+               );
+            }else{
+              Swal.fire(
+                { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Error al pagar', icon: 'error'}
+               );
+            }
+          },error =>{
+            Swal.fire(
+              { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Error al pagar', icon: 'error'}
+             );
           })
+        },error=>{
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Error al pagar', icon: 'error'}
+           );
         })
+      },error=>{
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Error al pagar', icon: 'error'}
+         );
       })          
   }
 }

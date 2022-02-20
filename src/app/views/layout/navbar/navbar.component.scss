@@ -2,8 +2,22 @@
     cursor: pointer;
 }
 
+.active{
+    color: #EDBF2F !important;
+}
+
+.no-active{
+    color: whitesmoke ;
+}
+
 .btn-home:hover {
     background-color: #DAE1E9;
+}
+
+
+.activo{
+    color: #005D9B;
+    background-color: #dbdbdb;
 }
 
 //Nabvar al centro
@@ -27,4 +41,61 @@
 }
 .head a{
     color: white;
+}
+
+//funciones nabvar
+ 
+//Menu deslizante
+.menuResp {
+    //  display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling:touch
+  
+  }
+  
+  .menuResp::-webkit-scrollbar {
+      display: none; 
+  }
+
+//prendas dezlizantes horizontalmente 
+.products{
+    // display: flex;
+     flex-wrap: wrap;
+     flex-direction: row;
+     max-height: 25vh;    
+     min-width: 500px;
+     width: auto;
+     
+ }
+ 
+ .productsMenu{
+    // display: flex;
+     flex-wrap: wrap;
+     flex-direction: column;
+     max-height: 12vh;   
+     width: auto;
+     white-space: nowrap;
+     
+ }
+ 
+ .button-product{
+     margin-right: 1%;
+     margin-top: 1%;
+     font-size: 0.8rem;
+     height: 4.8vh;
+    // width: 100%;
+ }
+
+@media screen and (max-width: 576px) {
+    
+    .padding-media {
+        padding-top: 10px;
+    }
+}
+    
+@media screen and (min-width:576px) and (max-width: 1400px)  {
+    
+    .padding-media {
+        padding-top: 10px;
+    }
 }

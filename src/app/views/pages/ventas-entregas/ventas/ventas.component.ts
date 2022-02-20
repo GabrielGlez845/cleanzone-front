@@ -16,6 +16,7 @@ import { Detail, Employee, Row, Service } from '../../../models/sells.model';
 import { Canvas, Img, Line, PdfMakeWrapper,QR,Rect,Table,Txt } from 'pdfmake-wrapper';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { FuncionesService } from '../../../../services/funciones.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-ventas',
@@ -26,6 +27,7 @@ export class VentasComponent implements OnInit {
   // selectedSearchPersonId: string = null;
   clients: User[] = [];
   cliente: User;
+  empleado:Employee;
   idCliente: number;
   cargandoClientes = true;
   cargandoProductos = true;
@@ -62,16 +64,23 @@ export class VentasComponent implements OnInit {
   constructor(private modalService: NgbModal, 
               private router: Router, 
               public ventasServicePAG: VentasPAGService,
-              private ventasService:VentasService) {                 
+              private ventasService:VentasService,
+              private funcionesService:FuncionesService) {                 
                          
   }
 
   async ngOnInit(): Promise<void> {
    this.getClients();
    this.obtenerCategorias();
-  // this.obtenerEmpleado();
+   this.obtenerEmpleado();
   
 
+  }
+
+  obtenerEmpleado(){
+    this.funcionesService.getEmployee(+localStorage.getItem('employeeId')).subscribe((resp:any)=>{
+        this.empleado = resp.data
+    })
   }
 
   regresar() {
@@ -264,17 +273,20 @@ export class VentasComponent implements OnInit {
             id:date.getTime(),
             state:0,
             employeeId: parseInt(localStorage.getItem('employeeId')), //Ya se deberia tener el empleado
+            employee: this.empleado,
             userId:cliente.id,
+            user:cliente,
+            createdAt:new Date()
           }
           //new 
           this.cliente = cliente
           this.ventasServicePAG.venta.userId = cliente.id
-          this.ventasServicePAG.venta.employeeId = 2
+          this.ventasServicePAG.venta.employeeId = this.empleado.id
           this.cargandoClientes = false
         }else{
         this.cliente = cliente
         this.ventasServicePAG.venta.userId = cliente.id
-        this.ventasServicePAG.venta.employeeId = 2
+        this.ventasServicePAG.venta.employeeId = this.empleado.id
         this.cargandoClientes = false
         }
       }

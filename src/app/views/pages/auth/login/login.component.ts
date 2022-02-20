@@ -25,23 +25,26 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/inicio';
   }
 
   onLoggedin(e) {
     e.preventDefault();
     if (this.loginFormGroup.valid){
-      console.log(this.loginFormGroup.value)
       this.loginService.login(this.loginFormGroup.value).subscribe((resp:LoginGet)=>{
+        console.log(resp);
         if(resp.ok){
           Swal.fire(
             { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Accedio con exito', icon: 'success'}
            );
           localStorage.setItem('isLoggedin', 'true');
-          localStorage.setItem('employeeId', resp.data.id+'');
+          localStorage.setItem('rolId', resp.data.role.id+'');
+          localStorage.setItem('name', resp.data.name);
+          localStorage.setItem('rol', resp.data.role.name);
           localStorage.setItem('token', resp.token);
           if (localStorage.getItem('isLoggedin')) {
-            this.router.navigate([this.returnUrl]);
+           // this.router.navigate([this.returnUrl]);
+           this.router.navigate(['/inicio']);
           }
         }
       },err =>{

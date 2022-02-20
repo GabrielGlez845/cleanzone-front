@@ -11,6 +11,7 @@ export class StatusPagService {
 
   ServiceId(ide:number):Service{
     let serviceSel:Service 
+    //recargar pagina en componente : error no se mando antes el servicio
     this.services.find(service =>{
       if (service.id === ide){
         serviceSel = service
@@ -97,47 +98,79 @@ export class StatusPagService {
     })
   }
 
-  //second
-  statusZeroToOne(){
-    this.services.find(service =>{
-      if (service.state === 0){
-        service.state = 1
-      }
-      service.details.find(detail =>{
-        if(detail.status === 0){
-          detail.status = 1
-        }
-        detail.rows.find(row =>{
-          if (row.status === 0){
-            row.status = 1
-          }
-        })        
-      })      
-    })
-  }
+  // //second
+  // statusZeroToOne(){
+  //   this.services.find(service =>{
+  //     if (service.state === 0){
+  //       service.state = 1
+  //     }
+  //     service.details.find(detail =>{
+  //       if(detail.status === 0){
+  //         detail.status = 1
+  //       }
+  //       detail.rows.find(row =>{
+  //         if (row.status === 0){
+  //           row.status = 1
+  //         }
+  //       })        
+  //     })      
+  //   })
+  // }
 
-  //first
-  statusZeroToThree(){
-    this.services.find(service =>{
-      service.details.find(detail =>{
-        detail.rows.find(row =>{
-          if (row.status === 3){
-            this.services.find(service =>{
-              service.details.find(detail =>{
-                if (detail.id === row.detailId){
-                  detail.status = 3;
-                  this.services.find(service=>{
-                    if(service.id === detail.serviceId){
-                      service.state=3;
-                    }
-                  })
-                }
-              })      
-            })
+  // //first
+  // statusZeroToThree(){
+  //   this.services.find(service =>{
+  //     service.details.find(detail =>{
+  //       detail.rows.find(row =>{
+  //         if (row.status === 3){
+  //           this.services.find(service =>{
+  //             service.details.find(detail =>{
+  //               if (detail.id === row.detailId){
+  //                 detail.status = 3;
+  //                 this.services.find(service=>{
+  //                   if(service.id === detail.serviceId){
+  //                     service.state=3;
+  //                   }
+  //                 })
+  //               }
+  //             })      
+  //           })
+  //         }
+  //       })        
+  //     })      
+  //   })
+  // }
+
+  //new - try it 
+  statusZerotoOneOrThree(serviceId:number){
+    const service:Service =  this.ServiceId(serviceId);
+      service.details.forEach(d => {
+        // cambiar los ceros a unos automaticamente
+        d.rows.forEach(r => {
+          if (r.status === 0) {
+            r.status = 1;
           }
-        })        
-      })      
-    })
+        })
+        let sizeR = d.rows.length
+        const RowArray = d.rows.filter(r => r.status == 1 )
+        let sizeRA = RowArray.length
+        if (sizeR === sizeRA) {
+          //todas las row estan en estatus 1 = terminado
+           d.status = 1;
+        }else{
+          // hay algun row pendiente
+          d.status = 3;
+        }        
+      })
+      let sizeD = service.details.length
+      const DetailsArray = service.details.filter(d => d.status == 1)
+      let sizeDA = DetailsArray.length
+      if (sizeD == sizeDA){
+        service.state = 1;
+      }else{
+        service.state = 3;
+      }
+
   }
 
 }
