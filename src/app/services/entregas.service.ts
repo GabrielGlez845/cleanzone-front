@@ -5,8 +5,9 @@ import { map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class EntregasService {
- private api = 'http://localhost:7000/api';
-// private api = 'http://31.220.55.110:7000/api';
+ // private api = 'http://localhost:7000/api';
+ //private api = 'http://31.220.55.110:7000/api';
+  private api = 'https://riotintorerias.com.mx/api'
   constructor(private http:HttpClient) { }
 
   DeliveriesAtTime(date:Date){

@@ -7,8 +7,9 @@ import { Service, Payment, Detail, Row } from '../views/models/sells.model';
   providedIn: 'root'
 })
 export class VentasService {
-    private api = 'http://localhost:7000/api'; 
-//   private api = 'http://31.220.55.110:7000/api';
+ // private api = 'http://localhost:7000/api'; 
+  // private api = 'http://31.220.55.110:7000/api';
+   private api = 'https://riotintorerias.com.mx/api'
   constructor( private http: HttpClient ) {  }
 
   getClients(){
@@ -43,6 +44,12 @@ export class VentasService {
     return this.http.get(`${this.api}/services/date/${date}`).pipe(map(data=>{
       return data['data']
     }))
+  }
+
+  getProductByCategory(category_id:number){
+    return this.http.get(`${this.api}/products/category/${category_id}`).pipe(map(data=>{
+      return data['data']
+  }))
   }
 
   postSell(service:Service,detail:Detail[],row:Row[],payment:Payment){

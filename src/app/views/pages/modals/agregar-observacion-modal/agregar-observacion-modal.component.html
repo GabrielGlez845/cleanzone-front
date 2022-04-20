@@ -6,7 +6,12 @@
 </div>
 <div class="modal-body">
     <div class="card-body">
-
+        <div *ngFor="let observa of observaciones" style="display: flex;flex-direction: column;" class="form-group">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" [(ngModel)]="observa.seleccionado" class="custom-control-input" id="{{observa.id}}">
+                <label class="custom-control-label" for="{{observa.id}}">{{observa.nombre}}</label>
+            </div>
+        </div>
         <div class="form-group row">
             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Observacion</label>
             <div class="col-sm-9">
@@ -18,5 +23,5 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Cerrar</button>
-    <button type="button" class="btn btn-primary" (click)="activeModal.close(ventasServicePAG.agregarObservacionDetalle(id,observacion))">Agregar</button>
+    <button type="button" class="btn btn-primary" (click)="activeModal.close(agregarObservacionModal())">Agregar</button>
 </div>

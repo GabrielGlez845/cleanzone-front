@@ -30,11 +30,69 @@
                         </div>
                     </div>
             </div>
-            <!-- <div id="exportthis">
-            <ngx-barcode [bc-value]="'17'" [bc-display-value]="true"></ngx-barcode>
-            </div> -->
+            <div style="border-style: dotted; display: flex; justify-content: center;" >
+                <div id="ticket"  style="width: 294.80314961px;">      
+                    <div class="text-center">
+                        <img width="150px" src="/assets/images/clean-ticket.png" alt="">
+                    </div>
+                    <!-- Encabezados -->
+                    <div class="text-center">
+                        <p>FERRERIA 1316</p>
+                        <p>ALAMO INDUSTRIAL</p>
+                        <p>GUADALAJARA JALISCO</p>
+                        <p>CP 44490</p>
+                        <p>TELS: 3335-3262</p>
+                    </div>
+                    <!-- codigo qr -->
+                    <div>
+            
+                    </div>
+                    <!-- Datos -->
+                    <div style="display: flex; justify-content: space-between;">
+                        <p>FECHA:</p> 
+                        <p>{{this.ventasPagService.venta.createdAt | date: 'short'}}</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <p>CAJERO: </p>
+                        <p>{{this.ventasPagService.venta.employee.name | uppercase}}</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <p>CLIENTE: </p>
+                        <p>{{this.ventasPagService.venta.user.name | uppercase}}</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <p>TELEFONO: </p>
+                        <p>{{ this.ventasPagService.venta.user.phone }}</p>
+                    </div>                       
+                       
+                    <!-- Nota -->
+                    <ng-container *ngFor="let fila of this.ventasPagService.Fila">
+                        <div class="mt-2 mb-3">
+                            <div class="text-center">
+                                <h5>#{{fila.detailId}}</h5>
+                                <h6>{{fila.product.category.name}}</h6>
+                            </div>                       
+                            <table class="table">
+                                <thead>
+                                    <th>PRENDA</th>
+                                    <th>CANTIDAD</th>
+                                    <th>PRECIO</th>
+                                </thead>
+                                <tbody>
+                                    <tr >
+                                        <td>{{fila.product.name}}</td>
+                                        <td>{{fila.quantity}}</td>
+                                        <td>{{fila.product.pricings[0].price}}</td>
+                                    </tr>
+                                </tbody>
+                            </table> 
+                        </div>
+                    </ng-container>
+                </div>
+              </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="activeModal.close('by: close button')">Cerrar</button>
+            <!-- <button class="btn btn-primary" (click)="this.downloadAsPDF()" >Imprimir</button> -->
             <button type="button" class="btn btn-primary" (click)="pagar()">Pagar</button>
         </div>

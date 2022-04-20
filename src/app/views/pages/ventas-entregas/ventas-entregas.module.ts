@@ -21,7 +21,7 @@ import { VentasComponent } from './ventas/ventas.component';
 import { EntregasComponent } from './entregas/entregas.component';
 import { EntregasDetailsComponent } from './entregas/entregas-details/entregas-details.component';
 import { RoutesGuard } from '../../../core/guard/routes.guard';
-
+import { BuscarPrendaPipe } from 'src/app/pipes/buscar-prenda.pipe';
 
 const routes: Routes = [
   {
@@ -46,7 +46,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [VentasEntregasComponent, VentasComponent, EntregasComponent, EntregasDetailsComponent],
+  declarations: [VentasEntregasComponent, VentasComponent, EntregasComponent, EntregasDetailsComponent, BuscarPrendaPipe],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

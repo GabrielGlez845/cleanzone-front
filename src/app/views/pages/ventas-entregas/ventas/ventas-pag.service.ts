@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Color } from '../../../models/color.model';
 import { Service, Detail, Row } from '../../../models/sells.model';
 import { VentasService } from '../../../../services/ventas.service';
+import { Product } from '../../../models/products.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class VentasPAGService {
   ticket: string;
   lastVentaId:number;
   constructor(private ventasService:VentasService) {
+
     
    // this.ventasService.postService(this.venta).subscribe((resp:any) =>{
    //   console.log(resp)
@@ -85,7 +87,7 @@ export class VentasPAGService {
      let j = 0;
      this.Fila.find(row =>{
           if(row.id === ide){
-              this.Fila[j].observations+=` ${observacion} ,`;
+              this.Fila[j].observations+=` ${observacion} `;
            }      
          j++;
       }) 
@@ -144,7 +146,24 @@ export class VentasPAGService {
     return total
   }
 
- 
+ crearTabla():any[]{
+   let tabla:{categoria:string,detalle:{detailId:number, products:{name:string,quantity:number,price:number}[]}[]}[] = [];
+   this.Fila.forEach(r =>{
+     const detailIDE = tabla.find(t => t.categoria == r.product.category.name);
+     if (detailIDE){
+       const detail = detailIDE.detalle.find(d => d.detailId == r.detailId)
+       if (detail){
+          detail.products.push({name:r.product.name,quantity:r.quantity,price:r.product.pricings[0].price})      
+       }else{   
+         detailIDE.detalle.push({detailId:r.detailId, products:[{name:r.product.name,quantity:r.quantity,price:r.product.pricings[0].price}]})
+       }
+     }else{
+       tabla.push({categoria:r.product.category.name,detalle:[{detailId:r.detailId,products:[{name:r.product.name,quantity:r.quantity,price:r.product.pricings[0].price}]}]});
+     }
+   })
+
+  return tabla
+ }
   
 }
 

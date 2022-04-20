@@ -14,6 +14,7 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 //barras
 import { NgxBarcodeModule } from 'ngx-barcode';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 //components
 import { PagarModalComponent } from './views/pages/modals/pagar-modal/pagar-modal.component';
 import { AgregarPrendaModalComponent } from './views/pages/modals/agregar-prenda-modal/agregar-prenda-modal.component';
@@ -23,6 +24,8 @@ import { AgregarColorModalComponent } from './views/pages/modals/agregar-color-m
 import { PendienteModalComponent } from './views/pages/modals/pendiente-modal/pendiente-modal.component';
 import { AgregarCategoriaModalComponent } from './views/pages/modals/agregar-categoria-modal/agregar-categoria-modal.component';
 import { AgregarEmpleadoModalComponent } from './views/pages/modals/agregar-empleado-modal/agregar-empleado-modal.component';
+import { BuscarPrendaModalComponent } from './views/pages/modals/buscar-prenda-modal/buscar-prenda-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { AgregarEmpleadoModalComponent } from './views/pages/modals/agregar-empl
     AgregarColorModalComponent,
     PendienteModalComponent,
     AgregarCategoriaModalComponent,
-    AgregarEmpleadoModalComponent
+    AgregarEmpleadoModalComponent,
+    BuscarPrendaModalComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,8 @@ import { AgregarEmpleadoModalComponent } from './views/pages/modals/agregar-empl
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
-    NgxBarcodeModule
+    NgxBarcodeModule,
+    NgxQRCodeModule,
   ],
   providers: [
     AuthGuard,

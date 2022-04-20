@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { VentasPAGService } from '../ventas/ventas-pag.service';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -17,6 +17,8 @@ import { Canvas, Img, Line, PdfMakeWrapper,QR,Rect,Table,Txt } from 'pdfmake-wra
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { FuncionesService } from '../../../../services/funciones.service';
+import { BuscarPrendaModalComponent } from '../../modals/buscar-prenda-modal/buscar-prenda-modal.component';
+import { WizardComponent } from 'angular-archwizard';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-ventas',
@@ -24,6 +26,9 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   styleUrls: ['./ventas.component.scss']
 })
 export class VentasComponent implements OnInit {
+  @ViewChild('wizard', { static: false })
+  public wizard: WizardComponent;
+
   // selectedSearchPersonId: string = null;
   clients: User[] = [];
   cliente: User;
@@ -51,6 +56,7 @@ export class VentasComponent implements OnInit {
   menu:string ='cliente';
   menuColorobservacion: string = 'cliente' ;
   //buscar-prenda
+  search = '';
   isCollapsed = true;
   cantidadColor:number = 1;
   selectedPersonId: string = null;
@@ -70,28 +76,46 @@ export class VentasComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+   this.obtenerEmpleado();
    this.getClients();
    this.obtenerCategorias();
-   this.obtenerEmpleado();
-  
 
   }
 
   obtenerEmpleado(){
+    console.log(+localStorage.getItem('employeeId'))
     this.funcionesService.getEmployee(+localStorage.getItem('employeeId')).subscribe((resp:any)=>{
         this.empleado = resp.data
+        console.log(resp)
     })
   }
+
+  
 
   regresar() {
     this.router.navigate(['/dashboard']);
   }
   openModalPagar() {
+    //para este momento los arreglos ya estan llenos
+    console.log(this.ventasServicePAG.crearTabla())
     const modalRef = this.modalService.open(PagarModalComponent)
     let total = this.ventasServicePAG.totalAmount();
     modalRef.componentInstance.total = total;
     modalRef.componentInstance.serviceId = this.ventasServicePAG.venta.id;
     modalRef.componentInstance.tipo = 'ventas';
+  }
+
+  openModalBuscarPrenda() {
+    this.wizard.goToNextStep();
+    if (this.idCategoria != null){
+      this.ventasService.getProductByCategory(this.idCategoria).subscribe(resp=>{
+        this.products = resp
+        const modalRef = this.modalService.open(BuscarPrendaModalComponent)
+        modalRef.componentInstance.products = this.products;
+      })
+    
+    }
+   
   }
 
   openModalPrendasAgregar() {
@@ -108,14 +132,17 @@ export class VentasComponent implements OnInit {
   }
 
 
-  agregarId(id: string) {  
-    if(id === ''){      
+  agregarId(id: number) {  
+    console.log(id);
+    if(id === null){      
       return
     }
     const date = new Date();
     let detalle:Detail = {
-      id:parseInt(id),
-      identifier:parseInt(id),
+      // id:parseInt(id),
+      // identifier:parseInt(id),
+      id:(id),
+      identifier:(id),
       ticket:'',
       status: 0,
       serviceId:this.ventasServicePAG.venta.id
@@ -150,12 +177,7 @@ export class VentasComponent implements OnInit {
    }
 
   menuCambiar(opcion:string){
-    if (this.menu === opcion){
-      // '' = swicht default
-      this.menu = '';
-     }else{
-      this.menu = opcion;
-     }
+    this.menu = opcion;
    
   }
 
@@ -265,6 +287,7 @@ export class VentasComponent implements OnInit {
       this.cargandoClientes = true
     }
     else{
+    console.log(this.clients)
     this.clients.find(cliente=>{
       if(cliente.id === id){
         if(this.ventasServicePAG.venta === undefined){
@@ -281,11 +304,12 @@ export class VentasComponent implements OnInit {
           //new 
           this.cliente = cliente
           this.ventasServicePAG.venta.userId = cliente.id
-          this.ventasServicePAG.venta.employeeId = this.empleado.id
+          this.ventasServicePAG.venta.employeeId = 1
           this.cargandoClientes = false
         }else{
         this.cliente = cliente
         this.ventasServicePAG.venta.userId = cliente.id
+        
         this.ventasServicePAG.venta.employeeId = this.empleado.id
         this.cargandoClientes = false
         }
@@ -321,7 +345,6 @@ export class VentasComponent implements OnInit {
     this.ventasService.getCategories().subscribe((resp:Category[])=>{
         console.log(resp)
         this.categories = resp;
-
     })
   }
 
@@ -331,11 +354,27 @@ export class VentasComponent implements OnInit {
       this.ventasService.getProductsCategoryLetter(this.idCategoria,letra).subscribe((resp:Product[])=>{
         console.log(resp);
         this.products = resp
-      
+        this.wizard.goToNextStep();
       })
     }  
     
   }
+
+  
+
+  buscarPrenda(buscar:string){
+    console.log(buscar)
+      this.ventasService.getProductByCategory(this.idCategoria).subscribe(resp=>{
+        this.products = resp;
+        this.search = buscar;
+       // this.wizard.goToNextStep();
+       console.log(this.wizard)
+      })
+    
+  }
+
+
+  
 }
 
 

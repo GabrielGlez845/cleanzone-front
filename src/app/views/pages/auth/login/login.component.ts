@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('rolId', resp.data.role.id+'');
           localStorage.setItem('name', resp.data.name);
           localStorage.setItem('rol', resp.data.role.name);
+          localStorage.setItem('employeeId', resp.data.id+'');
           localStorage.setItem('token', resp.token);
           if (localStorage.getItem('isLoggedin')) {
            // this.router.navigate([this.returnUrl]);
@@ -56,6 +57,7 @@ export class LoginComponent implements OnInit {
   }
 
   logout(): void{
+    localStorage.setItem('isLoggedin','');
     localStorage.setItem('token','');
     this.router.navigateByUrl('/login');
   }

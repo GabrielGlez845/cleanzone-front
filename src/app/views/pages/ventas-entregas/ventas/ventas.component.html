@@ -41,10 +41,9 @@
                             <div class="row">                           
                                 
                                     <div class="input-group">
+                                        <input type="number" class="form-control" #idsBox [(ngModel)]="ids" placeholder="Identificador" (keyup.enter)="agregarId(+idsBox.value)">
                                         <div class="input-group-append">
-                                        </div>
-                                        <input type="text" class="form-control" #idsBox [(ngModel)]="ids" placeholder="Identificador" (keyup.enter)="agregarId(idsBox.value)">
-                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" (click)="agregarId(+idsBox.value)"><i class="feather icon-check"></i></button>
                                         </div>
                                     </div>
                                 
@@ -58,6 +57,7 @@
                                         </div>
                                         <input type="text" class="form-control" #ticketBox [(ngModel)]="ventasServicePAG.ticket" placeholder="Ticket" (keyup.enter)="ventasServicePAG.agregarTicket(ticketBox.value, ventasServicePAG.selected)">
                                         <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" (click)="ventasServicePAG.agregarTicket(ticketBox.value, ventasServicePAG.selected)"><i class="feather icon-check"></i></button>
                                         </div>
                                     </div>
                                
@@ -70,22 +70,47 @@
                         </div>
                     </div>
                     <div *ngSwitchCase="'prendas'">
-                        <aw-wizard>
+                        <aw-wizard #wizard>
                             <aw-wizard-step>
-                                <div class="menuResp">
-                                    <div class="cont">
-                                        <!--letters-->
-                                        <button *ngFor="let letra of abecedario" type="button" (click)="obtenerProductosCategoriaLetra(letra)" style="margin-right: 2%;"  awNextStep class="btn btn-secondary btn-sm">{{letra|uppercase}}</button>
-                                       <!-- <button type="button" style="margin-right: 2%;" awNextStep (click)="menuPrenda()" class="btn btn-secondary btn-sm">V</button>-->
-                                    </div>
+                                <div class="mb-3">
+                                    <!-- (click)="openModalBuscarPrenda()" -->
+                                    <!-- Buscar prenda -->
+                                    <div class="text-center input-group">
+                                        <input class="form-control" type="text" #buscar placeholder="Buscar prenda ..."  (keyup)="buscarPrenda(buscar.value) " >
+                                        <!-- [(ngModel)]="search"  -->                                      
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary" (click)="buscarPrenda(buscar.value)"  type="button"><i class="feather icon-search"></i></button>
+                                        </div> 
+                                    </div>          
+                                    <div class="menuResp" *ngIf="search != ''">
+                                        <div class="products">
+                                            <!--products-->
+                                            <div class="product-button" *ngFor="let producto of products | buscarPrenda:search">
+                                                <button type="button" (click)="[this.product=producto,cargandoProductos=false]"  [awGoToStep]="{stepIndex: 2}" class="button-product btn btn-primary btn-sm">{{producto.name}}</button>
+                                            </div>
+                                        </div>
+                                    </div>                  
                                 </div>
+                                <!-- Seleccionar prenda -->
+                                <div class="menuResp" *ngIf="search === ''">    
+                                   <div class="row">
+                                       <div class="col-12">
+                                        <div class="cont">
+                                            <!--letters-->
+                                                <button *ngFor="let letra of abecedario" type="button" (click)="obtenerProductosCategoriaLetra(letra)" style="margin-right: 2%;"  class="btn btn-primary btn-sm">{{letra|uppercase}}</button>
+                                            <!-- <button type="button" style="margin-right: 2%;" awNextStep (click)="menuPrenda()" class="btn btn-secondary btn-sm">V</button>-->
+                                            </div>  
+                                       </div>
+                                   </div>                                                          
+                                </div>
+                                
                             </aw-wizard-step>
-                            <aw-wizard-step>
+                            <aw-wizard-step [awOptionalStep] = "true">
                                 <div class="menuResp">
                                     <div class="products">
                                         <!--products-->
                                         <div class="product-button" *ngFor="let producto of products">
-                                            <button type="button" (click)="[this.product=producto,cargandoProductos=false]" awNextStep class="button-product btn btn-secondary btn-sm">{{producto.name}}</button>
+                                            <button type="button" (click)="[this.product=producto,cargandoProductos=false]" awNextStep class="button-product btn btn-primary btn-sm">{{producto.name}}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -193,9 +218,9 @@
         <p style="color: white;">{{this.cliente.street}}</p>
         <p style="color: white;">{{this.cliente.phone}}</p>
     </div>
-    <div class="perfect-scrollbar-example" [perfectScrollbar]>
+    <div >
         <div class=" {{  i.id == ventasServicePAG.selected   ? 'seleccionado' : '' }} card" *ngFor="let i of ventasServicePAG.ventaDetalle">
-            <div class="card-body">
+            <div class="card-body" style="cursor: pointer;" (click)="ventasServicePAG.changeIdSelected(i.id)">
                 <div class="encabezado">
                     <h4 style="font-size: 16px;" class="card-title item1">{{i.id + i.ticket}}</h4>
                     <button (click)="ventasServicePAG.deleteDetailId(i.id)" type="button" class="btn btn-danger btn-icon item2">

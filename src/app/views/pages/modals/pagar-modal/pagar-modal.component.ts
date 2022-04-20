@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { VentasPAGService } from '../../ventas-entregas/ventas/ventas-pag.service';
 import { VentasService } from '../../../../services/ventas.service';
@@ -11,8 +11,10 @@ import { Img, PdfMakeWrapper,QR,Table,Txt } from 'pdfmake-wrapper';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-import html2canvas from 'html2canvas';
 import { format, parseISO, parseJSON } from 'date-fns';
+import { jsPDF } from "jspdf";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 
 @Component({
   selector: 'app-pagar-modal',
@@ -20,7 +22,6 @@ import { format, parseISO, parseJSON } from 'date-fns';
   styleUrls: ['./pagar-modal.component.scss']
 })
 export class PagarModalComponent implements OnInit {
-
   @Input() total;
   amount:number = 0;
   @Input() serviceId;
@@ -29,7 +30,12 @@ export class PagarModalComponent implements OnInit {
   formaPagoSeleccionada = null;
   formaNovalida = false;
   amountNovalida = false;
-  constructor(public activeModal: NgbActiveModal, private ventasPagService:VentasPAGService,private ventasService:VentasService
+
+  elementType = NgxQrcodeElementTypes.URL;
+  correctionLevel = NgxQrcodeErrorCorrectionLevels.LOW;
+  value: string = 'prueba';
+  
+  constructor(public activeModal: NgbActiveModal, public ventasPagService:VentasPAGService,private ventasService:VentasService
             , private entregasPagService:EntregasPagService, private funcionesService:FuncionesService,
               private route:Router) { }
 
@@ -53,23 +59,24 @@ export class PagarModalComponent implements OnInit {
            console.log(this.ventasPagService.Fila)
        
            //pdf
-      await this.pdfgenerate();
+           this.downloadAsPDF()
+          //  this.pdfgenerate();
           
-      this.ventasService.postSell(this.ventasPagService.venta,this.ventasPagService.ventaDetalle,this.ventasPagService.Fila,pay).subscribe((resp:any)=>{
-        console.log(resp);
-        if(resp.ok){
-          Swal.fire(
-            { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'servicio creado con exito', icon: 'success'}
-           );
-           //imprimir recibo
-           
-           this.activeModal.close('modal cerrado'); //enviar a otro lado o borrar los valores
-        }
-      },err =>{
-        Swal.fire(
-          { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Error al pagar', icon: 'error'}
-         );
-      })
+      // this.ventasService.postSell(this.ventasPagService.venta,this.ventasPagService.ventaDetalle,this.ventasPagService.Fila,pay).subscribe((resp:any)=>{
+      //   console.log(resp);
+      //   if(resp.ok){
+      //     Swal.fire(
+      //       { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'servicio creado con exito', icon: 'success'}
+      //      );
+      //      //imprimir recibo
+      //      //this.downloadAsPDF();
+      //      this.activeModal.close('modal cerrado'); //enviar a otro lado o borrar los valores
+      //   }
+      // },err =>{
+      //   Swal.fire(
+      //     { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Error al pagar', icon: 'error'}
+      //    );
+      // })
     
     }else if (this.tipo === 'entregas'){
       if (this.amount >= this.total){
@@ -107,6 +114,38 @@ export class PagarModalComponent implements OnInit {
   }
   }
 
+  async downloadAsPDF() {
+    let largo = document.getElementById("ticket");
+    console.log(largo.clientHeight)
+    const pdf = new jsPDF("p", "px", [ 294.80314961 , largo.clientHeight ]);
+    let contador = 0   
+   
+     await pdf.html(document.getElementById('ticket'), {
+       callback: (pdf) => {
+      //    pdf.internal.pages.forEach(p => {
+      //     console.log(p)
+      //     if (contador != 0){
+      //         pdf.deletePage(contador);
+      //     }
+      //     contador++;
+      //  })
+      //    console.log(contador)
+        
+        //  pdf.save(`tarjeta ID -${this.lastCard.id}`);
+         }
+     });
+     
+    //  const pages = pdf.getNumberOfPages();
+    //  console.log(pages);
+    //  for (let i = 1; i < pages ; i++) {
+       
+    //   pdf.deletePage(i);
+    //    console.log(i)
+    
+    //  }
+     pdf.output('dataurlnewwindow');
+   }
+ 
   validaciones():boolean {
     if (this.formaPagoSeleccionada === null || undefined){
       this.formaNovalida = true;
@@ -129,6 +168,7 @@ export class PagarModalComponent implements OnInit {
     return true
   }
 
+  //pdf make
   createTable(items){
     return new Table([
         ['Producto','Precio','Cantidad'],
@@ -136,10 +176,12 @@ export class PagarModalComponent implements OnInit {
     ]).alignment('center').fontSize(6).end
 }
 
+//padf make
 extractData(items){
   return items.map(row=> [row.product.name,'$'+row.product.pricings[0].price,row.quantity])
 }
 
+//pdf - make
 async pdfgenerate(){
      //pdf
     const pdf = new PdfMakeWrapper();           
@@ -171,12 +213,6 @@ async pdfgenerate(){
   pdf.add(
     new Txt('TELS: 3335-3262').alignment('center').fontSize(7).end
   )
-  //canva
-  // pdf.add(
-  //   new Canvas([
-  //     new Line([0,20], [500, 20]).end
-  //   ]).end
-  //  );
   
    pdf.add(
     new Txt('-').alignment('center').fontSize(7).end
