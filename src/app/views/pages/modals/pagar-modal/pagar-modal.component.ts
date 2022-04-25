@@ -59,24 +59,24 @@ export class PagarModalComponent implements OnInit {
            console.log(this.ventasPagService.Fila)
        
            //pdf
-           this.downloadAsPDF()
+         //  this.downloadAsPDF()
           //  this.pdfgenerate();
           
-      // this.ventasService.postSell(this.ventasPagService.venta,this.ventasPagService.ventaDetalle,this.ventasPagService.Fila,pay).subscribe((resp:any)=>{
-      //   console.log(resp);
-      //   if(resp.ok){
-      //     Swal.fire(
-      //       { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'servicio creado con exito', icon: 'success'}
-      //      );
-      //      //imprimir recibo
-      //      //this.downloadAsPDF();
-      //      this.activeModal.close('modal cerrado'); //enviar a otro lado o borrar los valores
-      //   }
-      // },err =>{
-      //   Swal.fire(
-      //     { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Error al pagar', icon: 'error'}
-      //    );
-      // })
+      this.ventasService.postSell(this.ventasPagService.venta,this.ventasPagService.ventaDetalle,this.ventasPagService.Fila,pay).subscribe((resp:any)=>{
+        console.log(resp);
+        if(resp.ok){
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'servicio creado con exito', icon: 'success'}
+           );
+           //imprimir recibo
+           this.downloadAsPDF();
+           this.activeModal.close('modal cerrado'); //enviar a otro lado o borrar los valores
+        }
+      },err =>{
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Error al pagar', icon: 'error'}
+         );
+      })
     
     }else if (this.tipo === 'entregas'){
       if (this.amount >= this.total){
@@ -116,35 +116,17 @@ export class PagarModalComponent implements OnInit {
 
   async downloadAsPDF() {
     let largo = document.getElementById("ticket");
-    console.log(largo.clientHeight)
-    const pdf = new jsPDF("p", "px", [ 294.80314961 , largo.clientHeight ]);
-    let contador = 0   
+    let px = (largo.clientHeight)+(50)
+    console.log(px)
+    const pdf = new jsPDF("p", "px", [  294.80314961 , px ]);
    
      await pdf.html(document.getElementById('ticket'), {
        callback: (pdf) => {
-      //    pdf.internal.pages.forEach(p => {
-      //     console.log(p)
-      //     if (contador != 0){
-      //         pdf.deletePage(contador);
-      //     }
-      //     contador++;
-      //  })
-      //    console.log(contador)
-        
-        //  pdf.save(`tarjeta ID -${this.lastCard.id}`);
+            pdf.output('dataurlnewwindow');
          }
      });
-     
-    //  const pages = pdf.getNumberOfPages();
-    //  console.log(pages);
-    //  for (let i = 1; i < pages ; i++) {
-       
-    //   pdf.deletePage(i);
-    //    console.log(i)
-    
-    //  }
-     pdf.output('dataurlnewwindow');
    }
+
  
   validaciones():boolean {
     if (this.formaPagoSeleccionada === null || undefined){

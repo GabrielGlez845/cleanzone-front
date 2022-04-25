@@ -23,6 +23,8 @@ import { EntregasDetailsComponent } from './entregas/entregas-details/entregas-d
 import { RoutesGuard } from '../../../core/guard/routes.guard';
 import { BuscarPrendaPipe } from 'src/app/pipes/buscar-prenda.pipe';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 const routes: Routes = [
   {
     path: 'inicio',
@@ -57,7 +59,9 @@ const routes: Routes = [
     PerfectScrollbarModule,
     HttpClientModule,
     FeahterIconModule,
-    NgxBarcodeModule
+    NgxBarcodeModule,
+    FormsModule,
+    ReactiveFormsModule
    
   ]
 })

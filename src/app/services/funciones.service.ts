@@ -11,8 +11,7 @@ import { Transactions } from '../views/models/transactions.model';
 })
 export class FuncionesService {
 
-//  private api = 'http://localhost:7000/api';
-//  private api = 'http://31.220.55.110:7000/api';
+// private api = 'http://localhost:7000/api';
  private api = 'https://riotintorerias.com.mx/api'
   constructor(private http:HttpClient) { }
 

@@ -10,10 +10,10 @@
                 
                 </div>
                 <div class="row justify-content-center align-items-center text-center mb-2">
-                    <div class="col-md-12">
+                    <div class="col-md-12">                       
+                        <button type="button" (click)="menuCambiar('cliente')" style="margin-right: 2%;" class="btn btn-primary btn-sm">Cliente</button>
                         <button type="button" (click)="menuCambiar('id')" *ngIf="!cargandoClientes" style="margin-right: 2%; color:white" class="btn btn-primary btn-sm">ID</button>
-                        <button type="button" (click)="openModalPagar()" *ngIf="this.ventasServicePAG.Fila.length != 0 && this.ventasServicePAG.ventaDetalle.length != 0 && !cargandoClientes " style="margin-right: 2%; color:white" class="btn btn-primary btn-sm">Pagar</button>
-                        <button type="button" (click)="menuCambiar('cliente')" class="btn btn-primary btn-sm">Cliente</button>
+                        <button type="button" (click)="openModalPagar()" *ngIf="this.ventasServicePAG.Fila.length != 0 && this.ventasServicePAG.ventaDetalle.length != 0 && !cargandoClientes " style=" color:white" class="btn btn-primary btn-sm">Pagar</button>
                     </div>
                 </div>
                 <div [ngSwitch]="menu">
@@ -86,7 +86,8 @@
                                         <div class="products">
                                             <!--products-->
                                             <div class="product-button" *ngFor="let producto of products | buscarPrenda:search">
-                                                <button type="button" (click)="[this.product=producto,cargandoProductos=false]"  [awGoToStep]="{stepIndex: 2}" class="button-product btn btn-primary btn-sm">{{producto.name}}</button>
+                                                <button type="button" (click)="[this.product=producto,cargandoProductos=false,agregarPrenda()]" awResetWizard  class="button-product btn btn-primary btn-sm">{{producto.name}}</button>
+                                                <!-- [awGoToStep]="{stepIndex: 2}" -->
                                             </div>
                                         </div>
                                     </div>                  
@@ -97,7 +98,7 @@
                                        <div class="col-12">
                                         <div class="cont">
                                             <!--letters-->
-                                                <button *ngFor="let letra of abecedario" type="button" (click)="obtenerProductosCategoriaLetra(letra)" style="margin-right: 2%;"  class="btn btn-primary btn-sm">{{letra|uppercase}}</button>
+                                                <button *ngFor="let letra of abecedario" type="button" (click)="[obtenerProductosCategoriaLetra(letra)]" style="margin-right: 2%;"  class="btn btn-primary btn-sm">{{letra|uppercase}}</button>
                                             <!-- <button type="button" style="margin-right: 2%;" awNextStep (click)="menuPrenda()" class="btn btn-secondary btn-sm">V</button>-->
                                             </div>  
                                        </div>
@@ -110,12 +111,12 @@
                                     <div class="products">
                                         <!--products-->
                                         <div class="product-button" *ngFor="let producto of products">
-                                            <button type="button" (click)="[this.product=producto,cargandoProductos=false]" awNextStep class="button-product btn btn-primary btn-sm">{{producto.name}}</button>
+                                            <button type="button" (click)="[this.product=producto,cargandoProductos=false,agregarPrenda()]" awResetWizard class="button-product btn btn-primary btn-sm">{{producto.name}}</button>
                                         </div>
                                     </div>
                                 </div>
                             </aw-wizard-step>
-                            <aw-wizard-step>
+                            <!-- <aw-wizard-step>
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-6">
                                         <div class="input-group">
@@ -142,7 +143,7 @@
                                 </div>
                                 <div [ngSwitch]="menuColorobservacion">
                                     <div class="form-group" *ngSwitchCase="'Color'">
-                                                <!--Colors-->
+                                                --Colors--
                                             <div class="menuResp mb-3">
                                                 <div class="productsColors">
                                                     <div class="product-button" *ngFor="let color of colors">
@@ -190,7 +191,7 @@
                                         </div>
                                     </div>
                                     <div *ngSwitchDefault>
-                                        <!--Default-->
+                                        --Default--
                                     </div>
                                 </div>
 
@@ -198,7 +199,7 @@
                                 
                                 <button class="btn btn-primary" type="button" (click)="[agregarPrenda()]" awResetWizard>Finalizar</button>
 
-                            </aw-wizard-step>
+                            </aw-wizard-step> -->
                         </aw-wizard>
                     </div>
                     <div class="row" *ngSwitchCase="'colores'">
@@ -222,10 +223,24 @@
         <div class=" {{  i.id == ventasServicePAG.selected   ? 'seleccionado' : '' }} card" *ngFor="let i of ventasServicePAG.ventaDetalle">
             <div class="card-body" style="cursor: pointer;" (click)="ventasServicePAG.changeIdSelected(i.id)">
                 <div class="encabezado">
-                    <h4 style="font-size: 16px;" class="card-title item1">{{i.id + i.ticket}}</h4>
+                    <h4 style="font-size: 16px;" class="card-title item1" >{{i.id + i.ticket}}</h4>
+                    <form autocomplete="off" [formGroup]="CambiarIdFormGroup" *ngIf="editando">
+                        <div class="form-group row text-center mr-2">                           
+                            <div class="col-6">
+                                <input type="number" formControlName="id" class="form-control text-center mr-5" placeholder="Nuevo id">
+                            </div>
+                            <div class="col-6">
+                                <input type="text" formControlName="ticket" class="form-control text-center mr-5" placeholder="Nuevo ticket">
+                            </div>
+                        </div>
+                    </form>
+                    <button style="margin-right: 2%;" (click)="cambiarIdTicket(i.id)"  type="button" class="btn btn-secondary btn-icon item2">
+                        <i data-feather="edit-3" appFeatherIcon></i>
+                    </button>
                     <button (click)="ventasServicePAG.deleteDetailId(i.id)" type="button" class="btn btn-danger btn-icon item2">
                         <i data-feather="trash" appFeatherIcon></i>
                     </button>
+                  
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover">

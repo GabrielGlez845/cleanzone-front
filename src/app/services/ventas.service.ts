@@ -7,9 +7,8 @@ import { Service, Payment, Detail, Row } from '../views/models/sells.model';
   providedIn: 'root'
 })
 export class VentasService {
- // private api = 'http://localhost:7000/api'; 
-  // private api = 'http://31.220.55.110:7000/api';
-   private api = 'https://riotintorerias.com.mx/api'
+ //private api = 'http://localhost:7000/api'; 
+ private api = 'https://riotintorerias.com.mx/api'
   constructor( private http: HttpClient ) {  }
 
   getClients(){

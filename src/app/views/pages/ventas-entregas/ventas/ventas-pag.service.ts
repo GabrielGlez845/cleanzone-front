@@ -19,6 +19,33 @@ export class VentasPAGService {
   lastVentaId:number;
   constructor(private ventasService:VentasService) {
 
+    // this.venta = {
+    //     id:1,
+    //     state:0,
+    //     userId:1,
+    //     employeeId:1
+    // }
+
+    // this.ventaDetalle.push({
+    //   id:1,
+    //   identifier:1,
+    //   ticket:'ticket',
+    //   status:0,
+    //   serviceId:1
+    // })
+
+    // this.Fila.push({
+    //   id:1,
+    //   quantity:1,
+    //   observations:'not',
+    //   colors:'',
+    //   status:0,
+    //   detailId:1,
+    //   productId:2,
+    //   product:{id:1,name:'PANTALON'}
+    // })
+
+
     
    // this.ventasService.postService(this.venta).subscribe((resp:any) =>{
    //   console.log(resp)
@@ -165,6 +192,15 @@ export class VentasPAGService {
   return tabla
  }
   
+  cambiarIdTicket(ide:number,newIde:number,ticket:string){
+    for (var i = 0,len = this.ventaDetalle.length; i < len; i++) {
+      if(this.ventaDetalle[i].id === ide){   
+        this.ventaDetalle[i].id = newIde
+        this.ventaDetalle[i].identifier = newIde
+        this.ventaDetalle[i].ticket = ' (' + ticket + ') '
+      }
+   } 
+  }
 }
 
 //finish sells part whit the oay and sendding the information for server

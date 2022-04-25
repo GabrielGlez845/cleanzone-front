@@ -12,13 +12,14 @@ import { AgregarColorModalComponent } from '../../modals/agregar-color-modal/agr
 import { Color } from 'src/app/views/models/color.model';
 import { Category, Product } from '../../../models/products.model';
 import { Detail, Employee, Row, Service } from '../../../models/sells.model';
-
+import { jsPDF } from "jspdf";
 import { Canvas, Img, Line, PdfMakeWrapper,QR,Rect,Table,Txt } from 'pdfmake-wrapper';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { FuncionesService } from '../../../../services/funciones.service';
 import { BuscarPrendaModalComponent } from '../../modals/buscar-prenda-modal/buscar-prenda-modal.component';
 import { WizardComponent } from 'angular-archwizard';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-ventas',
@@ -67,11 +68,18 @@ export class VentasComponent implements OnInit {
   observaciones: any[] = [{ id: 1, nombre: 'sucio', alias: 'sc', seleccionado: false }, { id: 2, nombre: 'roto', seleccionado: false, alias: 'rt' }, { id: 3, nombre: 'decolorado', seleccionado: false, alias: 'dl' }, { id: 4, nombre: 'descocido', seleccionado: false, alias: 'dc' }]
  colorMenu:string = '';
  colorMenuA:boolean = false;
+ CambiarIdFormGroup: FormGroup;
+ editando = false;
   constructor(private modalService: NgbModal, 
               private router: Router, 
               public ventasServicePAG: VentasPAGService,
               private ventasService:VentasService,
-              private funcionesService:FuncionesService) {                 
+              private funcionesService:FuncionesService,
+              private _formBuilder: FormBuilder) {   
+                this.CambiarIdFormGroup = this._formBuilder.group({
+                  id: [null, [Validators.required]], 
+                  ticket: ['', ],                      
+                });              
                          
   }
 
@@ -79,8 +87,8 @@ export class VentasComponent implements OnInit {
    this.obtenerEmpleado();
    this.getClients();
    this.obtenerCategorias();
-
   }
+
 
   obtenerEmpleado(){
     console.log(+localStorage.getItem('employeeId'))
@@ -89,8 +97,6 @@ export class VentasComponent implements OnInit {
         console.log(resp)
     })
   }
-
-  
 
   regresar() {
     this.router.navigate(['/dashboard']);
@@ -137,7 +143,6 @@ export class VentasComponent implements OnInit {
     if(id === null){      
       return
     }
-    const date = new Date();
     let detalle:Detail = {
       // id:parseInt(id),
       // identifier:parseInt(id),
@@ -149,6 +154,8 @@ export class VentasComponent implements OnInit {
     }
     console.log(detalle)
     this.ventasServicePAG.agregarId(detalle);
+    //add focus to the new id
+    this.ventasServicePAG.changeIdSelected(id)
     this.ids = null
   }
 
@@ -373,8 +380,14 @@ export class VentasComponent implements OnInit {
     
   }
 
-
-  
+  cambiarIdTicket(id: number){
+    this.editando = !this.editando
+    if(this.CambiarIdFormGroup.valid){
+      const idNew = this.CambiarIdFormGroup.value.id
+      const ticket = this.CambiarIdFormGroup.value.ticket
+      this.ventasServicePAG.cambiarIdTicket(id,idNew,ticket)
+    }
+  }
 }
 
 
