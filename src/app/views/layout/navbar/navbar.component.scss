@@ -3,7 +3,7 @@
 }
 
 .active{
-    color: #EDBF2F !important;
+    color: #eccf7b !important;
 }
 
 .no-active{
@@ -17,7 +17,7 @@
 
 .activo{
     color: #005D9B;
-    background-color: #dbdbdb;
+    background-color : #ffe762 !important;
 }
 
 //Nabvar al centro
@@ -99,3 +99,16 @@
         padding-top: 10px;
     }
 }
+
+.navbar-shadow{
+    -webkit-box-shadow: 0px 5px 4px 1px rgba(0,0,0,0.5); 
+    box-shadow: 0px 5px 4px 1px rgba(0,0,0,0.5);
+}
+
+.rectangulo {
+    width: 25px; 
+    height: 5px; 
+    border-radius: 20%;
+    background: #EDBF2F;
+}
+

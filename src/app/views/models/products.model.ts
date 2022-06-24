@@ -1,3 +1,4 @@
+import { UserTypes } from './user-types.model';
 
 export interface Product {
     id:        number;
@@ -18,13 +19,8 @@ export interface Pricing {
     price:     number;
     productId: number;
     usertypeId: number;
-    usertype?: Usertype;
+    usertype?: UserTypes;
+    product?: Product;
 }
 
 
-export interface Usertype {
-    id:   number;
-    name: string;
-    createdAt:  Date;
-    updatedAt:  Date;
-}

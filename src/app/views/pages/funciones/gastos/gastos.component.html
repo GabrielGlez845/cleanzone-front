@@ -1,59 +1,134 @@
-<div class="row justify-content-center align-items-center mb-2">
-    <div class="col-md-6 grid-margin stretch-card">
-        <div class="card container">
-            <div class="card-body">
-                <h6 class="card-title mt-2 mb-2">Agregar gasto</h6>
-                <form class="forms-sample" autocomplete="off" [formGroup]="GastoVariableFormGroup" (ngSubmit)="agregarGastoVariable()">
-                    <div class="form-group row">
-                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Concepto</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" formControlName="concept" [class.is-invalid]="conceptoNovalido" placeholder="Motivo del gasto">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Importe</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" formControlName="amount" [class.is-invalid]="importeNovalido" placeholder="Cantidad">
-                        </div>
-                    </div>                    
-                </form>
-                <button type="submit" class="btn btn-primary mr-2 mb-2" (click)="agregarGastoVariable()">Agregar</button>
-            </div>
-        </div>
-    </div>
+<div class="menuResp">
+  <div class="cont">
+      <div class="text-center mb-3">
+              <button type="button" (click)="generarGasto()" class="btn {{menu === 'salida' ? 'si' : 'no' }} btn-sm BCentral b">Salida</button>
+              <button type="button" (click)="generarEntrada()" class="btn {{menu === 'entrada' ? 'si' : 'no' }} btn-sm BCentral b">Entrada</button>
+      </div>
+  </div>
 </div>
-
-<div class="row" *ngIf="!cargando">
-    <div class="col-md-12 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body"> 
-          <div class="table-responsive pt-3">
-            <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th colspan="8">
-                      <p class="text-center">Reporte gastos</p>
-                  </th>
-               </tr>
-                <tr>
-                    <th>ID</th>
-                    <th>Cantidad</th>
-                    <th>Concepto</th>
-                    <th>Fecha</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let i of expenses">
-                    <td>{{ i.id }}</td>
-                    <td>{{ i.amount | currency: 'MX'}}</td>
-                    <td>{{ i.concept }}</td>
-                    <td>{{ i.createdAt | date: 'dd/MM/yyyy'}}</td>
-                </tr>
-              </tbody>
-            </table>
+<ng-container [ngSwitch]="menu">
+  <ng-container *ngSwitchCase="'salida'">
+    <div class="row justify-content-center align-items-center mb-2 dropdownAnimation">
+      <div class="col-md-6 grid-margin stretch-card">
+          <div class="card container">
+              <div class="card-body">
+                  <h6 class="card-title mt-2 mb-2">Agregar gasto</h6>
+                  <form class="forms-sample" autocomplete="off" [formGroup]="GastoVariableFormGroup" (ngSubmit)="agregarGastoVariable()">
+                      <div class="form-group row">
+                          <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Concepto</label>
+                          <div class="col-sm-9">
+                              <input type="text" class="form-control" formControlName="concept" [class.is-invalid]="conceptoNovalido" placeholder="Motivo del gasto">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Importe</label>
+                          <div class="col-sm-9">
+                              <input type="text" class="form-control" formControlName="amount" [class.is-invalid]="importeNovalido" placeholder="Cantidad">
+                          </div>
+                      </div>                    
+                  </form>
+                  <button type="submit" class="btn btn-primary mr-2 mb-2" (click)="agregarGastoVariable()">Agregar</button>
+              </div>
           </div>
+      </div>
+  </div>
   
+  <div class="row dropdownAnimation" *ngIf="!cargando" >
+      <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body"> 
+            <div class="table-responsive pt-3">
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th colspan="8">
+                        <p class="text-center">Reporte gastos</p>
+                    </th>
+                 </tr>
+                  <tr>
+                      <th>ID</th>
+                      <th>Cantidad</th>
+                      <th>Concepto</th>
+                      <th>Fecha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let i of expenses">
+                      <td>{{ i.id }}</td>
+                      <td>{{ i.amount | currency: 'MX'}}</td>
+                      <td>{{ i.concept }}</td>
+                      <td>{{ i.createdAt | date: 'dd/MM/yyyy'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+    
+          </div>
         </div>
       </div>
     </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="'entrada'">
+    <div class="row justify-content-center align-items-center mb-2 dropdownAnimation">
+      <div class="col-md-6 grid-margin stretch-card">
+          <div class="card container">
+              <div class="card-body">
+                  <h6 class="card-title mt-2 mb-2">Agregar Entrada de dinero</h6>
+                  <form class="forms-sample" autocomplete="off" [formGroup]="GastoVariableFormGroup" (ngSubmit)="agregarGastoVariable()">
+                      <div class="form-group row">
+                          <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Concepto</label>
+                          <div class="col-sm-9">
+                              <input type="text" class="form-control" formControlName="concept" [class.is-invalid]="conceptoNovalido" placeholder="Motivo de la entrada de dinero">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Importe</label>
+                          <div class="col-sm-9">
+                              <input type="text" class="form-control" formControlName="amount" [class.is-invalid]="importeNovalido" placeholder="Cantidad de dinero">
+                          </div>
+                      </div>                    
+                  </form>
+                  <button type="submit" class="btn btn-primary mr-2 mb-2" (click)="agregarGastoVariable()">Agregar</button>
+              </div>
+          </div>
+      </div>
   </div>
+  
+  <div class="row dropdownAnimation" *ngIf="!cargando">
+      <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body"> 
+            <div class="table-responsive pt-3">
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th colspan="8">
+                        <p class="text-center">Reporte entradas a caja</p>
+                    </th>
+                 </tr>
+                  <tr>
+                      <th>ID</th>
+                      <th>Cantidad</th>
+                      <th>Concepto</th>
+                      <th>Fecha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let i of expenses">
+                      <td>{{ i.id }}</td>
+                      <td>{{ i.amount | currency: 'MX'}}</td>
+                      <td>{{ i.concept }}</td>
+                      <td>{{ i.createdAt | date: 'dd/MM/yyyy'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+    
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <div *ngSwitchDefault>
+    <!--Default-->
+ </div>

@@ -32,6 +32,7 @@ import { FinanzasComponent } from './finanzas/finanzas.component';
 import { CorteComponent } from './corte/corte.component';
 import { GraphsModule } from '../graphs/graphs.module';
 import { RoutesGuard } from '../../../core/guard/routes.guard';
+import { PreciosPrendaComponent } from './precios-prenda/precios-prenda.component';
 
 const routes: Routes = [
   {
@@ -46,53 +47,58 @@ const routes: Routes = [
       {
         path: 'status',
         component: StatusComponent,
-        canActivate: [RoutesGuard],data: {id: 2}
+        canActivate: [RoutesGuard],data: {id: [2]}
       },
       {
         path: 'status-detail/:id',
         component: StatusDetailsComponent,
-        canActivate: [RoutesGuard],data: {id: 2}
+        canActivate: [RoutesGuard],data: {id: [2]}
       },  
       {
         path: 'notas',
         component: NotasComponent,
-        canActivate: [RoutesGuard],data: {id: 1}
+        canActivate: [RoutesGuard],data: {id: [1]}
       },  
       {
         path: 'notas-detail/:id',
         component: NotasDetailsComponent,
-        canActivate: [RoutesGuard],data: {id: 1}
+        canActivate: [RoutesGuard],data: {id: [1]}
       },  
       {
         path: 'clientes',
         component: ClientesComponent,
-        canActivate: [RoutesGuard],data: {id: 1}
+        canActivate: [RoutesGuard],data: {id: [1]}
       },    
       {
         path: 'configuraciones',
         component: ConfiguracionComponent,
-        canActivate: [RoutesGuard],data: {id: 1}
+        canActivate: [RoutesGuard],data: {id: [1]}
       },    
       {
         path: 'gastos',
         component: GastosComponent,
-        canActivate: [RoutesGuard],data: {id: 1}
+        canActivate: [RoutesGuard],data: {id: [1]}
       },    
       {
         path: 'graficas',
         component: GraficasComponent,
-        canActivate: [RoutesGuard],data: {id: 1}
+        canActivate: [RoutesGuard],data: {id: [1]}
       },    
       {
         path: 'finanzas',
         component: FinanzasComponent,
-        canActivate: [RoutesGuard],data: {id: 1}
+        canActivate: [RoutesGuard],data: {id: [1]}
       },    
       {
         path: 'corte',
         component: CorteComponent,
-        canActivate: [RoutesGuard],data: {id: 1}
-      }    
+        canActivate: [RoutesGuard],data: {id: [1]}
+      },
+      {
+        path: 'precios-prenda/:id',
+        component: PreciosPrendaComponent,
+        canActivate: [RoutesGuard],data: {id: [1]}
+      }     
   
     ]
   }
@@ -100,7 +106,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [FuncionesComponent, StatusComponent, StatusDetailsComponent, NotasComponent, NotasDetailsComponent, ClientesComponent, ConfiguracionComponent, GastosComponent, GraficasComponent, FinanzasComponent,CorteComponent],
+  declarations: [FuncionesComponent, StatusComponent, StatusDetailsComponent, NotasComponent, NotasDetailsComponent, ClientesComponent, ConfiguracionComponent, GastosComponent, GraficasComponent, FinanzasComponent,CorteComponent, PreciosPrendaComponent],
   imports: [
     CommonModule,
     PerfectScrollbarModule,

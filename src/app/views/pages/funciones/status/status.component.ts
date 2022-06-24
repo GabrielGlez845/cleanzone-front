@@ -18,11 +18,7 @@ export class StatusComponent implements OnInit {
   }
 
   menu(opcion: string){
-    if (this.menuOp === opcion){
-    this.menuOp = '';
-    }else{
     this.menuOp=opcion
-    }
   }
 
   estatusDia(){

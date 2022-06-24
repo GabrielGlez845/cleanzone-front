@@ -9,6 +9,7 @@ import { AgregarCategoriaModalComponent } from '../../modals/agregar-categoria-m
 import { Employee } from '../../../models/sells.model';
 import { AgregarEmpleadoModalComponent } from '../../modals/agregar-empleado-modal/agregar-empleado-modal.component';
 import Swal from 'sweetalert2';
+import { PreciosPrendaComponent } from '../precios-prenda/precios-prenda.component';
 
 @Component({
   selector: 'app-configuracion',
@@ -90,6 +91,15 @@ export class ConfiguracionComponent implements OnInit {
       console.log('Modal closed' + result);
       this.buscarCategoria();
     }).catch((res) => { });
+  }
+
+
+  openModalPreciosPrenda(id :number) {
+    const modalRef = this.modalService.open(PreciosPrendaComponent, { size: 'lg' })
+    modalRef.componentInstance.productId = id ;
+    modalRef.result.then(async ()=>{
+      this.buscarPrenda();
+    })
   }
 
   borraCategoria(id: number){

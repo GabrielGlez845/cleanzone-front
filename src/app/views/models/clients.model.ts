@@ -1,4 +1,4 @@
-import { Usertype } from './products.model';
+import { UserTypes } from "./user-types.model";
 
 export interface User {
     id:        number;
@@ -8,7 +8,7 @@ export interface User {
     suburb:    string;
     zip:       number;
     usertypeId:number;
-    usertype?: Usertype;
+    usertype?: UserTypes;
 }
 
 

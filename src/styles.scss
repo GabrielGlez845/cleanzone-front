@@ -2,3 +2,8 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+@font-face {
+    font-family: "Eczar";
+    src: local("eczar"), url(./assets/fonts/feather/fonts/eczar.ttf ) format("truetype");
+}

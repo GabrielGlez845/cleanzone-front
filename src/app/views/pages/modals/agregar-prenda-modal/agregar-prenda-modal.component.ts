@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { FuncionesService } from '../../../../services/funciones.service';
-import { Usertype, Category, Product, Pricing } from '../../../models/products.model';
+import { Category, Product, Pricing } from '../../../models/products.model';
+import { UserTypes } from '../../../models/user-types.model';
 
 @Component({
   selector: 'app-agregar-prenda-modal',
@@ -12,7 +13,7 @@ import { Usertype, Category, Product, Pricing } from '../../../models/products.m
 })
 export class AgregarPrendaModalComponent implements OnInit {
   PrendaFormGroup: FormGroup;
-  userTypes: Usertype[]=[];
+  userTypes: UserTypes[]=[];
   categories: Category[] = [];
   constructor(public activeModal: NgbActiveModal,
               private _formBuilder: FormBuilder,

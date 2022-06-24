@@ -1,0 +1,30 @@
+.b{
+    margin-right: 2%;
+}
+
+.si{
+    background-color:#EDBF2F;
+    color: white;
+}
+
+.no{
+    background-color: #EDF5FD;
+    color: black;
+}
+
+//Menu deslizante
+.menuResp {
+    // display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling:touch
+
+}
+
+.menuResp::-webkit-scrollbar {
+    display: none; 
+}
+.cont {
+    min-width: 300px;
+    width: auto;
+    white-space: nowrap;
+}

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../../../models/clients.model';
-import { Usertype } from '../../../models/products.model';
 import { FuncionesService } from '../../../../services/funciones.service';
 import Swal from 'sweetalert2';
+import { UserTypes } from '../../../models/user-types.model';
 
 @Component({
   selector: 'app-agregar-cliente-modal',
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class AgregarClienteModalComponent implements OnInit {
   ClienteFormGroup: FormGroup;
-  userTypes: Usertype[] = [];
+  userTypes: UserTypes[] = [];
   constructor(public activeModal: NgbActiveModal,
               private _formBuilder: FormBuilder,
               private funcionesService: FuncionesService) {

@@ -25,6 +25,7 @@ import { BuscarPrendaPipe } from 'src/app/pipes/buscar-prenda.pipe';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 const routes: Routes = [
   {
     path: 'inicio',
@@ -33,17 +34,17 @@ const routes: Routes = [
   {
     path: 'ventas',
     component: VentasComponent,
-    canActivate: [RoutesGuard],data: {id: 3}
+    canActivate: [RoutesGuard],data: {id: [3,4]}
   },
   {
     path: 'entregas',
     component: EntregasComponent,
-    canActivate: [RoutesGuard],data: {id: 4}
+    canActivate: [RoutesGuard],data: {id:[4]}
   },
   {
-    path: 'entregas-detail/:id',
+    path: 'entregas/entregas-detail/:id',
     component: EntregasDetailsComponent,
-    canActivate: [RoutesGuard],data: {id: 4}
+    canActivate: [RoutesGuard],data: {id: [4]}
   },
 ]
 

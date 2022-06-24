@@ -10,14 +10,19 @@
         <div class="perfect-scrollbar-example" [perfectScrollbar]>
             <div class="list-group">
                 <ng-container *ngFor="let service of this.statusPagService.services">
-                    <div class="card text-dark bg-light mb-3 seleccionable" [routerLink]="['/funciones/status-detail/',service.id]" routerLinkActive="active">
-                        <div class="card-header">
+                    <div class="custom-card text-dark bg-light mb-3 seleccionable" [routerLink]="['/funciones/status-detail/',service.id]" routerLinkActive="active">
+                      <div class="custom-card-body">                            
+                              <div class="list-group-item list-group-item-action" style="display:flex; flex-wrap: nowrap;">
+                                <p *ngFor="let detail of service.details"> ID: {{ detail.identifier }}   Ticket:{{ detail.ticket }} </p>
+                            </div>  
+                        </div>
+                        <div class="">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                               <thead>
                                 <tr>
-                                    <th colspan="2" class="text-center">{{tipoPago(service.payments)}}</th>
-                                    <th colspan="2" class="text-center">{{ service.createdAt | date:'short' }}</th>
+                                    <th colspan="2" class="text-center"> Forma de pago: {{tipoPago(service.payments)}}</th>
+                                    <th colspan="2" class="text-center"> Fecha: {{ service.createdAt | date:'short' }}</th>
                                   </tr>
                                 <tr>
                                   <th># {{ service.id }}</th>
@@ -29,11 +34,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="card-body">                            
-                              <div class="list-group-item list-group-item-action" style="display:flex; flex-wrap: nowrap;">
-                                <p *ngFor="let detail of service.details"> ID: {{ detail.identifier }}   Ticket:{{ detail.ticket }} </p>
-                            </div>  
-                        </div>
+                        
                       </div>                    
                 </ng-container>               
             </div>
@@ -44,14 +45,19 @@
         <div class="perfect-scrollbar-example" [perfectScrollbar]>
             <div class="list-group" >
                 <ng-container *ngFor="let service of this.statusPagService.services">
-                    <div class="card text-dark bg-light mb-3 seleccionable" [routerLink]="['/funciones/status-detail/',service.id]" routerLinkActive="active">
-                        <div class="card-header">
+                    <div class="custom-card text-dark bg-light mb-3 seleccionable" [routerLink]="['/funciones/status-detail/',service.id]" routerLinkActive="active">
+                      <div class="custom-card-body">                            
+                        <div class="list-group-item list-group-item-action" style="display:flex; flex-wrap: nowrap;">
+                          <p *ngFor="let detail of service.details"> ID: {{ detail.identifier }}   Ticket:{{ detail.ticket }} </p>
+                        </div>  
+                      </div>
+                        <div class="">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                               <thead>
                                 <tr>
-                                    <th colspan="2" class="text-center">{{tipoPago(service.payments)}}</th>
-                                    <th colspan="2" class="text-center">{{ service.createdAt | date:'short' }}</th>
+                                  <th colspan="2" class="text-center"> Forma de pago: {{tipoPago(service.payments)}}</th>
+                                  <th colspan="2" class="text-center"> Fecha: {{ service.createdAt | date:'short' }}</th>
                                   </tr>
                                 <tr>
                                   <th># {{ service.id }}</th>
@@ -63,11 +69,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="card-body">                            
-                              <div class="list-group-item list-group-item-action" style="display:flex; flex-wrap: nowrap;">
-                                <p *ngFor="let detail of service.details"> ID: {{ detail.identifier }}   Ticket:{{ detail.ticket }} </p>
-                            </div>  
-                        </div>
+                        
                       </div>                    
                 </ng-container>                      
             </div>
@@ -79,14 +81,19 @@
         <div class="perfect-scrollbar-example" [perfectScrollbar]>
             <div class="list-group" >
                 <ng-container *ngFor="let service of this.statusPagService.services">
-                    <div class="card text-dark bg-light mb-3 seleccionable" [routerLink]="['/funciones/status-detail/',service.id]" routerLinkActive="active">
-                        <div class="card-header">
+                    <div class="custom-card text-dark bg-light mb-3 seleccionable" [routerLink]="['/funciones/status-detail/',service.id]" routerLinkActive="active">
+                      <div class="custom-card-body">                            
+                        <div class="list-group-item list-group-item-action" style="display:flex; flex-wrap: nowrap;">
+                          <p *ngFor="let detail of service.details"> ID: {{ detail.identifier }}   Ticket:{{ detail.ticket }} </p>
+                        </div>  
+                      </div>
+                        <div class="">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                               <thead>
                                 <tr>
-                                    <th colspan="2" class="text-center">{{tipoPago(service.payments)}}</th>
-                                    <th colspan="2" class="text-center">{{ service.createdAt | date:'short' }}</th>
+                                  <th colspan="2" class="text-center"> Forma de pago: {{tipoPago(service.payments)}}</th>
+                                  <th colspan="2" class="text-center"> Fecha: {{ service.createdAt | date:'short' }}</th>
                                   </tr>
                                 <tr>
                                   <th># {{ service.id }}</th>
@@ -97,11 +104,6 @@
                               </thead>
                             </table>
                           </div>
-                        </div>
-                        <div class="card-body">                            
-                              <div class="list-group-item list-group-item-action" style="display:flex; flex-wrap: nowrap;">
-                                <p *ngFor="let detail of service.details"> ID: {{ detail.identifier }}   Ticket:{{ detail.ticket }} </p>
-                            </div>  
                         </div>
                       </div>                    
                 </ng-container>                       

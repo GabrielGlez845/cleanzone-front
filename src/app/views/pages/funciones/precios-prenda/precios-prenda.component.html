@@ -1,0 +1,88 @@
+<!-- Modal agregar prenda -->
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Agregar prenda</h5>
+    <button type="button" class="close" (click)="activeModal.close('by: close icon')" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+
+    <div class="card-body">
+        <h6 class="card-title">Lista de precios</h6>
+        <div *ngIf="this.OneuserType != null && this.priceId == 0">
+            <form class="forms-sample" autocomplete="off" [formGroup]="UsertypeFormGroup" (ngSubmit)="agregarNuevoPrecio()">
+                <div class="form-group row">
+                    <label for="exampleInputUsername2" class="col-sm-5 col-form-label">Precio de {{this.OneuserType.name}} </label>
+                    <!-- para {{this.OneuserType.pricings[0].product.name}} doesnt work -->
+                    <div class="col-sm-7">
+                        <input type="number" class="form-control" formControlName="precio" [class.is-invalid]="precioNovalido"  placeholder="precio">
+                        <small *ngIf="precioNovalido" class="text-danger">
+                            precio no valido
+                       </small>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <div *ngIf="this.OneuserType != null && this.OneuserType.pricings.length != 0">
+            <form class="forms-sample" autocomplete="off" [formGroup]="UsertypeFormGroup" (ngSubmit)="modificarPrecio()">
+                <div class="form-group row">
+                    <label for="exampleInputUsername2" class="col-sm-5 col-form-label">Modificar precio de {{this.OneuserType.name}} </label>
+                    <!-- para {{this.OneuserType.pricings[0].product.name}} doesnt work -->
+                    <div class="col-sm-7">
+                        <input type="number" class="form-control" formControlName="precio" [class.is-invalid]="precioNovalido"  placeholder="precio">
+                        <small *ngIf="precioNovalido" class="text-danger">
+                            precio no valido
+                       </small>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div *ngFor="let userType of userTypes">
+            <h6>Precio de {{userType.name}}</h6>
+
+            <div class="table-responsive" *ngIf="userType.pricings.length > 0">
+                <table class="table table-hover text-center">
+                    <thead>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>-</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pricings of userType.pricings">
+                            <td>{{pricings.product.name}}</td>
+                            <td>{{pricings.price}}</td>
+                            <td>
+                                <button  type="button" class="btn btn-success btn-icon mr-2" (click)="colocarPrecioModificado(pricings,userType)" >
+                                    <i class="feather mdi mdi-pencil"></i>
+                                </button>
+                                <button  type="button" class="btn btn-danger btn-icon" (click)="eliminarPrecio(pricings.id)">
+                                    <i class="feather mdi mdi-backspace"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- no hay precios -->
+            <div *ngIf="userType.pricings.length === 0">
+                  <div class="alert alert-primary" role="alert">
+                    <p>Este producto no tiene precio para este tipo de usuario</p>  
+                    <div class="input-group-append text-center">
+                        <button class="btn btn-outline-secondary" (click)="[this.priceId = 0,this.OneuserType = userType]" type="button">agregar</button>
+                    </div>                  
+                  </div>
+                  
+                  
+            </div>
+        </div>
+       
+        
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close('by: close button')">Cerrar</button>
+    <button type="button" class="btn btn-primary" (click)="agregarNuevoPrecio()" *ngIf="this.OneuserType != null && this.priceId == 0">Guardar</button>
+    <button type="button" class="btn btn-success" (click)="modificarPrecio()" *ngIf="this.OneuserType != null && this.OneuserType.pricings.length != 0">Modificar</button>
+</div>

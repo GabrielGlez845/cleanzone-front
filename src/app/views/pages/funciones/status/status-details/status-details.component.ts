@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FuncionesService } from '../../../../../services/funciones.service';
 import { Detail, Row, Service } from '../../../../models/sells.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,7 +16,9 @@ export class StatusDetailsComponent implements OnInit {
 service_id:number;
 service:Service;
 cargando = false;
-  constructor(private route:ActivatedRoute, private modalService: NgbModal, public statusPagService:StatusPagService, private funcionesService:FuncionesService) {
+  constructor(private route:ActivatedRoute, private modalService: NgbModal,
+               public statusPagService:StatusPagService, private funcionesService:FuncionesService,
+               private router:Router,) {
     this.route.params.subscribe(data => {
       this.service_id = Number(data['id']);
     /*  if (data['tipo'] === 'plataforma') {
@@ -78,6 +80,7 @@ cargando = false;
               Swal.fire(
                 { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Estatus cambiado con exito', icon: 'success'}
                );
+               this.router.navigateByUrl('/funciones/status')
             }else{
               Swal.fire(
                 { toast: true, position: 'top-end', showConfirmButton: false, timer: 5000, title: 'Error al pagar', icon: 'error'}

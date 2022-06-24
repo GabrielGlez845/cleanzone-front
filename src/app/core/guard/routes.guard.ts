@@ -8,24 +8,26 @@ import { Observable } from 'rxjs';
 export class RoutesGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-      let route_id = route.data["id"]+'';
+      let arrayRoutesId = route.data["id"];
       let rolId = localStorage.getItem('rolId');
-      console.log(route_id,rolId)
-      if (rolId === '1'){//administrador -> 1
-        return true;
+      for (const id of arrayRoutesId) {
+        if (rolId === '1'){//administrador -> 1
+          return true;
+        }
+  
+        if (rolId === id+''){//Ensamblador -> 2
+          return true;
+        }
+  
+        if (rolId === id+''){//Mostrador -> 3
+          return true;
+        }
+  
+        if (rolId === id+''){//Chofer -> 4
+          return true;
+        }
       }
-
-      if (rolId === route_id){//Ensamblador -> 2
-        return true;
-      }
-
-      if (rolId === route_id){//Mostrador -> 3
-        return true;
-      }
-
-      if (rolId === route_id){//Chofer -> 4
-        return true;
-      }
+      
     return false;
   }
   

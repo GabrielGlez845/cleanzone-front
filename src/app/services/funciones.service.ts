@@ -4,8 +4,9 @@ import { map } from 'rxjs/operators'
 import formatISO from 'date-fns/formatISO'
 import { Service, Detail, Row, Employee } from '../views/models/sells.model';
 import { User } from '../views/models/clients.model';
-import { Product, Category, Usertype, Pricing } from '../views/models/products.model';
+import { Product, Category, Pricing } from '../views/models/products.model';
 import { Transactions } from '../views/models/transactions.model';
+import { UserTypes } from '../views/models/user-types.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -150,7 +151,7 @@ export class FuncionesService {
     return this.http.get(`${this.api}/userType`);
   }
 
-  postUserTypes(usertype:Usertype){
+  postUserTypes(usertype:UserTypes){
     return this.http.post(`${this.api}/userType`, {
       information: usertype,
     });
@@ -167,9 +168,14 @@ export class FuncionesService {
   }
 
   //transactions
-  postTransaction(transaction:Transactions){
-    return this.http.post(`${this.api}/transactions`,transaction);
+  postTransactionExpensive(transaction:Transactions){
+    return this.http.post(`${this.api}/transactions/expense`,transaction);
   }
+
+  postTransactionEntry(transaction:Transactions){
+    return this.http.post(`${this.api}/transactions/entry`,transaction);
+  }
+  // /transactions/entry
 
   getTransactionByType(type:number){
     return this.http.get(`${this.api}/transactions/account/${type}`);

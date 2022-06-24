@@ -69,19 +69,22 @@ export class NavbarComponent implements OnInit {
     document.querySelector('.horizontal-menu .bottom-navbar').classList.toggle('header-toggled');
   }
 
-  getEmployeeRol(id:string):boolean{
-    if (this.rolId === '1'){
-      return true;
+  getEmployeeRol(arrayId:string[]):boolean{
+    for (const id of arrayId) {
+      if (this.rolId === '1'){
+        return true;
+      }
+      if (this.rolId === id){
+        return true
+      }
+      if (this.rolId === id){
+        return true;
+      }
+      if (this.rolId === id){
+        return true;
+      }
     }
-    if (this.rolId === id){
-      return true
-    }
-    if (this.rolId === id){
-      return true;
-    }
-    if (this.rolId === id){
-      return true;
-    }
+    
     return false;
   }
 

@@ -16,7 +16,7 @@
                 <button type="button" (click)="openModalClienteAgregar()" class="btn btn-primary btn-sm BCentral b">Agregar Cliente</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row dropdownAnimation">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
@@ -59,7 +59,7 @@
                 <button type="button" (click)="openModalPrendaAgregar()" class="btn btn-primary btn-sm BCentral b">Agregar Prenda</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row dropdownAnimation">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
@@ -69,16 +69,19 @@
                                     <thead>
                                         <th>Nombre</th>
                                         <th>Categoria</th>
-                                        <th>Precio</th>
-                                        <th>Lista</th>
+                                        <th>Precios</th>
+                                        <!-- <th>Lista</th> -->
                                         <th>-</th>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let product of products">
                                             <td>{{product.name}}</td>
                                             <td>{{product.category.name}}</td>
-                                            <td>{{product.pricings[0].price}}</td>
-                                            <td>{{product.pricings[0].usertype.name}}</td>
+                                            <td>
+                                                <button class="btn btn-light" (click)="openModalPreciosPrenda(product.id)"  >Lista de precios</button>
+                                            </td>
+                                            <!-- <td>{{product.pricings[0].price}}</td>
+                                            <td>{{product.pricings[0].usertype.name}}</td> -->
                                             <td>
                                                 <button (click)="borraPrenda(product.id)" type="button" class="btn btn-danger btn-icon">
                                                     <i class="feather mdi mdi-backspace"></i>
@@ -100,7 +103,7 @@
                 <button type="button" (click)="openModalEmpleadoAgregar()" class="btn btn-primary btn-sm BCentral b">Agregar empleado</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row dropdownAnimation">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
@@ -139,7 +142,7 @@
                 <button type="button" (click)="openModalCategoriaAgregar()" class="btn btn-primary btn-sm BCentral b">Agregar Categoria</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row dropdownAnimation">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
